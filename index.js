@@ -16,7 +16,7 @@ const { flags, input, showHelp } = cli;
 const { clear, debug } = flags;
 
 (async () => {
-  await init({ clear });
-  debug && log(flags);
-  input.includes(`help`) && showHelp(0);
+	await init({ clear });
+	debug && log(flags);
+	input.includes(`help`) && showHelp(0);
 })();
