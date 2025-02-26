@@ -11,6 +11,7 @@ import cli from './utils/cli.js';
 import init from './utils/init.js';
 
 import sculptPost from './src/post/index.js';
+import sculptPlugin from './src/plugin/index.js';
 
 const { flags, input, showHelp } = cli;
 const { clear } = flags;
