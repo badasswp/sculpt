@@ -34,5 +34,5 @@ export const getPluginPrompts = () => ({
 	author: 'Author: ',
 	domain: 'Text domain: ',
 	package: 'Package: ',
-	namespace: 'Namespace: ',
+	namespace: 'Namespace: '
 });

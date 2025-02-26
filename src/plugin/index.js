@@ -27,9 +27,7 @@ const sculptPlugin = async () => {
 
 	// Bail out if the name is missing.
 	if (!plugin.name) {
-		console.error(
-			"Error: 'name' is required to create a Plugin."
-		);
+		console.error("Error: 'name' is required to create a Plugin.");
 		return;
 	}
 
