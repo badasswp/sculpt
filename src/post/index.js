@@ -39,8 +39,8 @@ const sculptPost = async () => {
 		// Read the template file from the script's location.
 		const templatePath = path.join(
 			__dirname,
-			'../../templates',
-			'PostTemplate.php'
+			'../../repo/Posts',
+			'Post.php'
 		);
 		const templateContent = await fs.readFile(templatePath, 'utf-8');
 
