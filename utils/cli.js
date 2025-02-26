@@ -18,7 +18,8 @@ const flags = {
 
 const commands = {
 	help: { desc: `Print help info` },
-	post: { desc: `Create a custom post type` }
+	post: { desc: `Create a custom post type` },
+	plugin: { desc: `Create a plugin using Sculpt` }
 };
 
 const helpText = meowHelp({

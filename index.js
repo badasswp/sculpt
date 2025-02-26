@@ -18,5 +18,6 @@ const { clear } = flags;
 (async () => {
 	await init({ clear });
 	input.includes(`post`) && sculptPost();
+	input.includes(`plugin`) && sculptPlugin();
 	input.includes(`help`) && showHelp(0);
 })();
