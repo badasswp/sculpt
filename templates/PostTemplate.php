@@ -1,18 +1,21 @@
 <?php
 /**
- * SculptClass Class.
+ * Sculpt Class.
  *
- * This class defines the cpt custom post type
- * for the plugin.
+ * This class defines the cpt custom post type for the
+ * plugin.
  *
- * @package SculptPackage
+ * @package Sculpt
  */
 
-namespace SculptNamespace\Posts;
+namespace Sculpt\Posts;
 
-use SculptNamespace\Abstracts\Post;
+use Sculpt\Abstracts\Post;
 
-class SculptClass extends Post {
+/**
+ * Sculpt class.
+ */
+class Sculpt extends Post {
 	/**
 	 * Post type.
 	 *
@@ -88,18 +91,18 @@ class SculptClass extends Post {
 	public function register_post_columns( $columns ): array {
 		unset( $columns['date'] );
 
-		$columns['url']  = esc_html__( 'URL', 'text_domain' );
+		$columns['meta'] = esc_html__( 'Meta', 'text_domain' );
 		$columns['date'] = esc_html__( 'Date', 'text_domain' );
 
 		/**
-		 * Filter custom post type columns.
+		 * Filter cpt custom post type columns.
 		 *
 		 * @since 1.0.0
 		 *
 		 * @param string[] $columns Post columns.
 		 * @return string[]
 		 */
-		return (array) apply_filters( 'cpt_columns', $columns );
+		return (array) apply_filters( 'text_domain_cpt_columns', $columns );
 	}
 
 	/**
@@ -113,32 +116,59 @@ class SculptClass extends Post {
 	 */
 	public function register_post_column_data( $column, $post_id ): void {
 		switch ( $column ) {
+			case 'questions':
+				echo esc_html( (string) xama_count_questions( $post_id ) );
+				break;
+
 			case 'url':
-				echo esc_url( get_post_meta( $post_id, 'url', true ) );
+				$arg = [
+					'a' => [
+						'href'   => [],
+						'target' => [],
+					],
+				];
+				echo wp_kses( $this->get_permalink( $post_id ), $arg );
+				break;
+
+			case 'participants':
+				echo esc_html( (string) xama_count_scores( $post_id ) );
+				break;
+
+			case 'passed':
+				echo esc_html( (string) xama_count_scores( $post_id ) );
 				break;
 		}
 
 		/**
-		 * Fires after default column data registration.
+		 * Fires after Quiz columns data registration.
 		 *
 		 * @since 1.0.0
 		 *
 		 * @param string[] $column  Column names.
 		 * @param int      $post_id Post ID.
 		 */
-		do_action( 'cpt_column_data', $column, $post_id );
+		do_action( 'xama_quiz_column_data', $column, $post_id );
 	}
 
 	/**
-	 *
-	 * Slug on rewrite.
+	 * Post URL slug on rewrite.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
 	public function get_slug(): string {
-		return 'cpt';
+		$slug = xama_get_option( 'url_rewrite' ) ?: 'quiz';
+
+		/**
+		 * Filter Quiz slug name.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $slug Slug name.
+		 * @return string
+		 */
+		return (string) apply_filters( 'xama_quiz_slug', $slug );
 	}
 
 	/**
@@ -149,17 +179,14 @@ class SculptClass extends Post {
 	 * @return bool
 	 */
 	public function is_post_visible_in_rest(): bool {
-		return true;
-	}
-
-	/**
-	 * Is Post visible in Menu.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	public function is_post_visible_in_menu(): bool {
-		return true;
+		/**
+		 * Filter Quiz visibility in REST.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param bool $visibility Whether to show in REST or not.
+		 * @return bool
+		 */
+		return (bool) apply_filters( 'xama_quiz_visible_in_rest', $visibility = false );
 	}
 }
