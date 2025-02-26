@@ -6,7 +6,7 @@ import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 
 /**
- * Scult Plugin.
+ * Sculpt Plugin.
  *
  * This function prompts the user for information and uses same
  * to generate a complete WordPress plugin.

@@ -6,7 +6,7 @@ import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 
 /**
- * Scult Post.
+ * Sculpt Post.
  *
  * This function prompts the user for information and uses same
  * to generate a Custom Post Type.
