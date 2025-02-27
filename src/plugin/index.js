@@ -48,7 +48,7 @@ const getPluginProps = async () => {
 	const cli = prompt();
 
 	for (const [key, question] of Object.entries(getPluginPrompts())) {
-		props[key] = await cli.ask(question, 'placeholder');
+		props[key] = await cli.ask(question);
 	}
 
 	cli.close();
