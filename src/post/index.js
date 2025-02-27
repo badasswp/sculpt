@@ -16,14 +16,14 @@ import { fileURLToPath } from 'url';
  */
 const sculptPost = async () => {
 	const cpt = {};
-	const prompter = prompt();
+	const cli = prompt();
 
 	// Get custom post type properties.
 	for (const [key, question] of Object.entries(getPostPrompts())) {
-		cpt[key] = await prompter.ask(question);
+		cpt[key] = await cli.ask(question);
 	}
 
-	prompter.close();
+	cli.close();
 
 	// Bail out if the name is missing.
 	if (!cpt.name) {
