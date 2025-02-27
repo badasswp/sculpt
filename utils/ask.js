@@ -7,9 +7,12 @@ export const prompt = () => {
 	});
 
 	return {
-		ask(query) {
+		ask(query, placeholder='') {
 			return new Promise(resolve => {
-				prompt.question(query, answer => resolve(answer));
+				prompt.question(query, answer => resolve(answer || placeholder));
+				if (placeholder) {
+					prompt.write(placeholder);
+				}
 			});
 		},
 
