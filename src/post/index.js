@@ -8,46 +8,60 @@ import { fileURLToPath } from 'url';
 /**
  * Sculpt Post.
  *
- * This function prompts the user for information and uses same
- * to generate a Custom Post Type.
+ * This function retrieves the post properties/params and then
+ * goes ahead to create the Post.
  *
  * @since 1.0.0
  * @returns {Promise<void>}
  */
 const sculptPost = async () => {
-	const cpt = {};
+	const props = await getPostProps();
+
+	if (!props.name) {
+		console.error("Error: 'name' is required to create a custom post type.");
+		return;
+	}
+
+	createPost(props);
+};
+
+/**
+ * Get Post Properties.
+ *
+ * This function prompts the user for information
+ * and returns an object containing the user's choices.
+ *
+ * @since 1.0.0
+ *
+ * @returns {Promise<Object>} Props.
+ */
+const getPostProps = async () => {
+	const props = {};
 	const cli = prompt();
 
-	// Get custom post type properties.
 	for (const [key, question] of Object.entries(getPostPrompts())) {
-		cpt[key] = await cli.ask(question);
+		props[key] = await cli.ask(question);
 	}
 
 	cli.close();
 
-	// Bail out if the name is missing.
-	if (!cpt.name) {
-		console.error(
-			"Error: 'name' is required to create the custom post type."
-		);
-		return;
-	}
-
-	createPost(cpt);
+	return props;
 };
 
 /**
  * Create Post.
  *
- * This function creates a new custom post type file based on the provided
- * custom post type properties.
+ * This function creates a new custom post type based on the
+ * provided custom post type properties.
  *
  * @since 1.0.0
  *
- * @param {Object} cpt
+ * @param {Object} props
  * @returns {Promise<void>}
  */
-const createPost = async cpt => {
+const createPost = async props => {
+	const { name, singular, plural } = props;
+
 	const __filename = fileURLToPath(import.meta.url);
 	const __dirname = path.dirname(__filename);
 
@@ -55,13 +69,13 @@ const createPost = async cpt => {
 	const templateContent = await fs.readFile(templatePath, 'utf-8');
 
 	const newContent = templateContent
-		.replace(/\bSculpt\b/g, cpt.singular)
-		.replace(/\bcpt\b/g, cpt.name.toLowerCase())
-		.replace(/\bSingular_Label\b/g, cpt.singular)
-		.replace(/\bPlural_Label\b/g, cpt.plural)
+		.replace(/\bSculpt\b/g, singular)
+		.replace(/\bprops\b/g, name.toLowerCase())
+		.replace(/\bSingular_Label\b/g, singular)
+		.replace(/\bPlural_Label\b/g, plural)
 		.replace(/\btext_domain\b/g, 'obo');
 
-	const newFilePath = path.join(process.cwd(), `${cpt.singular}.php`);
+	const newFilePath = path.join(process.cwd(), `${singular}.php`);
 	await fs.writeFile(newFilePath, newContent, 'utf-8');
 
 	console.log(`Custom post type created: ${newFilePath}`);
