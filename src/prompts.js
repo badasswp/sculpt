@@ -29,10 +29,13 @@ export const getPostPrompts = () => ({
  * @returns {Object}
  */
 export const getPluginPrompts = () => ({
-	name: 'Plugin name: ',
+	name: 'Plugin Name: ',
 	description: 'Description: ',
-	author: 'Author: ',
-	domain: 'Text domain: ',
+	slug: 'Slug: ',
 	package: 'Package: ',
-	namespace: 'Namespace: '
+	namespace: 'Namespace: ',
+	author: 'Author: ',
+	email: 'Author Email: ',
+	url: 'Author URL: ',
+	domain: 'Text domain: '
 });
