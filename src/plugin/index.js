@@ -114,11 +114,11 @@ const createPluginFiles = async props => {
 
 	getPluginFiles().forEach(async file => {
 		const filePath = path.join(__dirname, '../../repo', file);
-		const fileContent = await fs.readFile(filePath, 'utf-8');
+		let fileContent = await fs.readFile(filePath, 'utf-8');
 
 		switch (file) {
 			case 'composer.json':
-				fileContent
+				fileContent = fileContent
 					.replace(
 						/\bsculpt_user\/sculpt_plugin\b/g,
 						`${author}/${slug}`
