@@ -138,7 +138,7 @@ class SculptClass extends Post {
 	 * @return string
 	 */
 	public function get_slug(): string {
-		return 'cpt';
+		return 'cpt_slug';
 	}
 
 	/**
@@ -149,7 +149,7 @@ class SculptClass extends Post {
 	 * @return bool
 	 */
 	public function is_post_visible_in_rest(): bool {
-		return true;
+		return rest_bool;
 	}
 
 	/**
@@ -160,6 +160,6 @@ class SculptClass extends Post {
 	 * @return bool
 	 */
 	public function is_post_visible_in_menu(): bool {
-		return true;
+		return menu_bool;
 	}
 }
