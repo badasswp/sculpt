@@ -18,7 +18,9 @@ const sculptPost = async () => {
 	const props = await getPostProps();
 
 	if (!props.name) {
-		console.error("Error: 'name' is required to create a custom post type.");
+		console.error(
+			"Error: 'name' is required to create a custom post type."
+		);
 		return;
 	}
 
