@@ -71,6 +71,7 @@ const createPlugin = async props => {
 	createPluginDirectory(props);
 	createComposer(props);
 	createEditorConfig(props);
+	createGitIgnore(props);
 
 	console.log(`Plugin created: ${props.name}`);
 };
@@ -151,3 +152,24 @@ const createEditorConfig = async props => {
 	const newFilePath = path.join(process.cwd(), `${slug}/.editorconfig`);
 	await fs.writeFile(newFilePath, editorConfigContent, 'utf-8');
 };
+
+/**
+ * Create Git Ignore file.
+ *
+ * This function creates the .gitignore
+ * file for the plugin.
+ *
+ * @since 1.0.0
+ *
+ * @param {Object} props
+ * @returns {Promise<void>}
+ */
+const createGitIgnore = async props => {
+	const { slug } = props;
+
+	const gitIgnorePath = path.join(__dirname, '../../repo', '.gitignore');
+	const gitIgnoreContent = await fs.readFile(gitIgnorePath, 'utf-8');
+
+	const newFilePath = path.join(process.cwd(), `${slug}/.gitignore`);
+	await fs.writeFile(newFilePath, gitIgnoreContent, 'utf-8');
+}
