@@ -69,9 +69,7 @@ const getPluginProps = async () => {
  */
 const createPlugin = async props => {
 	createPluginDirectory(props);
-	createComposer(props);
-	createEditorConfig(props);
-	createGitIgnore(props);
+	createPluginFiles(props);
 
 	console.log(`Plugin created: ${props.name}`);
 };
@@ -101,75 +99,61 @@ const createPluginDirectory = async props => {
 };
 
 /**
- * Create Composer file.
+ * Create Plugin files.
  *
- * This function creates the Composer.json
- * file for the plugin.
+ * This function grabs the list of plugin files and
+ * creates them in the plugin directory.
  *
  * @since 1.0.0
  *
  * @param {Object} props
  * @returns {Promise<void>}
  */
-const createComposer = async props => {
+const createPluginFiles = async props => {
 	const { author, slug, description, namespace, email } = props;
 
-	const composerPath = path.join(__dirname, '../../repo', 'composer.json');
-	const composerContent = await fs.readFile(composerPath, 'utf-8');
+	getPluginFiles().forEach(async file => {
+		const filePath = path.join(__dirname, '../../repo', file);
+		const fileContent = await fs.readFile(filePath, 'utf-8');
 
-	const newContent = composerContent
-		.replace(/\bsculpt_user\/sculpt_plugin\b/g, `${author}/${slug}`)
-		.replace(/\bSculptDescription\b/g, description)
-		.replace(/\bSculptNamespace\b/g, namespace)
-		.replace(/\bsculpt_user\b/g, author)
-		.replace(/\bsculpt_email@yahoo.com\b/g, email);
+		switch (file) {
+			case 'composer.json':
+				fileContent
+					.replace(
+						/\bsculpt_user\/sculpt_plugin\b/g,
+						`${author}/${slug}`
+					)
+					.replace(/\bSculptDescription\b/g, description)
+					.replace(/\bSculptNamespace\b/g, namespace)
+					.replace(/\bsculpt_user\b/g, author)
+					.replace(/\bsculpt_email@yahoo.com\b/g, email);
+				break;
+		}
 
-	const newFilePath = path.join(process.cwd(), `${slug}/composer.json`);
-	await fs.writeFile(newFilePath, newContent, 'utf-8');
+		const newFilePath = path.join(process.cwd(), `${slug}/${file}`);
+		await fs.writeFile(newFilePath, fileContent, 'utf-8');
+	});
 };
 
 /**
- * Create Editor Config file.
+ * Get Plugin files.
  *
- * This function creates the .editorconfig
- * file for the plugin.
+ * This function retrieves the list of plugin files
+ * to be created in the plugin directory.
  *
  * @since 1.0.0
- *
- * @param {Object} props
- * @returns {Promise<void>}
+ * @returns {string[]}
  */
-const createEditorConfig = async props => {
-	const { slug } = props;
-
-	const editorConfigPath = path.join(
-		__dirname,
-		'../../repo',
-		'.editorconfig'
-	);
-	const editorConfigContent = await fs.readFile(editorConfigPath, 'utf-8');
-
-	const newFilePath = path.join(process.cwd(), `${slug}/.editorconfig`);
-	await fs.writeFile(newFilePath, editorConfigContent, 'utf-8');
+const getPluginFiles = () => {
+	return [
+		'.editorconfig',
+		'.gitignore',
+		'composer.json',
+		'LICENSE',
+		'phpcs.xml',
+		'phpunit.xml',
+		'plugin.php',
+		'README.md',
+		'readme.md'
+	];
 };
-
-/**
- * Create Git Ignore file.
- *
- * This function creates the .gitignore
- * file for the plugin.
- *
- * @since 1.0.0
- *
- * @param {Object} props
- * @returns {Promise<void>}
- */
-const createGitIgnore = async props => {
-	const { slug } = props;
-
-	const gitIgnorePath = path.join(__dirname, '../../repo', '.gitignore');
-	const gitIgnoreContent = await fs.readFile(gitIgnorePath, 'utf-8');
-
-	const newFilePath = path.join(process.cwd(), `${slug}/.gitignore`);
-	await fs.writeFile(newFilePath, gitIgnoreContent, 'utf-8');
-}
