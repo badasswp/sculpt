@@ -59,7 +59,7 @@ abstract class Post {
 	 *
 	 * @return string
 	 */
-	abstract public function get_singular_label(): string;
+	abstract protected function get_singular_label(): string;
 
 	/**
 	 * Get plural label for post type.
@@ -68,7 +68,7 @@ abstract class Post {
 	 *
 	 * @return string
 	 */
-	abstract public function get_plural_label(): string;
+	abstract protected function get_plural_label(): string;
 
 	/**
 	 * Get supports for post type.
@@ -77,7 +77,34 @@ abstract class Post {
 	 *
 	 * @return string[]
 	 */
-	abstract public function get_supports(): array;
+	abstract protected function get_supports(): array;
+
+	/**
+	 * Post URL slug on rewrite.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+	abstract protected function get_slug(): string;
+
+	/**
+	 * Is Post visible in REST.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	abstract protected function is_post_visible_in_rest(): bool;
+
+	/**
+	 * Is Post visible in Menu.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+	abstract protected function is_post_visible_in_menu(): bool;
 
 	/**
 	 * Save post type.
@@ -102,45 +129,6 @@ abstract class Post {
 	abstract public function delete_post_type( $post_id, $post ): void;
 
 	/**
-	 * Register Post columns.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string[] $columns Post columns.
-	 * @return string[]
-	 */
-	abstract public function register_post_columns( $columns ): array;
-
-	/**
-	 * Register Post column data.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string[] $column  Column names.
-	 * @param int      $post_id Post ID.
-	 * @return void
-	 */
-	abstract public function register_post_column_data( $column, $post_id ): void;
-
-	/**
-	 * Post URL slug on rewrite.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-	abstract public function get_slug(): string;
-
-	/**
-	 * Is Post visible in REST.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-	abstract public function is_post_visible_in_rest(): bool;
-
-	/**
 	 * Register post type.
 	 *
 	 * @since 1.0.0
@@ -160,7 +148,7 @@ abstract class Post {
 	 *
 	 * @return mixed[]
 	 */
-	public function get_options(): array {
+	protected function get_options(): array {
 		$options = [
 			'name'         => $this->get_name(),
 			'labels'       => $this->get_labels(),
@@ -191,7 +179,7 @@ abstract class Post {
 	 *
 	 * @return string[]
 	 */
-	public function get_labels(): array {
+	protected function get_labels(): array {
 		$singular_label = $this->get_singular_label();
 		$plural_label   = $this->get_plural_label();
 
@@ -270,7 +258,7 @@ abstract class Post {
 		 * @param string[] $columns Post column labels.
 		 * @return string[]
 		 */
-		return (array) apply_filters( 'cpt_column_labels', $columns );
+		return (array) apply_filters( 'abstract_post_column_labels', $columns );
 	}
 
 	/**
@@ -297,7 +285,7 @@ abstract class Post {
 		 * @param string[] $column  Column names.
 		 * @param int      $post_id Post ID.
 		 */
-		do_action( 'cpt_column_data', $column, $post_id );
+		do_action( 'abstract_post_column_data', $column, $post_id );
 	}
 
 	/**
