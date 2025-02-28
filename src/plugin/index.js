@@ -70,6 +70,7 @@ const getPluginProps = async () => {
 const createPlugin = async props => {
 	createPluginDirectory(props);
 	createComposer(props);
+	createEditorConfig(props);
 
 	console.log(`Plugin created: ${props.name}`);
 };
@@ -105,6 +106,8 @@ const createPluginDirectory = async props => {
  * file for the plugin.
  *
  * @since 1.0.0
+ *
+ * @param {Object} props
  * @returns {Promise<void>}
  */
 const createComposer = async props => {
@@ -122,4 +125,29 @@ const createComposer = async props => {
 
 	const newFilePath = path.join(process.cwd(), `${slug}/composer.json`);
 	await fs.writeFile(newFilePath, newContent, 'utf-8');
+};
+
+/**
+ * Create Editor Config file.
+ *
+ * This function creates the .editorconfig
+ * file for the plugin.
+ *
+ * @since 1.0.0
+ *
+ * @param {Object} props
+ * @returns {Promise<void>}
+ */
+const createEditorConfig = async props => {
+	const { slug } = props;
+
+	const editorConfigPath = path.join(
+		__dirname,
+		'../../repo',
+		'.editorconfig'
+	);
+	const editorConfigContent = await fs.readFile(editorConfigPath, 'utf-8');
+
+	const newFilePath = path.join(process.cwd(), `${slug}/.editorconfig`);
+	await fs.writeFile(newFilePath, editorConfigContent, 'utf-8');
 };
