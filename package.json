@@ -22,7 +22,8 @@
 		"utils"
 	],
 	"scripts": {
-		"format": "prettier --write \"./**/*.{js,json}\""
+		"format": "prettier --write \"./**/*.{js,json}\"",
+		"lint": "eslint . --fix"
 	},
 	"dependencies": {
 		"chalk": "^5.4.1",
@@ -35,6 +36,7 @@
 		"meow": "^13.2.0"
 	},
 	"devDependencies": {
+		"eslint": "^9.21.0",
 		"prettier": "^3.5.2"
 	}
 }
