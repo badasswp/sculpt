@@ -289,7 +289,7 @@ const getPluginDefaults = name => {
 		defaultNamespace: getNameSpace(),
 		defaultUrl: 'https://example.com',
 		defaultDomain: getSlug(),
-		defaultAuthor: 'johndoe',
+		defaultAuthor: 'John Doe',
 		defaultAuthorEmail: 'john@doe.com',
 		defaultAuthorUrl: 'https://john-doe.com'
 	};
