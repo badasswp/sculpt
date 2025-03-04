@@ -151,7 +151,7 @@ const createPluginFiles = async props => {
 				fileContent = fileContent
 					.replace(
 						/\bsculpt_user\/sculpt_plugin\b/g,
-						`${theAuthor}/${theSlug}`
+						`${theAuthor.toLowerCase().replace(/\s/g, '')}/${theSlug}`
 					)
 					.replace(
 						/\bSculptDescription\b/g,
@@ -185,7 +185,7 @@ const createPluginFiles = async props => {
 					.replace(/\bSculptPackage\b/g, spackage || defaultPackage)
 					.replace(
 						/\bSculptAuthorNamespace\b/g,
-						`${theAuthor}\\${theNamespace}`
+						`${theAuthor.toLowerCase().replace(/\s/g, '')}\\${theNamespace}`
 					)
 					.replace(/\bSCULPT_AUTOLOAD\b/g, `${theAutoload}_AUTOLOAD`)
 					.replace(
