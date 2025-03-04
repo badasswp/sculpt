@@ -40,4 +40,4 @@ if ( ! file_exists( SCULPT_AUTOLOAD ) ) {
 
 // Run Plugin.
 require_once SCULPT_AUTOLOAD;
-( SculptPlugin::get_instance() )->run();
+( SculptPluginAbsoluteNamespace::get_instance() )->run();
