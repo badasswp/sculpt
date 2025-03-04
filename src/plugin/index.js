@@ -141,11 +141,10 @@ const createPluginFiles = async props => {
 		const filePath = path.join(__dirname, '../../repo', file);
 		let fileContent = await fs.readFile(filePath, 'utf-8');
 
-		let theAuthor = author || defaultAuthor;
-		let theSlug = slug || defaultSlug;
-		let theNamespace = namespace || defaultNamespace;
-		let theAutoload =
-			namespace || defaultNamespace.toUpperCase().replace(/\s/g, '_');
+		const theAuthor = author || defaultAuthor;
+		const theSlug = slug || defaultSlug;
+		const theNamespace = namespace || defaultNamespace;
+		const theAutoload = name.toUpperCase().replace(/\s/g, '_');
 
 		switch (file) {
 			case 'composer.json':
@@ -189,7 +188,10 @@ const createPluginFiles = async props => {
 						`${theAuthor}\\${theNamespace}`
 					)
 					.replace(/\bSCULPT_AUTOLOAD\b/g, `${theAutoload}_AUTOLOAD`)
-					.replace(/\bSculptPluginAbsoluteNamespace\b/g, `\\${theNamespace}\\Plugin`)
+					.replace(
+						/\bSculptPluginAbsoluteNamespace\b/g,
+						`\\${theNamespace}\\Plugin`
+					)
 					.replace(/\btext-domain\b/g, domain || defaultDomain);
 				break;
 
@@ -229,24 +231,48 @@ const getPluginFiles = () => {
 	];
 };
 
+/**
+ * Get Plugin Defaults.
+ *
+ * This function retrieves the default values for the
+ * plugin properties.
+ *
+ * @since 1.0.0
+ *
+ * @param {string} name
+ * @returns {Object}
+ */
 const getPluginDefaults = name => {
+	/**
+	 * Get Description.
+	 *
+	 * This function returns the default description
+	 * for the plugin.
+	 *
+	 * @returns {string}
+	 */
 	const getDescription = () => {
 		return `The ${name} plugin is a WordPress plugin that does amazing things.`;
 	};
 
+	/**
+	 * Get Slug.
+	 *
+	 * This function returns the default slug for the plugin.
+	 *
+	 * @returns {string}
+	 */
 	const getSlug = () => {
 		return name.toLowerCase().replace(/\s/g, '-');
 	};
 
-	const getPackage = () => {
-		return name
-			.split(' ')
-			.map(item => {
-				return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
-			})
-			.join('');
-	};
-
+	/**
+	 * Get Namespace.
+	 *
+	 * This function returns the default namespace for the plugin.
+	 *
+	 * @returns {string}
+	 */
 	const getNameSpace = () => {
 		return name
 			.split(' ')
@@ -256,14 +282,10 @@ const getPluginDefaults = name => {
 			.join('');
 	};
 
-	const getAutoload = () => {
-		return name.toUpperCase().replace(/\s/g, '_');
-	};
-
 	return {
 		defaultDescription: getDescription(),
 		defaultSlug: getSlug(),
-		defaultPackage: getPackage(),
+		defaultPackage: getNameSpace(),
 		defaultNamespace: getNameSpace(),
 		defaultUrl: 'https://example.com',
 		defaultDomain: getSlug(),
