@@ -25,11 +25,6 @@ const sculptPlugin = async () => {
 		return;
 	}
 
-	if (!props.slug) {
-		console.error("Error: 'slug' is required to create a Plugin.");
-		return;
-	}
-
 	createPlugin(props);
 };
 
@@ -68,8 +63,8 @@ const getPluginProps = async () => {
  * @returns {Promise<void>}
  */
 const createPlugin = async props => {
-	createPluginDirectory(props);
-	createPluginFiles(props);
+	await createPluginDirectory(props);
+	await createPluginFiles(props);
 
 	console.log(`Plugin created: ${props.name}`);
 };
@@ -88,7 +83,14 @@ export default sculptPlugin;
  * @returns {Promise<void>}
  */
 const createPluginDirectory = async props => {
-	const { slug } = props;
+	const { name } = props;
+
+	const getSlug = () => {
+		return name.toLowerCase().replace(/\s/g, '-');
+	};
+
+	const slug = props.slug || getSlug();
+
 	try {
 		await fs.access(slug);
 		console.log(`Plugin folder already exists: ${slug}`);
@@ -123,49 +125,83 @@ const createPluginFiles = async props => {
 		namespace
 	} = props;
 
+	const {
+		defaultDescription,
+		defaultSlug,
+		defaultPackage,
+		defaultNamespace,
+		defaultUrl,
+		defaultDomain,
+		defaultAuthor,
+		defaultAuthorEmail,
+		defaultAuthorUrl
+	} = getPluginDefaults(name);
+
 	getPluginFiles().forEach(async file => {
 		const filePath = path.join(__dirname, '../../repo', file);
 		let fileContent = await fs.readFile(filePath, 'utf-8');
+
+		let theAuthor = author || defaultAuthor;
+		let theSlug = slug || defaultSlug;
+		let theNamespace = namespace || defaultNamespace;
+		let theAutoload =
+			namespace || defaultNamespace.toUpperCase().replace(/\s/g, '_');
 
 		switch (file) {
 			case 'composer.json':
 				fileContent = fileContent
 					.replace(
 						/\bsculpt_user\/sculpt_plugin\b/g,
-						`${author}/${slug}`
+						`${theAuthor}/${theSlug}`
 					)
-					.replace(/\bSculptDescription\b/g, description)
-					.replace(/\bSculptNamespace\b/g, namespace)
-					.replace(/\bsculpt_user\b/g, author)
-					.replace(/\bsculpt_email@yahoo.com\b/g, authorEmail);
+					.replace(
+						/\bSculptDescription\b/g,
+						description || defaultDescription
+					)
+					.replace(
+						/\bSculptNamespace\b/g,
+						namespace || defaultNamespace
+					)
+					.replace(/\bsculpt_user\b/g, author || defaultAuthor)
+					.replace(
+						/\bsculpt_email@yahoo.com\b/g,
+						authorEmail || defaultAuthorEmail
+					);
 				break;
 
 			case 'plugin.php':
 				fileContent = fileContent
 					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\bSculptPluginURL\b/g, url)
-					.replace(/\bSculptPluginDescription\b/g, description)
+					.replace(/\bSculptPluginURL\b/g, url || defaultUrl)
+					.replace(
+						/\bSculptPluginDescription\b/g,
+						description || defaultDescription
+					)
 					.replace(/\bSculptPluginVersion\b/g, `1.0.0`)
-					.replace(/\bSculptPluginAuthor\b/g, author)
-					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl)
-					.replace(/\bSculptPackage\b/g, spackage)
+					.replace(/\bSculptPluginAuthor\b/g, author || defaultAuthor)
+					.replace(
+						/\bSculptPluginAuthorURI\b/g,
+						authorUrl || defaultAuthorUrl
+					)
+					.replace(/\bSculptPackage\b/g, spackage || defaultPackage)
 					.replace(
 						/\bSculptAuthorNamespace\b/g,
-						`${author}\${namespace}`
+						`${theAuthor}\\${theNamespace}`
 					)
-					.replace(
-						/\bSCULPT_AUTOLOAD\b/g,
-						`${namespace.toUpperCase()}_AUTOLOAD`
-					)
-					.replace(/\btext-domain\b/g, domain);
+					.replace(/\bSCULPT_AUTOLOAD\b/g, `${theAutoload}_AUTOLOAD`)
+					.replace(/\bSculptPluginAbsoluteNamespace\b/g, `\\${theNamespace}\\Plugin`)
+					.replace(/\btext-domain\b/g, domain || defaultDomain);
 				break;
 
 			case 'phpcs.xml':
-				fileContent = fileContent.replace(/\bSculpt\b/g, namespace);
+				fileContent = fileContent.replace(
+					/\bSculptNamespace\b/g,
+					namespace || defaultNamespace
+				);
 				break;
 		}
 
-		const newFilePath = path.join(process.cwd(), `${slug}/${file}`);
+		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 };
@@ -191,4 +227,48 @@ const getPluginFiles = () => {
 		'README.md',
 		'readme.md'
 	];
+};
+
+const getPluginDefaults = name => {
+	const getDescription = () => {
+		return `The ${name} plugin is a WordPress plugin that does amazing things.`;
+	};
+
+	const getSlug = () => {
+		return name.toLowerCase().replace(/\s/g, '-');
+	};
+
+	const getPackage = () => {
+		return name
+			.split(' ')
+			.map(item => {
+				return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
+			})
+			.join('');
+	};
+
+	const getNameSpace = () => {
+		return name
+			.split(' ')
+			.map(item => {
+				return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
+			})
+			.join('');
+	};
+
+	const getAutoload = () => {
+		return name.toUpperCase().replace(/\s/g, '_');
+	};
+
+	return {
+		defaultDescription: getDescription(),
+		defaultSlug: getSlug(),
+		defaultPackage: getPackage(),
+		defaultNamespace: getNameSpace(),
+		defaultUrl: 'https://example.com',
+		defaultDomain: getSlug(),
+		defaultAuthor: 'johndoe',
+		defaultAuthorEmail: 'john@doe.com',
+		defaultAuthorUrl: 'https://john-doe.com'
+	};
 };
