@@ -110,7 +110,17 @@ const createPluginDirectory = async props => {
  * @returns {Promise<void>}
  */
 const createPluginFiles = async props => {
-	const { author, slug, description, namespace, email } = props;
+	const {
+		name,
+		author,
+		url,
+		spackage,
+		domain,
+		slug,
+		description,
+		namespace,
+		email
+	} = props;
 
 	getPluginFiles().forEach(async file => {
 		const filePath = path.join(__dirname, '../../repo', file);
@@ -127,6 +137,30 @@ const createPluginFiles = async props => {
 					.replace(/\bSculptNamespace\b/g, namespace)
 					.replace(/\bsculpt_user\b/g, author)
 					.replace(/\bsculpt_email@yahoo.com\b/g, email);
+				break;
+
+			case 'plugin.php':
+				fileContent = fileContent
+					.replace(/\bSculptPluginName\b/g, name)
+					.replace(/\bSculptPluginURL\b/g, url)
+					.replace(/\bSculptPluginDescription\b/g, description)
+					.replace(/\bSculptPluginVersion\b/g, version)
+					.replace(/\bSculptPluginAuthor\b/g, author)
+					.replace(/\bSculptPluginAuthorURI\b/g, url)
+					.replace(/\bSculptPackage\b/g, spackage)
+					.replace(
+						/\bSculptAuthorNamespace\b/g,
+						`${author}/${namespace}`
+					)
+					.replace(
+						/\bSCULPT_AUTOLOAD\b/g,
+						`${namespace.toUpperCase()}_AUTOLOAD`
+					)
+					.replace(/\btext-domain\b/g, domain);
+				break;
+
+			case 'phpcs.xml':
+				fileContent = fileContent.replace(/\bSculpt\b/g, namespace);
 				break;
 		}
 
