@@ -113,13 +113,14 @@ const createPluginFiles = async props => {
 	const {
 		name,
 		author,
+		authorEmail,
+		authorUrl,
 		url,
 		spackage,
 		domain,
 		slug,
 		description,
-		namespace,
-		email
+		namespace
 	} = props;
 
 	getPluginFiles().forEach(async file => {
@@ -136,7 +137,7 @@ const createPluginFiles = async props => {
 					.replace(/\bSculptDescription\b/g, description)
 					.replace(/\bSculptNamespace\b/g, namespace)
 					.replace(/\bsculpt_user\b/g, author)
-					.replace(/\bsculpt_email@yahoo.com\b/g, email);
+					.replace(/\bsculpt_email@yahoo.com\b/g, authorEmail);
 				break;
 
 			case 'plugin.php':
@@ -144,13 +145,13 @@ const createPluginFiles = async props => {
 					.replace(/\bSculptPluginName\b/g, name)
 					.replace(/\bSculptPluginURL\b/g, url)
 					.replace(/\bSculptPluginDescription\b/g, description)
-					.replace(/\bSculptPluginVersion\b/g, version)
+					.replace(/\bSculptPluginVersion\b/g, `1.0.0`)
 					.replace(/\bSculptPluginAuthor\b/g, author)
-					.replace(/\bSculptPluginAuthorURI\b/g, url)
+					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl)
 					.replace(/\bSculptPackage\b/g, spackage)
 					.replace(
 						/\bSculptAuthorNamespace\b/g,
-						`${author}/${namespace}`
+						`${author}\${namespace}`
 					)
 					.replace(
 						/\bSCULPT_AUTOLOAD\b/g,
