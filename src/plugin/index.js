@@ -28,6 +28,8 @@ const sculptPlugin = async () => {
 	createPlugin(props);
 };
 
+export default sculptPlugin;
+
 /**
  * Get Plugin Properties.
  *
@@ -38,7 +40,7 @@ const sculptPlugin = async () => {
  *
  * @returns {Promise<Object>} Props.
  */
-const getPluginProps = async () => {
+export const getPluginProps = async () => {
 	const props = {};
 	const cli = prompt();
 
@@ -69,8 +71,6 @@ const createPlugin = async props => {
 	console.log(`Plugin created: ${props.name}`);
 };
 
-export default sculptPlugin;
-
 /**
  * Create Plugin Directory.
  *
@@ -82,7 +82,7 @@ export default sculptPlugin;
  * @param {Object} props
  * @returns {Promise<void>}
  */
-const createPluginDirectory = async props => {
+export const createPluginDirectory = async props => {
 	const { name } = props;
 
 	const getSlug = () => {
@@ -111,7 +111,7 @@ const createPluginDirectory = async props => {
  * @param {Object} props
  * @returns {Promise<void>}
  */
-const createPluginFiles = async props => {
+export const createPluginFiles = async props => {
 	const {
 		name,
 		author,
@@ -217,7 +217,7 @@ const createPluginFiles = async props => {
  * @since 1.0.0
  * @returns {string[]}
  */
-const getPluginFiles = () => {
+export const getPluginFiles = () => {
 	return [
 		'.editorconfig',
 		'.gitignore',
@@ -242,7 +242,7 @@ const getPluginFiles = () => {
  * @param {string} name
  * @returns {Object}
  */
-const getPluginDefaults = name => {
+export const getPluginDefaults = name => {
 	/**
 	 * Get Description.
 	 *
@@ -263,7 +263,7 @@ const getPluginDefaults = name => {
 	 * @returns {string}
 	 */
 	const getSlug = () => {
-		return name.toLowerCase().replace(/\s/g, '-');
+		return getSanitizedText(name).toLowerCase().replace(/\s/g, '-');
 	};
 
 	/**
@@ -274,7 +274,7 @@ const getPluginDefaults = name => {
 	 * @returns {string}
 	 */
 	const getNameSpace = () => {
-		return name
+		return getSanitizedText(name)
 			.split(' ')
 			.map(item => {
 				return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
@@ -293,4 +293,21 @@ const getPluginDefaults = name => {
 		defaultAuthorEmail: 'john@doe.com',
 		defaultAuthorUrl: 'https://john-doe.com'
 	};
+};
+
+/**
+ * Get Sanitized Text.
+ *
+ * This function returns a sanitized (only alphanumeric)
+ * version of the text.
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+export const getSanitizedText = text => {
+	return text
+		.replace(/[^a-zA-Z0-9]/g, '')
+		.split(' ')
+		.map(item => item)
+		.join(' ');
 };
