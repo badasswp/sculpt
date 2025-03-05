@@ -7,7 +7,7 @@ export const prompt = () => {
 	});
 
 	return {
-		ask(query, placeholder = '') {
+		ask(query) {
 			return new Promise(resolve => {
 				prompt.question(query, answer => resolve(answer));
 			});
