@@ -64,7 +64,7 @@ export const getPluginProps = async () => {
  * @param {Object} props
  * @returns {Promise<void>}
  */
-const createPlugin = async props => {
+export const createPlugin = async props => {
 	await createPluginDirectory(props);
 	await createPluginFiles(props);
 
