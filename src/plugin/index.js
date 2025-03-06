@@ -85,11 +85,7 @@ const createPlugin = async props => {
 export const createPluginDirectory = async props => {
 	const { name } = props;
 
-	const getSlug = () => {
-		return name.toLowerCase().replace(/\s/g, '-');
-	};
-
-	const slug = props.slug || getSlug();
+	const slug = props.slug || getSlug(name);
 
 	try {
 		await fs.access(slug);
