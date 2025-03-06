@@ -140,7 +140,9 @@ export const createPluginFiles = async props => {
 		const theAuthor = author || defaultAuthor;
 		const theSlug = slug || defaultSlug;
 		const theNamespace = namespace || defaultNamespace;
-		const theAutoload = name.toUpperCase().replace(/\s/g, '_');
+		const theAutoload = getSanitizedText(name)
+			.toUpperCase()
+			.replace(/\s/g, '_');
 
 		switch (file) {
 			case 'composer.json':
