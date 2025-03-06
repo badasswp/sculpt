@@ -255,18 +255,60 @@ export const getPluginDefaults = name => {
 };
 
 /**
- * Get Sanitized Text.
+ * Get Sanitized Name.
  *
  * This function returns a sanitized (only alphanumeric)
  * version of the text.
  *
- * @param {string} text
+ * @param {string} name - The name to be sanitized.
  * @returns {string}
  */
-export const getSanitizedText = text => {
-	return text
-		.replace(/[^a-zA-Z0-9]/g, '')
+export const getSanitizedText = name => {
+	return name
 		.split(' ')
-		.map(item => item)
-		.join(' ');
+		.filter(item => /[a-zA-Z0-9]+$/.test(item))
+		.join(' ')
+		.replace(/[^a-zA-Z0-9\s]/g, '');
+};
+
+/**
+ * Get Description.
+ *
+ * This function returns the default description
+ * for the plugin.
+ *
+ * @param {string} name - The plugin name.
+ * @returns {string}
+ */
+export const getDescription = name => {
+	return `The ${name} plugin is a WordPress plugin that does amazing things.`;
+};
+
+/**
+ * Get Slug.
+ *
+ * This function returns the default slug for the plugin.
+ *
+ * @param {string} name - The plugin name.
+ * @returns {string}
+ */
+export const getSlug = name => {
+	return getSanitizedText(name).toLowerCase().replace(/\s/g, '-');
+};
+
+/**
+ * Get Namespace.
+ *
+ * This function returns the default namespace for the plugin.
+ *
+ * @param {string} name - The plugin name.
+ * @returns {string}
+ */
+export const getNameSpace = name => {
+	return getSanitizedText(name)
+		.split(' ')
+		.map(item => {
+			return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
+		})
+		.join('');
 };
