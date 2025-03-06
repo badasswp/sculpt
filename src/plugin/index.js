@@ -241,52 +241,13 @@ export const getPluginFiles = () => {
  * @returns {Object}
  */
 export const getPluginDefaults = name => {
-	/**
-	 * Get Description.
-	 *
-	 * This function returns the default description
-	 * for the plugin.
-	 *
-	 * @returns {string}
-	 */
-	const getDescription = () => {
-		return `The ${name} plugin is a WordPress plugin that does amazing things.`;
-	};
-
-	/**
-	 * Get Slug.
-	 *
-	 * This function returns the default slug for the plugin.
-	 *
-	 * @returns {string}
-	 */
-	const getSlug = () => {
-		return getSanitizedText(name).toLowerCase().replace(/\s/g, '-');
-	};
-
-	/**
-	 * Get Namespace.
-	 *
-	 * This function returns the default namespace for the plugin.
-	 *
-	 * @returns {string}
-	 */
-	const getNameSpace = () => {
-		return getSanitizedText(name)
-			.split(' ')
-			.map(item => {
-				return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
-			})
-			.join('');
-	};
-
 	return {
-		defaultDescription: getDescription(),
-		defaultSlug: getSlug(),
-		defaultPackage: getNameSpace(),
-		defaultNamespace: getNameSpace(),
+		defaultDescription: getDescription(name),
+		defaultSlug: getSlug(name),
+		defaultPackage: getNameSpace(name),
+		defaultNamespace: getNameSpace(name),
 		defaultUrl: 'https://example.com',
-		defaultDomain: getSlug(),
+		defaultDomain: getSlug(name),
 		defaultAuthor: 'John Doe',
 		defaultAuthorEmail: 'john@doe.com',
 		defaultAuthorUrl: 'https://john-doe.com'
