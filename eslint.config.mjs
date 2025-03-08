@@ -1,7 +1,9 @@
-const prettierConfig = await import('./.prettierrc.json', {
-	assert: { type: 'json' }
-}).then(module => module.default);
+import fs from 'fs';
+import path from 'path';
 import eslintPluginPrettier from 'eslint-plugin-prettier';
+
+const prettierConfigPath = path.resolve('./.prettierrc.json');
+const prettierConfig = JSON.parse(fs.readFileSync(prettierConfigPath, 'utf8'));
 
 export default [
 	{
@@ -14,11 +16,11 @@ export default [
 			sourceType: 'module'
 		},
 		plugins: {
-		prettier: eslintPluginPrettier
+			prettier: eslintPluginPrettier
 		},
 		rules: {
 			'prettier/prettier': ['error', prettierConfig],
-			'no-unused-vars': 'warn',
+			'no-unused-vars': 'warn'
 		}
 	}
 ];
