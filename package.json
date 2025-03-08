@@ -29,6 +29,7 @@
 		"lint": "yarn verify && yarn lint:js",
 		"lint:fix": "yarn format && yarn lint:js:fix",
 		"test": "jest --passWithNoTests --verbose .",
+		"test:js": "jest --passWithNoTests --verbose .",
 		"test:watch": "jest --watchAll ."
 	},
 	"dependencies": {
