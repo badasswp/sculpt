@@ -42,7 +42,7 @@ describe('getSlug', () => {
 
 describe('getNamespace', () => {
 	it('should return a namespace', () => {
-		const getNamespace = jest.fn((name) => {
+		const getNamespace = jest.fn(name => {
 			return getSanitizedText(name)
 				.split(' ')
 				.map(item => {
