@@ -199,6 +199,15 @@ export const createPluginFiles = async props => {
 					namespace || defaultNamespace
 				);
 				break;
+
+			case 'README.md':
+				fileContent = fileContent
+					.replace(/\bSculptPluginName\b/g, theSlug)
+					.replace(
+						/\bSculptPluginDescription\b/g,
+						description || defaultDescription
+					);
+				break;
 		}
 
 		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
@@ -225,7 +234,7 @@ export const getPluginFiles = () => {
 		'phpunit.xml',
 		'plugin.php',
 		'README.md',
-		'readme.md'
+		'readme.txt'
 	];
 };
 
