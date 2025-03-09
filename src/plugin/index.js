@@ -114,23 +114,23 @@ export const createPluginFiles = async props => {
 		authorEmail,
 		authorUrl,
 		url,
-		spackage,
 		domain,
 		slug,
 		description,
-		namespace
+		namespace,
+		tags
 	} = props;
 
 	const {
 		defaultDescription,
 		defaultSlug,
-		defaultPackage,
 		defaultNamespace,
 		defaultUrl,
 		defaultDomain,
 		defaultAuthor,
 		defaultAuthorEmail,
-		defaultAuthorUrl
+		defaultAuthorUrl,
+		defaultTags
 	} = getPluginDefaults(name);
 
 	getPluginFiles().forEach(async file => {
@@ -180,7 +180,10 @@ export const createPluginFiles = async props => {
 						/\bSculptPluginAuthorURI\b/g,
 						authorUrl || defaultAuthorUrl
 					)
-					.replace(/\bSculptPackage\b/g, spackage || defaultPackage)
+					.replace(
+						/\bSculptPackage\b/g,
+						namespace || defaultNamespace
+					)
 					.replace(
 						/\bSculptAuthorNamespace\b/g,
 						`${theAuthor.toLowerCase().replace(/\s/g, '')}\\${theNamespace}`
@@ -207,6 +210,18 @@ export const createPluginFiles = async props => {
 						/\bSculptPluginDescription\b/g,
 						description || defaultDescription
 					);
+				break;
+
+			case 'readme.txt':
+				fileContent = fileContent
+					.replace(/\bSculptPluginName\b/g, name)
+					.replace(/\bSculptPluginUser\b/g, author || defaultAuthor)
+					.replace(/\bSculptPluginTags\b/g, tags || defaultTags)
+					.replace(
+						/\bSculptPluginDescription\b/g,
+						description || defaultDescription
+					)
+					.replace(/\bSculptPluginURL\b/g, url || defaultUrl);
 				break;
 		}
 
@@ -253,13 +268,13 @@ export const getPluginDefaults = name => {
 	return {
 		defaultDescription: getDescription(name),
 		defaultSlug: getSlug(name),
-		defaultPackage: getNameSpace(name),
 		defaultNamespace: getNameSpace(name),
 		defaultUrl: 'https://example.com',
 		defaultDomain: getSlug(name),
 		defaultAuthor: 'John Doe',
 		defaultAuthorEmail: 'john@doe.com',
-		defaultAuthorUrl: 'https://john-doe.com'
+		defaultAuthorUrl: 'https://john-doe.com',
+		defaultTags: 'plugin, wordpress'
 	};
 };
 

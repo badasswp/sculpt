@@ -32,7 +32,7 @@ export const getPluginPrompts = () => ({
 	name: 'Plugin Name: ',
 	description: 'Description: ',
 	slug: 'Slug: ',
-	spackage: 'Package: ',
+	tags: 'Keywords: ',
 	namespace: 'Namespace: ',
 	url: 'Plugin URL: ',
 	author: 'Author: ',
