@@ -5,12 +5,12 @@
  * This abstraction defines the base logic from which all
  * Service classes are derived.
  *
- * @package ScultPackage
+ * @package SculptPluginNamespace
  */
 
-namespace SculptNamespace\Abstracts;
+namespace SculptPluginNamespace\Abstracts;
 
-use SculptNamespace\Interfaces\Kernel;
+use SculptPluginNamespace\Interfaces\Kernel;
 
 abstract class Service implements Kernel {
 	/**

@@ -134,15 +134,23 @@ export const createPluginFiles = async props => {
 	} = getPluginDefaults(name);
 
 	getPluginFiles().forEach(async file => {
-		const filePath = path.join(__dirname, '../../repo', file);
-		let fileContent = await fs.readFile(filePath, 'utf-8');
-
 		const theAuthor = author || defaultAuthor;
 		const theSlug = slug || defaultSlug;
 		const theNamespace = namespace || defaultNamespace;
 		const theAutoload = getSanitizedText(name)
 			.toUpperCase()
 			.replace(/\s/g, '_');
+
+		if (file.includes('/')) {
+			const folder = path.join(
+				process.cwd(),
+				`${theSlug}/${file.split('/')[0]}`
+			);
+			await fs.mkdir(folder, { recursive: true });
+		}
+
+		const filePath = path.join(__dirname, '../../repo', file);
+		let fileContent = await fs.readFile(filePath, 'utf-8');
 
 		switch (file) {
 			case 'composer.json':
@@ -223,6 +231,13 @@ export const createPluginFiles = async props => {
 					)
 					.replace(/\bSculptPluginURL\b/g, url || defaultUrl);
 				break;
+
+			case 'Abstracts/Service.php':
+				fileContent = fileContent.replace(
+					/\bSculptPluginNamespace\b/g,
+					namespace || defaultNamespace
+				);
+				break;
 		}
 
 		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
@@ -249,7 +264,8 @@ export const getPluginFiles = () => {
 		'phpunit.xml',
 		'plugin.php',
 		'README.md',
-		'readme.txt'
+		'readme.txt',
+		'Abstracts/Service.php'
 	];
 };
 
