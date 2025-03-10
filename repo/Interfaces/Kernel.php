@@ -5,10 +5,10 @@
  * Establish base methods for Concrete services
  * used across plugin.
  *
- * @package SculptPackage
+ * @package SculptPluginNamespace
  */
 
-namespace SculptNamespace\Interfaces;
+namespace SculptPluginNamespace\Interfaces;
 
 interface Kernel {
 	/**
