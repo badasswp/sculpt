@@ -238,6 +238,13 @@ export const createPluginFiles = async props => {
 					namespace || defaultNamespace
 				);
 				break;
+
+			case 'Core/Container.php':
+				fileContent = fileContent.replace(
+					/\bSculptPluginNamespace\b/g,
+					namespace || defaultNamespace
+				);
+				break;
 		}
 
 		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
@@ -265,7 +272,8 @@ export const getPluginFiles = () => {
 		'plugin.php',
 		'README.md',
 		'readme.txt',
-		'Abstracts/Service.php'
+		'Abstracts/Service.php',
+		'Core/Container.php'
 	];
 };
 

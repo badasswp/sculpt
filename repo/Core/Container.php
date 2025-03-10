@@ -5,10 +5,12 @@
  * This class is responsible for registering the
  * plugin's services.
  *
- * @package SculptPackage
+ * @package SculptPluginNamespace
  */
 
-namespace SculptNamespace\Core;
+namespace SculptPluginNamespace\Core;
+
+use SculptPluginNamespace\Interfaces\Kernel;
 
 class Container implements Kernel {
 	/**
