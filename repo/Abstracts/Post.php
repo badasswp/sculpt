@@ -237,7 +237,7 @@ abstract class Post {
 		unset( $columns['date'] );
 
 		$meta_columns = array_map(
-			function( $meta ) {
+			function ( $meta ) {
 				return $meta['label'];
 			},
 			$this->get_post_meta_schema()
@@ -305,7 +305,7 @@ abstract class Post {
 			return;
 		}
 
-		foreach( $this->get_post_meta_schema() as $key => $value ) {
+		foreach ( $this->get_post_meta_schema() as $key => $value ) {
 			if ( $key === $query->query_vars['post_type'] ) {
 				$query->set( 'order', 'ASC' );
 				$query->set( 'orderby', 'meta_value' );
