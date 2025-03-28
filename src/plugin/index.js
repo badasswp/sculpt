@@ -215,10 +215,12 @@ export const createPluginFiles = async props => {
 				break;
 
 			case '.wp-env.json':
-				fileContent = fileContent.replace(
-					/sculpt/g,
-					slug || defaultSlug
-				);
+				const port = getRandomPort();
+				const testPort = port + 1;
+				fileContent = fileContent
+					.replace(/sculpt/g, slug || defaultSlug)
+					.replace(/8888/g, port)
+					.replace(/8889/g, testPort);
 				break;
 
 			case 'README.md':
@@ -433,4 +435,18 @@ export const getNameSpace = name => {
  */
 export const getUnderscore = name => {
 	return getSanitizedText(name).toLowerCase().replace(/\s/g, '_');
+};
+
+/**
+ * Get Random Port.
+ *
+ * This function returns a random port number
+ * between 1000 and 9999.
+ *
+ * @since 1.0.0
+ *
+ * @returns {number}
+ */
+export const getRandomPort = () => {
+	return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 };
