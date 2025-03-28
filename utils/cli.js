@@ -13,13 +13,22 @@ const flags = {
 		default: false,
 		shortFlag: `d`,
 		desc: `Print debug info`
+	},
+	help: {
+		type: `boolean`,
+		default: false,
+		shortFlag: `h`,
+		desc: `Help info`
 	}
 };
 
 const commands = {
-	help: { desc: `Print help info` },
+	plugin: { desc: `Create a plugin` },
 	post: { desc: `Create a custom post type` },
-	plugin: { desc: `Create a plugin using Sculpt` }
+	taxonomy: { desc: `Create a custom taxonomy` },
+	metabox: { desc: `Create a custom metabox` },
+	route: { desc: `Create a custom route` },
+	help: { desc: `Print help info` }
 };
 
 const helpText = meowHelp({
