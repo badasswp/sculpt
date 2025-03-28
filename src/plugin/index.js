@@ -383,3 +383,18 @@ export const getNameSpace = name => {
 		})
 		.join('');
 };
+
+/**
+ * Get Underscored Name.
+ *
+ * This function returns the default underscored
+ * name for the plugin.
+ *
+ * @since 1.0.0
+ *
+ * @param {string} name - The plugin name.
+ * @returns {string}
+ */
+export const getUnderscore = name => {
+	return getSanitizedText(name).toLowerCase().replace(/\s/g, '_');
+};
