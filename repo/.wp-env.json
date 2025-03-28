@@ -1,0 +1,13 @@
+{
+	"plugins": ["."],
+	"phpVersion": "8.2",
+	"port": 2560,
+	"testsPort": 2561,
+	"config": {
+		"WP_SITEURL": "http://sculpt.localhost",
+		"WP_HOME": "http://sculpt.localhost"
+	},
+	"lifecycleScripts": {
+		"afterStart": "./bin/setup.sh"
+	}
+}
