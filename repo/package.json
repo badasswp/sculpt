@@ -1,0 +1,19 @@
+{
+	"name": "sculpt",
+	"version": "1.0.0",
+	"description": "sculpt_description",
+	"author": "sculpt_author",
+	"license": "GPL-3.0-or-later",
+	"scripts": {
+		"start": "yarn wp-env start",
+		"stop": "yarn wp-env stop",
+		"boot": "composer install && yarn install && yarn start",
+		"wp-env": "wp-env",
+		"bash": "wp-env run cli bash"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^10.20.0",
+		"@wordpress/eslint-plugin": "^22.6.0",
+		"@wordpress/scripts": "^26.9.0"
+	}
+}
