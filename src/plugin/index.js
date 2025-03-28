@@ -245,6 +245,7 @@ export const createPluginFiles = async props => {
 			case 'inc/Abstracts/Service.php':
 			case 'inc/Core/Container.php':
 			case 'inc/Interfaces/Kernel.php':
+			case 'inc/Plugin.php':
 				fileContent = fileContent.replace(
 					/\bSculptPluginNamespace\b/g,
 					namespace || defaultNamespace
