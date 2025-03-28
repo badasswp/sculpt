@@ -320,6 +320,7 @@ export const getPluginFiles = () => {
 		'inc/Core/Container.php',
 		'inc/Interfaces/Kernel.php',
 		'inc/Services/Admin.php',
+		'inc/Plugin.php',
 		'bin/setup.sh'
 	];
 };
