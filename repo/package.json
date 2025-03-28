@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "yarn wp-env start",
 		"stop": "yarn wp-env stop",
-		"boot": "composer install && yarn install && yarn start",
+		"boot": "composer install && yarn install && chmod +x bin/setup.sh && yarn start",
 		"wp-env": "wp-env",
 		"bash": "wp-env run cli bash"
 	},
