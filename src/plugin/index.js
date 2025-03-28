@@ -142,9 +142,12 @@ export const createPluginFiles = async props => {
 			.replace(/\s/g, '_');
 
 		if (file.includes('/')) {
+			const entities = file.split('/');
+			entities.pop();
+
 			const folder = path.join(
 				process.cwd(),
-				`${theSlug}/${file.split('/')[0]}`
+				`${theSlug}/${entities.join('/')}`
 			);
 			await fs.mkdir(folder, { recursive: true });
 		}
@@ -232,16 +235,16 @@ export const createPluginFiles = async props => {
 					.replace(/\bSculptPluginURL\b/g, url || defaultUrl);
 				break;
 
-			case 'Abstracts/Service.php':
-			case 'Core/Container.php':
-			case 'Interfaces/Kernel.php':
+			case 'inc/Abstracts/Service.php':
+			case 'inc/Core/Container.php':
+			case 'inc/Interfaces/Kernel.php':
 				fileContent = fileContent.replace(
 					/\bSculptPluginNamespace\b/g,
 					namespace || defaultNamespace
 				);
 				break;
 
-			case 'Services/Admin.php':
+			case 'inc/Services/Admin.php':
 				fileContent = fileContent
 					.replace(
 						/\bSculptPluginNamespace\b/g,
@@ -283,10 +286,10 @@ export const getPluginFiles = () => {
 		'plugin.php',
 		'README.md',
 		'readme.txt',
-		'Abstracts/Service.php',
-		'Core/Container.php',
-		'Interfaces/Kernel.php',
-		'Services/Admin.php'
+		'inc/Abstracts/Service.php',
+		'inc/Core/Container.php',
+		'inc/Interfaces/Kernel.php',
+		'inc/Services/Admin.php'
 	];
 };
 
