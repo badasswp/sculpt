@@ -11,6 +11,7 @@
 namespace SculptPluginNamespace\Core;
 
 use SculptPluginNamespace\Interfaces\Kernel;
+use SculptPluginNamespace\Services\Admin;
 
 class Container implements Kernel {
 	/**
@@ -28,7 +29,9 @@ class Container implements Kernel {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		static::$services = [];
+		static::$services = [
+			Admin::class
+		];
 	}
 
 	/**

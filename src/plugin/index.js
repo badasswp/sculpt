@@ -240,6 +240,22 @@ export const createPluginFiles = async props => {
 					namespace || defaultNamespace
 				);
 				break;
+
+			case 'Services/Admin.php':
+				fileContent = fileContent
+					.replace(
+						/\bSculptPluginNamespace\b/g,
+						namespace || defaultNamespace
+					)
+					.replace(/\bSculptPluginName\b/g, name)
+					.replace(/\bsculpt\b/g, slug || defaultSlug)
+					.replace(
+						/\bsculpt-group\b/g,
+						`${slug}-group` || `${defaultSlug}-group`
+					)
+					.replace(/\bsculpt_option\b/g, getUnderscore(name))
+					.replace(/\btext-domain\b/g, domain || defaultDomain);
+				break;
 		}
 
 		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
@@ -269,7 +285,8 @@ export const getPluginFiles = () => {
 		'readme.txt',
 		'Abstracts/Service.php',
 		'Core/Container.php',
-		'Interfaces/Kernel.php'
+		'Interfaces/Kernel.php',
+		'Services/Admin.php'
 	];
 };
 
