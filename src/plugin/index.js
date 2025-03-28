@@ -260,7 +260,7 @@ export const createPluginFiles = async props => {
 					)
 					.replace(/\bSculptPluginName\b/g, name)
 					.replace(
-						/\SculptPluginDescriptino\b/g,
+						/\SculptPluginDescription\b/g,
 						description || defaultDescription
 					)
 					.replace(/\bsculpt\b/g, slug || defaultSlug)
