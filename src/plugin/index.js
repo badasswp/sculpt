@@ -273,6 +273,16 @@ export const createPluginFiles = async props => {
 					`"${name}"`
 				);
 				break;
+
+			case 'package.json':
+				fileContent = fileContent
+					.replace(/sculpt_slug/g, slug || defaultSlug)
+					.replace(/sculpt_author/g, author || defaultAuthor)
+					.replace(
+						/sculpt_description/g,
+						description || defaultDescription
+					);
+				break;
 		}
 
 		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
@@ -296,6 +306,7 @@ export const getPluginFiles = () => {
 		'.wp-env.json',
 		'composer.json',
 		'LICENSE',
+		'package.json',
 		'phpcs.xml',
 		'phpunit.xml',
 		'plugin.php',
