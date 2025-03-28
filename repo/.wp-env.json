@@ -6,8 +6,5 @@
 	"config": {
 		"WP_SITEURL": "http://sculpt.localhost",
 		"WP_HOME": "http://sculpt.localhost"
-	},
-	"lifecycleScripts": {
-		"afterStart": "./bin/setup.sh"
 	}
 }
