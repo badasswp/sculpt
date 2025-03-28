@@ -304,6 +304,8 @@ export const getPluginDefaults = name => {
  * This function returns a sanitized (only alphanumeric)
  * version of the text.
  *
+ * @since 1.0.0
+ *
  * @param {string} name - The name to be sanitized.
  * @returns {string}
  */
@@ -321,6 +323,8 @@ export const getSanitizedText = name => {
  * This function returns the default description
  * for the plugin.
  *
+ * @since 1.0.0
+ *
  * @param {string} name - The plugin name.
  * @returns {string}
  */
@@ -331,7 +335,10 @@ export const getDescription = name => {
 /**
  * Get Slug.
  *
- * This function returns the default slug for the plugin.
+ * This function returns the default slug
+ * for the plugin.
+ *
+ * @since 1.0.0
  *
  * @param {string} name - The plugin name.
  * @returns {string}
@@ -343,7 +350,10 @@ export const getSlug = name => {
 /**
  * Get Namespace.
  *
- * This function returns the default namespace for the plugin.
+ * This function returns the default
+ * namespace for the plugin.
+ *
+ * @since 1.0.0
  *
  * @param {string} name - The plugin name.
  * @returns {string}
