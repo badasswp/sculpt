@@ -266,6 +266,13 @@ export const createPluginFiles = async props => {
 					.replace(/\bsculpt_option\b/g, getUnderscore(name))
 					.replace(/\btext-domain\b/g, domain || defaultDomain);
 				break;
+
+			case 'bin/setup.sh':
+				fileContent = fileContent.replace(
+					/"WordPress Site"/g,
+					`"${name}"`
+				);
+				break;
 		}
 
 		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
@@ -297,7 +304,8 @@ export const getPluginFiles = () => {
 		'inc/Abstracts/Service.php',
 		'inc/Core/Container.php',
 		'inc/Interfaces/Kernel.php',
-		'inc/Services/Admin.php'
+		'inc/Services/Admin.php',
+		'bin/setup.sh'
 	];
 };
 
