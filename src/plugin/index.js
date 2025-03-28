@@ -214,6 +214,13 @@ export const createPluginFiles = async props => {
 				);
 				break;
 
+			case '.wp-env.json':
+				fileContent = fileContent.replace(
+					/sculpt/g,
+					slug || defaultSlug
+				);
+				break;
+
 			case 'README.md':
 				fileContent = fileContent
 					.replace(/\bSculptPluginName\b/g, theSlug)
@@ -279,6 +286,7 @@ export const getPluginFiles = () => {
 	return [
 		'.editorconfig',
 		'.gitignore',
+		'.wp-env.json',
 		'composer.json',
 		'LICENSE',
 		'phpcs.xml',
