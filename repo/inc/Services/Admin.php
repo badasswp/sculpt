@@ -85,6 +85,7 @@ class Admin extends Service implements Kernel {
 		?>
 		<div class="wrap">
 			<h1><?php _e( 'SculptPluginName', 'text-domain' ); ?></h1>
+			<p><?php _e( 'SculptPluginDescription', 'text-domain' ); ?></p>
 			<form method="post" action="options.php">
 			<?php
 				settings_fields( self::PLUGIN_GROUP );

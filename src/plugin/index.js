@@ -258,6 +258,10 @@ export const createPluginFiles = async props => {
 						namespace || defaultNamespace
 					)
 					.replace(/\bSculptPluginName\b/g, name)
+					.replace(
+						/\SculptPluginDescriptino\b/g,
+						description || defaultDescription
+					)
 					.replace(/\bsculpt\b/g, slug || defaultSlug)
 					.replace(
 						/\bsculpt-group\b/g,
