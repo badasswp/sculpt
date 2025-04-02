@@ -41,7 +41,7 @@ export const getPath = async () => {
 };
 
 /**
- * Get File Content.
+ * Get File.
  *
  * This function retrieves the content of a file
  * if it exists, otherwise it creates the file with
@@ -54,7 +54,7 @@ export const getPath = async () => {
  *
  * @returns {Promise<string>} File content.
  */
-export const getFileContent = async (filePath, fallback = '') => {
+export const getFile = async (filePath, fallback = '') => {
 	let fileContent = '';
 
 	try {

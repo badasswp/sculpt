@@ -1,5 +1,5 @@
 import { prompt } from '../../utils/ask.js';
-import { getFileContent } from '../utils.js';
+import { getFile } from '../utils.js';
 import { getPluginDefaults, getPluginPrompts, getSlug } from './utils.js';
 
 import path from 'path';
@@ -296,7 +296,7 @@ const updateJsonConfig = async props => {
 	const { name, slug } = props;
 	const filePath = path.join(__dirname, '../../sculpt.json');
 
-	const fileContent = await getFileContent(filePath, '[]');
+	const fileContent = await getFile(filePath, '[]');
 	const parsedContent = JSON.parse(fileContent);
 	parsedContent.push({ name, ...props, path: `${process.cwd()}/${slug}` });
 
