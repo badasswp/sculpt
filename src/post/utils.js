@@ -21,3 +21,29 @@ export const getPostPrompts = () => ({
 	restBase: 'REST Base: ',
 	restController: 'REST Controller Class: '
 });
+
+/**
+ * Get Post Defaults.
+ *
+ * This function retrieves the default values for the
+ * post properties.
+ *
+ * @since 1.0.0
+ *
+ * @param {string} name
+ * @returns {Object}
+ */
+export const getPostDefaults = name => {
+	return {
+		singular: name,
+		plural: `${name}s`,
+		icon: 'dashicons-admin-generic',
+		supports: 'title, thumbnail',
+		taxonomies: '',
+		hasArchive: 'true',
+		public: 'true',
+		showInRest: 'true',
+		restBase: name,
+		restController: name
+	};
+};
