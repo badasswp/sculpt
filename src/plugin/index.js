@@ -1,5 +1,5 @@
 import { prompt } from '../../utils/ask.js';
-import { getFile } from '../utils.js';
+import { getFile, createDirectory } from '../utils.js';
 import { getPluginDefaults, getPluginPrompts, getSlug } from './utils.js';
 
 import path from 'path';

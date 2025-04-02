@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+import { dir } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -65,4 +66,28 @@ export const getFile = async (filePath, fallback = '') => {
 	}
 
 	return fileContent;
+};
+
+/**
+ * Get Directory.
+ *
+ * This function checks if a directory exists, and if not,
+ * it creates the directory.
+ *
+ * @since 1.0.0
+ *
+ * @param {string} dirPath - The path to the directory.
+ * @returns {Promise<string>} Directory path.
+ */
+export const getDirectory = async dirPath => {
+	const config = await getConfig();
+	const newDirPath = path.join(config.path, dirPath);
+
+	try {
+		await fs.access(newDirPath);
+	} catch {
+		await fs.mkdir(newDirPath, { recursive: true });
+	}
+
+	return newDirPath;
 };
