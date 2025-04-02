@@ -341,15 +341,15 @@ export const getPluginFiles = () => {
  */
 export const getPluginDefaults = name => {
 	return {
-		defaultDescription: getDescription(name),
-		defaultSlug: getSlug(name),
-		defaultNamespace: getNameSpace(name),
-		defaultUrl: 'https://example.com',
-		defaultDomain: getSlug(name),
-		defaultAuthor: 'John Doe',
-		defaultAuthorEmail: 'john@doe.com',
-		defaultAuthorUrl: 'https://john-doe.com',
-		defaultTags: 'plugin, wordpress'
+		description: getDescription(name),
+		slug: getSlug(name),
+		namespace: getNameSpace(name),
+		url: 'https://example.com',
+		textDomain: getSlug(name),
+		author: 'John Doe',
+		authorEmail: 'john@doe.com',
+		authorUrl: 'https://john-doe.com',
+		tags: 'plugin, wordpress'
 	};
 };
 
