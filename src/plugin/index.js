@@ -293,7 +293,7 @@ export const createPluginFiles = async props => {
  */
 const updateJsonConfig = async props => {
 	let fileContent;
-	const { name } = props;
+	const { name, slug } = props;
 	const filePath = path.join(__dirname, '../../sculpt.json');
 
 	try {
@@ -304,8 +304,7 @@ const updateJsonConfig = async props => {
 	}
 
 	const parsedContent = JSON.parse(fileContent);
-	parsedContent.push({ name, ...props });
-
+	parsedContent.push({ name, ...props, path: `${process.cwd()}/${slug}` });
 	await fs.writeFile(filePath, JSON.stringify(parsedContent), 'utf-8');
 };
 
