@@ -68,5 +68,9 @@ assets/bower_components/*
 library/vendors/composer
 assets/img/.DS_Store
 
+# Sculpt files #
+##########
+sculpt.json
+
 # VSCode related files #
 # .vscode
