@@ -1,9 +1,8 @@
 import { prompt } from '../../utils/ask.js';
-import { getPluginDefaults, getPluginPrompts } from './utils.js';
+import { getPluginDefaults, getPluginPrompts, getSlug } from './utils.js';
 
 import path from 'path';
 import fs from 'fs/promises';
-import process from 'process';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -84,9 +83,8 @@ export const createPlugin = async props => {
  * @returns {Promise<void>}
  */
 export const createPluginDirectory = async props => {
-	const { name } = props;
-
-	const slug = props.slug || getSlug(name);
+	const { name, slug: newSlug } = props;
+	const slug = getSlug(newSlug || name);
 
 	try {
 		await fs.access(slug);
