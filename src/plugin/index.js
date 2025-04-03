@@ -1,5 +1,5 @@
 import { prompt } from '../../utils/ask.js';
-import { getPluginPrompts } from '../prompts.js';
+import { getPluginDefaults, getPluginPrompts } from './utils.js';
 
 import path from 'path';
 import fs from 'fs/promises';
@@ -108,46 +108,31 @@ export const createPluginDirectory = async props => {
  * @returns {Promise<void>}
  */
 export const createPluginFiles = async props => {
+	const { name } = props;
+	const pluginProps = { ...props, ...getPluginDefaults(name) };
+
 	const {
-		name,
+		description,
+		slug,
+		tags,
+		namespace,
+		url,
 		author,
 		authorEmail,
 		authorUrl,
-		url,
-		domain,
-		slug,
-		description,
-		namespace,
-		tags
-	} = props;
-
-	const {
-		defaultDescription,
-		defaultSlug,
-		defaultNamespace,
-		defaultUrl,
-		defaultDomain,
-		defaultAuthor,
-		defaultAuthorEmail,
-		defaultAuthorUrl,
-		defaultTags
-	} = getPluginDefaults(name);
+		textDomain,
+		autoload,
+		underscore
+	} = pluginProps;
 
 	getPluginFiles().forEach(async file => {
-		const theAuthor = author || defaultAuthor;
-		const theSlug = slug || defaultSlug;
-		const theNamespace = namespace || defaultNamespace;
-		const theAutoload = getSanitizedText(name)
-			.toUpperCase()
-			.replace(/\s/g, '_');
-
 		if (file.includes('/')) {
 			const entities = file.split('/');
 			entities.pop();
 
 			const folder = path.join(
 				process.cwd(),
-				`${theSlug}/${entities.join('/')}`
+				`${slug}/${entities.join('/')}`
 			);
 			await fs.mkdir(folder, { recursive: true });
 		}
@@ -160,57 +145,39 @@ export const createPluginFiles = async props => {
 				fileContent = fileContent
 					.replace(
 						/\bsculpt_user\/sculpt_plugin\b/g,
-						`${theAuthor.toLowerCase().replace(/\s/g, '')}/${theSlug}`
+						`${author.toLowerCase().replace(/\s/g, '')}/${slug}`
 					)
-					.replace(
-						/\bSculptDescription\b/g,
-						description || defaultDescription
-					)
-					.replace(
-						/\bSculptNamespace\b/g,
-						namespace || defaultNamespace
-					)
-					.replace(/\bsculpt_user\b/g, author || defaultAuthor)
-					.replace(
-						/\bsculpt_email@yahoo.com\b/g,
-						authorEmail || defaultAuthorEmail
-					);
+					.replace(/\bSculptPluginDescription\b/g, description)
+					.replace(/\bSculptPluginNamespace\b/g, namespace)
+					.replace(/\bsculpt_user\b/g, author)
+					.replace(/\bsculpt_email@yahoo.com\b/g, authorEmail);
 				break;
 
 			case 'plugin.php':
 				fileContent = fileContent
 					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\bSculptPluginURL\b/g, url || defaultUrl)
-					.replace(
-						/\bSculptPluginDescription\b/g,
-						description || defaultDescription
-					)
+					.replace(/\bSculptPluginURL\b/g, url)
+					.replace(/\bSculptPluginDescription\b/g, description)
 					.replace(/\bSculptPluginVersion\b/g, `1.0.0`)
-					.replace(/\bSculptPluginAuthor\b/g, author || defaultAuthor)
-					.replace(
-						/\bSculptPluginAuthorURI\b/g,
-						authorUrl || defaultAuthorUrl
-					)
-					.replace(
-						/\bSculptPackage\b/g,
-						namespace || defaultNamespace
-					)
+					.replace(/\bSculptPluginAuthor\b/g, author)
+					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl)
+					.replace(/\bSculptPluginPackage\b/g, namespace)
+					.replace(/\bSCULPT_AUTOLOAD\b/g, `${autoload}_AUTOLOAD`)
+					.replace(/\btext-domain\b/g, textDomain)
 					.replace(
 						/\bSculptAuthorNamespace\b/g,
-						`${theAuthor.toLowerCase().replace(/\s/g, '')}\\${theNamespace}`
+						`${author.toLowerCase().replace(/\s/g, '')}\\${namespace}`
 					)
-					.replace(/\bSCULPT_AUTOLOAD\b/g, `${theAutoload}_AUTOLOAD`)
 					.replace(
 						/\bSculptPluginAbsoluteNamespace\b/g,
-						`\\${theNamespace}\\Plugin`
-					)
-					.replace(/\btext-domain\b/g, domain || defaultDomain);
+						`\\${namespace}\\Plugin`
+					);
 				break;
 
 			case 'phpcs.xml':
 				fileContent = fileContent.replace(
-					/\bSculptNamespace\b/g,
-					namespace || defaultNamespace
+					/\bSculptPluginNamespace\b/g,
+					namespace
 				);
 				break;
 
@@ -218,30 +185,24 @@ export const createPluginFiles = async props => {
 				const port = getRandomPort();
 				const testPort = port + 1;
 				fileContent = fileContent
-					.replace(/sculpt/g, slug || defaultSlug)
+					.replace(/sculpt/g, slug)
 					.replace(/8888/g, port)
 					.replace(/8889/g, testPort);
 				break;
 
 			case 'README.md':
 				fileContent = fileContent
-					.replace(/\bSculptPluginName\b/g, theSlug)
-					.replace(
-						/\bSculptPluginDescription\b/g,
-						description || defaultDescription
-					);
+					.replace(/\bSculptPluginName\b/g, slug)
+					.replace(/\bSculptPluginDescription\b/g, description);
 				break;
 
 			case 'readme.txt':
 				fileContent = fileContent
 					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\bSculptPluginUser\b/g, author || defaultAuthor)
-					.replace(/\bSculptPluginTags\b/g, tags || defaultTags)
-					.replace(
-						/\bSculptPluginDescription\b/g,
-						description || defaultDescription
-					)
-					.replace(/\bSculptPluginURL\b/g, url || defaultUrl);
+					.replace(/\bSculptPluginUser\b/g, author)
+					.replace(/\bSculptPluginTags\b/g, tags)
+					.replace(/\bSculptPluginDescription\b/g, description)
+					.replace(/\bSculptPluginURL\b/g, url);
 				break;
 
 			case 'inc/Abstracts/Service.php':
@@ -250,28 +211,19 @@ export const createPluginFiles = async props => {
 			case 'inc/Plugin.php':
 				fileContent = fileContent.replace(
 					/\bSculptPluginNamespace\b/g,
-					namespace || defaultNamespace
+					namespace
 				);
 				break;
 
 			case 'inc/Services/Admin.php':
 				fileContent = fileContent
-					.replace(
-						/\bSculptPluginNamespace\b/g,
-						namespace || defaultNamespace
-					)
+					.replace(/\bSculptPluginNamespace\b/g, namespace)
 					.replace(/\bSculptPluginName\b/g, name)
-					.replace(
-						/\SculptPluginDescription\b/g,
-						description || defaultDescription
-					)
-					.replace(/\bsculpt\b/g, slug || defaultSlug)
-					.replace(
-						/\bsculpt-group\b/g,
-						`${slug}-group` || `${defaultSlug}-group`
-					)
-					.replace(/\bsculpt_option\b/g, getUnderscore(name))
-					.replace(/\btext-domain\b/g, domain || defaultDomain);
+					.replace(/\SculptPluginDescription\b/g, description)
+					.replace(/\bsculpt\b/g, slug)
+					.replace(/\bsculpt-group\b/g, `${slug}-group`)
+					.replace(/\bsculpt_option\b/g, underscore)
+					.replace(/\btext-domain\b/g, textDomain);
 				break;
 
 			case 'bin/setup.sh':
@@ -283,16 +235,13 @@ export const createPluginFiles = async props => {
 
 			case 'package.json':
 				fileContent = fileContent
-					.replace(/sculpt_slug/g, slug || defaultSlug)
-					.replace(/sculpt_author/g, author || defaultAuthor)
-					.replace(
-						/sculpt_description/g,
-						description || defaultDescription
-					);
+					.replace(/sculpt_slug/g, slug)
+					.replace(/sculpt_author/g, author)
+					.replace(/sculpt_description/g, description);
 				break;
 		}
 
-		const newFilePath = path.join(process.cwd(), `${theSlug}/${file}`);
+		const newFilePath = path.join(process.cwd(), `${slug}/${file}`);
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 };
@@ -326,127 +275,4 @@ export const getPluginFiles = () => {
 		'inc/Plugin.php',
 		'bin/setup.sh'
 	];
-};
-
-/**
- * Get Plugin Defaults.
- *
- * This function retrieves the default values for the
- * plugin properties.
- *
- * @since 1.0.0
- *
- * @param {string} name
- * @returns {Object}
- */
-export const getPluginDefaults = name => {
-	return {
-		description: getDescription(name),
-		slug: getSlug(name),
-		namespace: getNameSpace(name),
-		url: 'https://example.com',
-		textDomain: getSlug(name),
-		author: 'John Doe',
-		authorEmail: 'john@doe.com',
-		authorUrl: 'https://john-doe.com',
-		tags: 'plugin, wordpress'
-	};
-};
-
-/**
- * Get Sanitized Name.
- *
- * This function returns a sanitized (only alphanumeric)
- * version of the text.
- *
- * @since 1.0.0
- *
- * @param {string} name - The name to be sanitized.
- * @returns {string}
- */
-export const getSanitizedText = name => {
-	return name
-		.split(' ')
-		.filter(item => /[a-zA-Z0-9]+$/.test(item))
-		.join(' ')
-		.replace(/[^a-zA-Z0-9\s]/g, '');
-};
-
-/**
- * Get Description.
- *
- * This function returns the default description
- * for the plugin.
- *
- * @since 1.0.0
- *
- * @param {string} name - The plugin name.
- * @returns {string}
- */
-export const getDescription = name => {
-	return `The ${name} plugin is a WordPress plugin that does amazing things.`;
-};
-
-/**
- * Get Slug.
- *
- * This function returns the default slug
- * for the plugin.
- *
- * @since 1.0.0
- *
- * @param {string} name - The plugin name.
- * @returns {string}
- */
-export const getSlug = name => {
-	return getSanitizedText(name).toLowerCase().replace(/\s/g, '-');
-};
-
-/**
- * Get Namespace.
- *
- * This function returns the default
- * namespace for the plugin.
- *
- * @since 1.0.0
- *
- * @param {string} name - The plugin name.
- * @returns {string}
- */
-export const getNameSpace = name => {
-	return getSanitizedText(name)
-		.split(' ')
-		.map(item => {
-			return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
-		})
-		.join('');
-};
-
-/**
- * Get Underscored Name.
- *
- * This function returns the default underscored
- * name for the plugin.
- *
- * @since 1.0.0
- *
- * @param {string} name - The plugin name.
- * @returns {string}
- */
-export const getUnderscore = name => {
-	return getSanitizedText(name).toLowerCase().replace(/\s/g, '_');
-};
-
-/**
- * Get Random Port.
- *
- * This function returns a random port number
- * between 1000 and 9999.
- *
- * @since 1.0.0
- *
- * @returns {number}
- */
-export const getRandomPort = () => {
-	return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 };
