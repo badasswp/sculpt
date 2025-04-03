@@ -42,7 +42,8 @@ export const getPluginDefaults = name => {
 		authorUrl: 'https://john-doe.com',
 		textDomain: getSlug(name),
 		autoload: getAutoload(name),
-		underscore: getUnderscore(name)
+		underscore: getUnderscore(name),
+		port: getRandomPort()
 	};
 };
 

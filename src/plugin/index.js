@@ -3,6 +3,7 @@ import { getPluginDefaults, getPluginPrompts } from './utils.js';
 
 import path from 'path';
 import fs from 'fs/promises';
+import process from 'process';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -97,6 +98,37 @@ export const createPluginDirectory = async props => {
 };
 
 /**
+ * Get Plugin files.
+ *
+ * This function retrieves the list of plugin files
+ * to be created in the plugin directory.
+ *
+ * @since 1.0.0
+ * @returns {string[]}
+ */
+export const getPluginFiles = () => {
+	return [
+		'.editorconfig',
+		'.gitignore',
+		'.wp-env.json',
+		'composer.json',
+		'LICENSE',
+		'package.json',
+		'phpcs.xml',
+		'phpunit.xml',
+		'plugin.php',
+		'README.md',
+		'readme.txt',
+		'inc/Abstracts/Service.php',
+		'inc/Core/Container.php',
+		'inc/Interfaces/Kernel.php',
+		'inc/Services/Admin.php',
+		'inc/Plugin.php',
+		'bin/setup.sh'
+	];
+};
+
+/**
  * Create Plugin files.
  *
  * This function grabs the list of plugin files and
@@ -122,7 +154,8 @@ export const createPluginFiles = async props => {
 		authorUrl,
 		textDomain,
 		autoload,
-		underscore
+		underscore,
+		port
 	} = pluginProps;
 
 	getPluginFiles().forEach(async file => {
@@ -182,7 +215,6 @@ export const createPluginFiles = async props => {
 				break;
 
 			case '.wp-env.json':
-				const port = getRandomPort();
 				const testPort = port + 1;
 				fileContent = fileContent
 					.replace(/sculpt/g, slug)
@@ -244,35 +276,4 @@ export const createPluginFiles = async props => {
 		const newFilePath = path.join(process.cwd(), `${slug}/${file}`);
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
-};
-
-/**
- * Get Plugin files.
- *
- * This function retrieves the list of plugin files
- * to be created in the plugin directory.
- *
- * @since 1.0.0
- * @returns {string[]}
- */
-export const getPluginFiles = () => {
-	return [
-		'.editorconfig',
-		'.gitignore',
-		'.wp-env.json',
-		'composer.json',
-		'LICENSE',
-		'package.json',
-		'phpcs.xml',
-		'phpunit.xml',
-		'plugin.php',
-		'README.md',
-		'readme.txt',
-		'inc/Abstracts/Service.php',
-		'inc/Core/Container.php',
-		'inc/Interfaces/Kernel.php',
-		'inc/Services/Admin.php',
-		'inc/Plugin.php',
-		'bin/setup.sh'
-	];
 };
