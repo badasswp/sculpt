@@ -30,7 +30,7 @@ class Container implements Kernel {
 	 */
 	public function __construct() {
 		static::$services = [
-			Admin::class
+			Admin::class,
 		];
 	}
 
