@@ -4,6 +4,8 @@
  * This function returns an object with prompts for
  * generating a Custom Post Type.
  *
+ * @since 1.0.0
+ *
  * @returns {Object}
  */
 export const getPostPrompts = () => ({
@@ -18,25 +20,4 @@ export const getPostPrompts = () => ({
 	showInRest: 'Show in REST: ',
 	restBase: 'REST Base: ',
 	restController: 'REST Controller Class: '
-});
-
-/**
- * Get Plugin Prompts.
- *
- * This function returns an object with prompts for
- * generating a Plugin.
- *
- * @returns {Object}
- */
-export const getPluginPrompts = () => ({
-	name: 'Plugin Name: ',
-	description: 'Description: ',
-	slug: 'Slug: ',
-	tags: 'Keywords: ',
-	namespace: 'Namespace: ',
-	url: 'Plugin URL: ',
-	author: 'Author: ',
-	authorEmail: 'Author Email: ',
-	authorUrl: 'Author URL: ',
-	domain: 'Text domain: '
 });

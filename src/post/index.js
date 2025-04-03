@@ -1,5 +1,5 @@
 import { prompt } from '../../utils/ask.js';
-import { getPostPrompts } from '../prompts.js';
+import { getPostPrompts } from './utils.js';
 
 import path from 'path';
 import fs from 'fs/promises';
