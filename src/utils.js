@@ -41,6 +41,19 @@ export const getPath = async () => {
 };
 
 /**
+ * Is Valid Directory.
+ *
+ * This function checks if the current working
+ * directory is a Sculpt plugin.
+ *
+ * @since 1.0.0
+ * @returns {Promise<boolean>} Validity.
+ */
+export const isValidDirectory = async () => {
+	return Boolean(await getPath());
+};
+
+/**
  * Get File.
  *
  * This function retrieves the content of a file

@@ -1,5 +1,6 @@
 import { prompt } from '../../utils/ask.js';
-import { getPostPrompts } from './utils.js';
+import { getDirectory, isValidDirectory } from '../utils.js';
+import { getPostPrompts, getPostDefaults } from './utils.js';
 
 import path from 'path';
 import fs from 'fs/promises';
@@ -62,7 +63,10 @@ const getPostProps = async () => {
  * @returns {Promise<void>}
  */
 const createPost = async props => {
-	const { name, singular, plural } = props;
+	if (!isValidDirectory()) {
+		console.error('Error: Not a valid Sculpt plugin directory.');
+		return;
+	}
 
 	const __filename = fileURLToPath(import.meta.url);
 	const __dirname = path.dirname(__filename);
