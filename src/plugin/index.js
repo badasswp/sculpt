@@ -276,6 +276,37 @@ export const createPluginFiles = async props => {
 		const newFilePath = path.join(process.cwd(), `${slug}/${file}`);
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
+
+	updateJsonConfig(pluginProps);
+};
+
+/**
+ * Update JSON Config.
+ *
+ * This function updates the sculpt.json file with the
+ * provided plugin properties.
+ *
+ * @since 1.0.0
+ *
+ * @param {Object} props
+ * @returns {Promise<void>}
+ */
+const updateJsonConfig = async props => {
+	let fileContent;
+	const { name } = props;
+	const filePath = path.join(__dirname, '../../sculpt.json');
+
+	try {
+		fileContent = await fs.readFile(filePath, 'utf-8');
+	} catch {
+		await fs.writeFile(filePath, '[]', 'utf-8');
+		fileContent = await fs.readFile(filePath, 'utf-8');
+	}
+
+	const parsedContent = JSON.parse(fileContent);
+	parsedContent.push({ name, ...props });
+
+	await fs.writeFile(filePath, JSON.stringify(parsedContent), 'utf-8');
 };
 
 export default sculptPlugin;
