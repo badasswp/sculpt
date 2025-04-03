@@ -37,7 +37,7 @@ export const getConfig = async () => {
  * @returns {Promise<string>} Path.
  */
 export const getPath = async () => {
-	return (await getConfig().path) || '';
+	return (await getConfig()).path || '';
 };
 
 /**
@@ -50,7 +50,7 @@ export const getPath = async () => {
  * @returns {Promise<boolean>} Validity.
  */
 export const isValidDirectory = async () => {
-	return Boolean(await getPath());
+	return (await getPath()) ? true : false;
 };
 
 /**
@@ -92,8 +92,7 @@ export const getFile = async (filePath, fallback = '') => {
  * @returns {Promise<string>} Directory path.
  */
 export const getDirectory = async dirPath => {
-	const config = await getConfig();
-	const newDirPath = path.join(config.path, dirPath);
+	const newDirPath = path.join(await getPath(), dirPath);
 
 	try {
 		await fs.access(newDirPath);
