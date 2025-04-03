@@ -39,3 +39,30 @@ export const getConfig = async () => {
 export const getPath = async () => {
 	return (await getConfig().path) || '';
 };
+
+/**
+ * Get File Content.
+ *
+ * This function retrieves the content of a file
+ * if it exists, otherwise it creates the file with
+ * the provided fallback content.
+ *
+ * @since 1.0.0
+ *
+ * @param {string} filePath - The path to the file.
+ * @param {string} fallback - The fallback content.
+ *
+ * @returns {Promise<string>} File content.
+ */
+export const getFileContent = async (filePath, fallback = '') => {
+	let fileContent = '';
+
+	try {
+		fileContent = await fs.readFile(filePath, 'utf-8');
+	} catch {
+		await fs.writeFile(filePath, fallback, 'utf-8');
+		fileContent = await fs.readFile(filePath, 'utf-8');
+	}
+
+	return fileContent;
+};
