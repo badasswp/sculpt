@@ -6,6 +6,9 @@ import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /**
  * Sculpt Post.
  *
@@ -43,7 +46,11 @@ const getPostProps = async () => {
 	const cli = prompt();
 
 	for (const [key, question] of Object.entries(getPostPrompts())) {
-		props[key] = await cli.ask(question);
+		const value = await cli.ask(question);
+
+		if (value) {
+			props[key] = value;
+		}
 	}
 
 	cli.close();
@@ -68,23 +75,40 @@ const createPost = async props => {
 		return;
 	}
 
-	const __filename = fileURLToPath(import.meta.url);
-	const __dirname = path.dirname(__filename);
+	const { name } = props;
+	const postProps = { ...getPostDefaults(name), ...props };
+	const {
+		description,
+		singular,
+		plural,
+		icon,
+		supports,
+		taxonomies,
+		hasArchive,
+		public: PublicPost,
+		showInRest,
+		restBase,
+		restController
+	} = postProps;
 
-	const templatePath = path.join(__dirname, '../../repo/Posts', 'Post.php');
-	const templateContent = await fs.readFile(templatePath, 'utf-8');
+	const filePath = path.join(__dirname, '../../repo/inc/Posts/Post.php');
+	let fileContent = await fs.readFile(filePath, 'utf-8');
 
-	const newContent = templateContent
-		.replace(/\bSculpt\b/g, singular)
+	fileContent
+		.replace(/\bSculptPostClass\b/g, name)
+		.replace(/\bSculptPostSingular\b/g, singular)
 		.replace(/\bprops\b/g, name.toLowerCase())
 		.replace(/\bSingular_Label\b/g, singular)
 		.replace(/\bPlural_Label\b/g, plural)
 		.replace(/\btext_domain\b/g, 'obo');
 
-	const newFilePath = path.join(process.cwd(), `${singular}.php`);
-	await fs.writeFile(newFilePath, newContent, 'utf-8');
+	const newFilePath = path.join(
+		await getDirectory('inc/Post'),
+		`${singular}.php`
+	);
 
-	console.log(`Custom post type created: ${newFilePath}`);
+	await fs.writeFile(newFilePath, fileContent, 'utf-8');
+	console.log(`Custom post type created: ${singular}`);
 };
 
 export default sculptPost;
