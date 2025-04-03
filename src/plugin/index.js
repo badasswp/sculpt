@@ -28,8 +28,6 @@ const sculptPlugin = async () => {
 	createPlugin(props);
 };
 
-export default sculptPlugin;
-
 /**
  * Get Plugin Properties.
  *
@@ -279,3 +277,5 @@ export const createPluginFiles = async props => {
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 };
+
+export default sculptPlugin;
