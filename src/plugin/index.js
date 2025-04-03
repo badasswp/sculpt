@@ -45,7 +45,11 @@ export const getPluginProps = async () => {
 	const cli = prompt();
 
 	for (const [key, question] of Object.entries(getPluginPrompts())) {
-		props[key] = await cli.ask(question);
+		const value = await cli.ask(question);
+
+		if (value) {
+			props[key] = value;
+		}
 	}
 
 	cli.close();
@@ -83,8 +87,8 @@ export const createPlugin = async props => {
  * @returns {Promise<void>}
  */
 export const createPluginDirectory = async props => {
-	const { name, slug: newSlug } = props;
-	const slug = getSlug(newSlug || name);
+	const { name } = props;
+	const slug = getSlug(props?.slug || name);
 
 	try {
 		await fs.access(slug);
@@ -139,7 +143,7 @@ export const getPluginFiles = () => {
  */
 export const createPluginFiles = async props => {
 	const { name } = props;
-	const pluginProps = { ...props, ...getPluginDefaults(name) };
+	const pluginProps = { ...getPluginDefaults(name), ...props };
 
 	const {
 		description,
