@@ -1,12 +1,12 @@
 {
 	"name": "sculpt_user/sculpt_plugin",
-	"description": "SculptDescription",
+	"description": "SculptPluginDescription",
 	"type": "package",
 	"license": "GPL-2.0-or-later",
 	"autoload": {
 		"psr-4": {
-			"SculptNamespace\\": "inc/",
-			"SculptNamespace\\Tests\\": "tests/"
+			"SculptPluginNamespace\\": "inc/",
+			"SculptPluginNamespace\\Tests\\": "tests/"
 		}
 	},
 	"authors": [

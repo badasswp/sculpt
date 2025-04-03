@@ -6,12 +6,12 @@
  * custom post types in the plugin. It provides a standardized structure
  * and common methods for managing the custom post type.
  *
- * @package SculptPackage
+ * @package SculptPluginPackage
  */
 
-namespace SculptNamespace\Abstracts;
+namespace SculptPluginNamespace\Abstracts;
 
-use SculptNamespace\Core\Plugin;
+use SculptPluginNamespace\Core\Plugin;
 
 /**
  * Post class.

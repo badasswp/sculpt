@@ -11,7 +11,7 @@
  * Text Domain: text-domain
  * Domain Path: /languages
  *
- * @package SculptPackage
+ * @package SculptPluginPackage
  */
 
 namespace SculptAuthorNamespace;

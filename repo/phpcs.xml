@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="SculptNamespace">
+<ruleset name="SculptPluginNamespace">
 	<rule ref="WordPress-Core">
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />

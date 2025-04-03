@@ -6,13 +6,13 @@
  * plugin. It provides functionality for registering and binding
  * custom post types to WordPress.
  *
- * @package SculptPackage
+ * @package SculptPluginPackage
  */
 
-namespace SculptNamespace\Services;
+namespace SculptPluginNamespace\Services;
 
-use SculptNamespace\Abstracts\Service;
-use SculptNamespace\Interfaces\Kernel;
+use SculptPluginNamespace\Abstracts\Service;
+use SculptPluginNamespace\Interfaces\Kernel;
 
 class Post extends Service implements Kernel {
 	/**

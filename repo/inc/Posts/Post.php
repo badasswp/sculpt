@@ -5,12 +5,12 @@
  * This class defines the cpt custom post type
  * for the plugin.
  *
- * @package SculptPackage
+ * @package SculptPluginPackage
  */
 
-namespace SculptNamespace\Posts;
+namespace SculptPluginNamespace\Posts;
 
-use SculptNamespace\Abstracts\Post;
+use SculptPluginNamespace\Abstracts\Post;
 
 class SculptClass extends Post {
 	/**
