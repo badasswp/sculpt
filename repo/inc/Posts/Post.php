@@ -20,7 +20,7 @@ class SculptPostName extends Post {
 	 *
 	 * @var string
 	 */
-	public static $name = 'cpt';
+	public static $name = 'SculptPostSlug';
 
 	/**
 	 * Get Singular Label.
@@ -30,7 +30,7 @@ class SculptPostName extends Post {
 	 * @return string
 	 */
 	protected function get_singular_label(): string {
-		return 'Singular_Label';
+		return 'SculptPostSingularLabel';
 	}
 
 	/**
@@ -41,7 +41,7 @@ class SculptPostName extends Post {
 	 * @return string
 	 */
 	protected function get_plural_label(): string {
-		return 'Plural_Label';
+		return 'SculptPostPluralLabel';
 	}
 
 	/**
@@ -52,7 +52,7 @@ class SculptPostName extends Post {
 	 * @return string[]
 	 */
 	protected function get_supports(): array {
-		return [ 'title', 'thumbnail' ];
+		return [ SculptPostSupport ];
 	}
 
 	/**
@@ -64,7 +64,7 @@ class SculptPostName extends Post {
 	 * @return string
 	 */
 	protected function get_slug(): string {
-		return 'cpt_slug';
+		return 'SculptPostSlug';
 	}
 
 	/**
@@ -75,7 +75,7 @@ class SculptPostName extends Post {
 	 * @return bool
 	 */
 	protected function is_post_visible_in_rest(): bool {
-		return rest_bool;
+		return SculptPostIsVisibleInRest;
 	}
 
 	/**
@@ -86,7 +86,7 @@ class SculptPostName extends Post {
 	 * @return bool
 	 */
 	protected function is_post_visible_in_menu(): bool {
-		return menu_bool;
+		return SculptPostIsVisibleInMenu;
 	}
 
 	/**
@@ -102,7 +102,7 @@ class SculptPostName extends Post {
 	protected function get_post_meta_schema(): array {
 		return [
 			'url' => [
-				'label' => esc_html__( 'URL', 'text_domain' ),
+				'label' => esc_html__( 'URL', 'text-domain' ),
 				'value' => get_post_meta( get_the_ID(), 'url', true ),
 			],
 		];
