@@ -2,7 +2,7 @@
 /**
  * SculptPostName Class.
  *
- * This class defines the cpt custom post type
+ * This class defines the SculptPostName CPT
  * for the plugin.
  *
  * @package SculptPluginPackage
