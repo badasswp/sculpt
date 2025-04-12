@@ -29,6 +29,8 @@ const sculptPost = async () => {
 	}
 
 	await createPostType(props);
+	await createPostAbstract(props);
+	// await createPostService(props);
 };
 
 /**
@@ -56,6 +58,54 @@ const getPostProps = async () => {
 	cli.close();
 
 	return props;
+};
+
+/**
+ * Create Post.
+ *
+ * This function creates a post abstraction for the
+ * custom post type just created.
+ *
+ * @since 1.0.0
+ *
+ * @param {Object} props
+ * @returns {Promise<void>}
+ */
+const createPostAbstract = async () => {
+	const {
+		path: pluginPath,
+		textDomain,
+		namespace,
+		underscore
+	} = await getConfig();
+
+	if (await fs.readFile(path.join(pluginPath, '/inc/Abstracts/Post.php'))) {
+		return;
+	}
+
+	const filePath = path.join(__dirname, '../../repo/inc/Abstracts/Post.php');
+
+	let fileContent = await fs.readFile(filePath, 'utf-8');
+	fileContent = fileContent
+		.replace(/\btext-domain\b/g, textDomain)
+		.replace(/\bSculptPluginNamespace\b/g, namespace)
+		.replace(/\bSculptPluginPackage\b/g, namespace)
+		.replace(/\babstract_post_options\b/g, `${underscore}_post_options`)
+		.replace(
+			/\babstract_post_column_data\b/g,
+			`${underscore}_post_column_data`
+		)
+		.replace(
+			/\babstract_post_column_labels\b/g,
+			`${underscore}_post_column_labels`
+		);
+
+	const newFilePath = path.join(
+		await getDirectory('inc/Abstracts'),
+		`Post.php`
+	);
+
+	await fs.writeFile(newFilePath, fileContent, 'utf-8');
 };
 
 /**
