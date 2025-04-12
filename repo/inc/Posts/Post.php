@@ -23,7 +23,7 @@ class SculptPostName extends Post {
 	public static $name = 'cpt';
 
 	/**
-	 * Return singular label.
+	 * Get Singular Label.
 	 *
 	 * @since 1.0.0
 	 *
@@ -34,7 +34,7 @@ class SculptPostName extends Post {
 	}
 
 	/**
-	 * Return plural label.
+	 * Get Plural Label.
 	 *
 	 * @since 1.0.0
 	 *
@@ -45,7 +45,7 @@ class SculptPostName extends Post {
 	}
 
 	/**
-	 * Return supports.
+	 * Get Support options.
 	 *
 	 * @since 1.0.0
 	 *
