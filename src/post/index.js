@@ -1,5 +1,5 @@
 import { prompt } from '../../utils/ask.js';
-import { getDirectory, isValidDirectory } from '../utils.js';
+import { getDirectory, isValidDirectory, getConfig } from '../utils.js';
 import { getPostPrompts, getPostDefaults } from './utils.js';
 
 import path from 'path';
@@ -70,40 +70,34 @@ const getPostProps = async () => {
  * @returns {Promise<void>}
  */
 const createPost = async props => {
-	if (!isValidDirectory()) {
+	if (!(await isValidDirectory())) {
 		console.error('Error: Not a valid Sculpt plugin directory.');
 		return;
 	}
 
 	const { name } = props;
 	const postProps = { ...getPostDefaults(name), ...props };
-	const {
-		description,
-		singular,
-		plural,
-		icon,
-		supports,
-		taxonomies,
-		hasArchive,
-		public: PublicPost,
-		showInRest,
-		restBase,
-		restController
-	} = postProps;
+	const { singular, plural, supports, slug, showInRest, showInMenu } =
+		postProps;
 
+	const { textDomain, namespace } = await getConfig();
 	const filePath = path.join(__dirname, '../../repo/inc/Posts/Post.php');
-	let fileContent = await fs.readFile(filePath, 'utf-8');
 
-	fileContent
-		.replace(/\bSculptPostClass\b/g, name)
-		.replace(/\bSculptPostSingular\b/g, singular)
-		.replace(/\bprops\b/g, name.toLowerCase())
-		.replace(/\bSingular_Label\b/g, singular)
-		.replace(/\bPlural_Label\b/g, plural)
-		.replace(/\btext_domain\b/g, 'obo');
+	let fileContent = await fs.readFile(filePath, 'utf-8');
+	fileContent = fileContent
+		.replace(/\bSculptPostName\b/g, name)
+		.replace(/\bSculptPostSingularLabel\b/g, singular)
+		.replace(/\bSculptPostPluralLabel\b/g, plural)
+		.replace(/\bSculptPostSupport\b/g, supports)
+		.replace(/\bSculptPostSlug\b/g, slug)
+		.replace(/\bSculptPostIsVisibleInMenu\b/g, showInMenu)
+		.replace(/\bSculptPostIsVisibleInRest\b/g, showInRest)
+		.replace(/\btext-domain\b/g, textDomain)
+		.replace(/\bSculptPluginNamespace\b/g, namespace)
+		.replace(/\bSculptPluginPackage\b/g, namespace);
 
 	const newFilePath = path.join(
-		await getDirectory('inc/Post'),
+		await getDirectory('inc/Posts'),
 		`${singular}.php`
 	);
 
