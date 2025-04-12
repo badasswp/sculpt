@@ -28,7 +28,7 @@ const sculptPost = async () => {
 		return;
 	}
 
-	createPost(props);
+	await createPostType(props);
 };
 
 /**
@@ -69,7 +69,7 @@ const getPostProps = async () => {
  * @param {Object} props
  * @returns {Promise<void>}
  */
-const createPost = async props => {
+const createPostType = async props => {
 	if (!(await isValidDirectory())) {
 		console.error('Error: Not a valid Sculpt plugin directory.');
 		return;
