@@ -12,14 +12,10 @@ export const getPostPrompts = () => ({
 	name: 'Custom Post Type: ',
 	singular: 'Singular Label: ',
 	plural: 'Plural Label: ',
-	icon: 'Dashicon: ',
 	supports: 'Supports: ',
-	taxonomies: 'Taxonomies: ',
-	hasArchive: 'Has Archive: ',
-	public: 'Public: ',
+	slug: 'Slug: ',
 	showInRest: 'Show in REST: ',
-	restBase: 'REST Base: ',
-	restController: 'REST Controller Class: '
+	showInMenu: 'Show in Menu: '
 });
 
 /**
@@ -37,13 +33,9 @@ export const getPostDefaults = name => {
 	return {
 		singular: name,
 		plural: `${name}s`,
-		icon: 'dashicons-admin-generic',
-		supports: 'title, thumbnail',
-		taxonomies: '',
-		hasArchive: 'true',
-		public: 'true',
+		supports: 'title, thumbnail, editor',
+		slug: 'cpt',
 		showInRest: 'true',
-		restBase: name,
-		restController: name
+		showInMenu: 'true'
 	};
 };
