@@ -1,6 +1,6 @@
 <?php
 /**
- * SculptPostClass Class.
+ * SculptPostName Class.
  *
  * This class defines the cpt custom post type
  * for the plugin.
@@ -12,7 +12,7 @@ namespace SculptPluginNamespace\Posts;
 
 use SculptPluginNamespace\Abstracts\Post;
 
-class SculptPostClass extends Post {
+class SculptPostName extends Post {
 	/**
 	 * Post type.
 	 *
