@@ -186,39 +186,39 @@ abstract class Post {
 		$labels = [
 			'name'          => sprintf(
 				'%1$s',
-				__( $plural_label, 'text_domain' ),
+				__( $plural_label, 'text-domain' ),
 			),
 			'singular_name' => sprintf(
 				'%1$s',
-				__( $singular_label, 'text_domain' ),
+				__( $singular_label, 'text-domain' ),
 			),
 			'add_new'       => sprintf(
 				'%1$s',
-				__( "Add New {$singular_label}", 'text_domain' ),
+				__( "Add New {$singular_label}", 'text-domain' ),
 			),
 			'add_new_item'  => sprintf(
 				'%1$s',
-				__( "Add New {$singular_label}", 'text_domain' ),
+				__( "Add New {$singular_label}", 'text-domain' ),
 			),
 			'new_item'      => sprintf(
 				'%1$s',
-				__( "New {$singular_label}", 'text_domain' ),
+				__( "New {$singular_label}", 'text-domain' ),
 			),
 			'edit_item'     => sprintf(
 				'%1$s',
-				__( "Edit {$singular_label}", 'text_domain' ),
+				__( "Edit {$singular_label}", 'text-domain' ),
 			),
 			'view_item'     => sprintf(
 				'%1$s',
-				__( "View {$singular_label}", 'text_domain' ),
+				__( "View {$singular_label}", 'text-domain' ),
 			),
 			'search_items'  => sprintf(
 				'%1$s',
-				__( "Search {$plural_label}", 'text_domain' ),
+				__( "Search {$plural_label}", 'text-domain' ),
 			),
 			'menu_name'     => sprintf(
 				'%1$s',
-				__( $plural_label, 'text_domain' ),
+				__( $plural_label, 'text-domain' ),
 			),
 		];
 
@@ -246,7 +246,7 @@ abstract class Post {
 		$columns = wp_parse_args(
 			$meta_columns,
 			[
-				'date' => esc_html__( 'Date', 'text_domain' ),
+				'date' => esc_html__( 'Date', 'text-domain' ),
 			]
 		);
 
