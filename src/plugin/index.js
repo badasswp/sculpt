@@ -270,7 +270,7 @@ const updateConfig = async props => {
 	const filePath = path.join(__dirname, '../../sculpt.json');
 
 	const fileContent = await getFile(filePath, '[]');
-	const parsedContent = JSON.parse(fileContent);
+	const parsedContent = JSON.parse(fileContent || '[]');
 	parsedContent.push({ name, ...props, path: `${process.cwd()}/${slug}` });
 
 	await fs.writeFile(filePath, JSON.stringify(parsedContent), 'utf-8');
