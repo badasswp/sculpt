@@ -132,7 +132,8 @@ const createPostService = async () => {
 	fileContent = fileContent
 		.replace(/\btext-domain\b/g, textDomain)
 		.replace(/\bSculptPluginNamespace\b/g, namespace)
-		.replace(/\bSculptPluginPackage\b/g, namespace);
+		.replace(/\bSculptPluginPackage\b/g, namespace)
+		.replace(/\bsculpt_post_types\b/g, `${underscore}_post_types`);
 
 	const newFilePath = path.join(
 		await getDirectory('inc/Services'),
