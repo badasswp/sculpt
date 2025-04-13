@@ -1,14 +1,14 @@
-import { prompt } from '../../utils/ask.js';
-import { getFile, getSlug } from '../utils.js';
-import {
-	getPluginDefaults,
-	getPluginPrompts,
-	getPluginFiles
-} from './utils.js';
-
 import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+
+import { prompt } from '../../utils/ask.js';
+import { getFile, getSlug } from '../utils.js';
+import {
+	getPluginPrompts,
+	getPluginDefaults,
+	getPluginFiles
+} from './utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -251,7 +251,7 @@ export const createPluginFiles = async props => {
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 
-	updateJsonConfig(pluginProps);
+	updateConfig(pluginProps);
 };
 
 /**
@@ -265,7 +265,7 @@ export const createPluginFiles = async props => {
  * @param {Object} props
  * @returns {Promise<void>}
  */
-const updateJsonConfig = async props => {
+const updateConfig = async props => {
 	const { name, slug } = props;
 	const filePath = path.join(__dirname, '../../sculpt.json');
 
