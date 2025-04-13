@@ -41,6 +41,25 @@ export const getPath = async () => {
 };
 
 /**
+ * Is Valid File.
+ *
+ * This function checks if the current file
+ * exists for use.
+ *
+ * @since 1.0.0
+ * @returns {Promise<boolean>} Validity.
+ */
+export const isValidFile = async file => {
+	const { path: pluginPath } = await getConfig();
+
+	try {
+		return await fs.readFile(path.join(pluginPath, file));
+	} catch {
+		return false;
+	}
+};
+
+/**
  * Is Valid Directory.
  *
  * This function checks if the current working
