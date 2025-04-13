@@ -1,6 +1,10 @@
 import { prompt } from '../../utils/ask.js';
-import { getFile } from '../utils.js';
-import { getPluginDefaults, getPluginPrompts, getSlug } from './utils.js';
+import { getFile, getSlug } from '../utils.js';
+import {
+	getPluginDefaults,
+	getPluginPrompts,
+	getPluginFiles
+} from './utils.js';
 
 import path from 'path';
 import fs from 'fs/promises';
@@ -96,37 +100,6 @@ export const createPluginDirectory = async props => {
 		await fs.mkdir(slug, { recursive: true });
 		console.log(`Plugin folder created: ${slug}`);
 	}
-};
-
-/**
- * Get Plugin files.
- *
- * This function retrieves the list of plugin files
- * to be created in the plugin directory.
- *
- * @since 1.0.0
- * @returns {string[]}
- */
-export const getPluginFiles = () => {
-	return [
-		'.editorconfig',
-		'.gitignore',
-		'.wp-env.json',
-		'composer.json',
-		'LICENSE',
-		'package.json',
-		'phpcs.xml',
-		'phpunit.xml',
-		'plugin.php',
-		'README.md',
-		'readme.txt',
-		'inc/Abstracts/Service.php',
-		'inc/Core/Container.php',
-		'inc/Interfaces/Kernel.php',
-		'inc/Services/Admin.php',
-		'inc/Plugin.php',
-		'bin/setup.sh'
-	];
 };
 
 /**
