@@ -1,3 +1,5 @@
+import { getUnderscore } from '../utils.js';
+
 /**
  * Get Post Prompts.
  *
@@ -34,7 +36,7 @@ export const getPostDefaults = name => {
 		singular: name,
 		plural: `${name}s`,
 		supports: 'title, thumbnail, editor',
-		slug: 'cpt',
+		slug: getUnderscore(name),
 		showInRest: 'true',
 		showInMenu: 'true'
 	};
