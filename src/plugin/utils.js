@@ -5,7 +5,7 @@ import {
 	getAutoload,
 	getUnderscore,
 	getRandomPort
-} from '../utils';
+} from '../utils.js';
 
 /**
  * Get Plugin Prompts.
