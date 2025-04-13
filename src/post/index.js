@@ -1,5 +1,10 @@
 import { prompt } from '../../utils/ask.js';
-import { getDirectory, isValidDirectory, getConfig } from '../utils.js';
+import {
+	getDirectory,
+	isValidFile,
+	isValidDirectory,
+	getConfig
+} from '../utils.js';
 import { getPostPrompts, getPostDefaults } from './utils.js';
 
 import path from 'path';
@@ -30,7 +35,7 @@ const sculptPost = async () => {
 
 	await createPostType(props);
 	await createPostAbstract(props);
-	// await createPostService(props);
+	await createPostService(props);
 };
 
 /**
@@ -72,14 +77,9 @@ const getPostProps = async () => {
  * @returns {Promise<void>}
  */
 const createPostAbstract = async () => {
-	const {
-		path: pluginPath,
-		textDomain,
-		namespace,
-		underscore
-	} = await getConfig();
+	const { textDomain, namespace, underscore } = await getConfig();
 
-	if (await fs.readFile(path.join(pluginPath, '/inc/Abstracts/Post.php'))) {
+	if (await isValidFile('/inc/Abstracts/Post.php')) {
 		return;
 	}
 
@@ -102,6 +102,40 @@ const createPostAbstract = async () => {
 
 	const newFilePath = path.join(
 		await getDirectory('inc/Abstracts'),
+		`Post.php`
+	);
+
+	await fs.writeFile(newFilePath, fileContent, 'utf-8');
+};
+
+/**
+ * Create Post.
+ *
+ * This function creates a post service for the
+ * custom post type just created.
+ *
+ * @since 1.0.0
+ *
+ * @param {Object} props
+ * @returns {Promise<void>}
+ */
+const createPostService = async () => {
+	const { textDomain, namespace } = await getConfig();
+
+	if (await isValidFile('/inc/Services/Post.php')) {
+		return;
+	}
+
+	const filePath = path.join(__dirname, '../../repo/inc/Services/Post.php');
+
+	let fileContent = await fs.readFile(filePath, 'utf-8');
+	fileContent = fileContent
+		.replace(/\btext-domain\b/g, textDomain)
+		.replace(/\bSculptPluginNamespace\b/g, namespace)
+		.replace(/\bSculptPluginPackage\b/g, namespace);
+
+	const newFilePath = path.join(
+		await getDirectory('inc/Services'),
 		`Post.php`
 	);
 
