@@ -1,15 +1,15 @@
+import path from 'path';
+import fs from 'fs/promises';
+import { fileURLToPath } from 'url';
+
 import { prompt } from '../../utils/ask.js';
+import { getPostPrompts, getPostDefaults } from './utils.js';
 import {
 	getDirectory,
 	isValidFile,
 	isValidDirectory,
 	getConfig
 } from '../utils.js';
-import { getPostPrompts, getPostDefaults } from './utils.js';
-
-import path from 'path';
-import fs from 'fs/promises';
-import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
