@@ -120,7 +120,7 @@ const createPostAbstract = async () => {
  * @returns {Promise<void>}
  */
 const createPostService = async () => {
-	const { textDomain, namespace } = await getConfig();
+	const { textDomain, namespace, underscore } = await getConfig();
 
 	if (await isValidFile('/inc/Services/Post.php')) {
 		return;
