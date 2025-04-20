@@ -100,6 +100,35 @@ const createPostAbstract = async () => {
 			`${underscore}_post_column_labels`
 		);
 
+	// Beginning of the file change...
+
+	// Append Post class to Container...
+	const classToAdd = 'Post::class';
+
+	fileContent = fileContent.replace(
+		/static::\$services\s*=\s*\[(.*?)\];/s,
+		(match, servicesList) => {
+			const services = servicesList
+				.split(',')
+				.map(s => s.trim())
+				.filter(s => s); // Remove empty strings
+
+			// Avoid duplicates
+			if (!services.includes(classToAdd)) {
+				services.push(classToAdd);
+			}
+
+			const newServicesBlock =
+				'static::$services = [\n' +
+				services.map(s => `\t\t\t${s}`).join(',\n') +
+				',\n\t\t];';
+
+			return newServicesBlock;
+		}
+	);
+
+	// Ending of the file change...
+
 	const newFilePath = path.join(
 		await getDirectory('inc/Abstracts'),
 		`Post.php`
