@@ -24,6 +24,11 @@ const __dirname = path.dirname(__filename);
  * @returns {Promise<void>}
  */
 const sculptPost = async () => {
+	if (!(await isValidDirectory())) {
+		console.error('Error: Not a valid Sculpt plugin directory.');
+		return;
+	}
+
 	const props = await getPostProps();
 
 	if (!props.name) {
@@ -184,11 +189,6 @@ const createPostService = async () => {
  * @returns {Promise<void>}
  */
 const createPostType = async props => {
-	if (!(await isValidDirectory())) {
-		console.error('Error: Not a valid Sculpt plugin directory.');
-		return;
-	}
-
 	const { name } = props;
 	const postProps = { ...getPostDefaults(name), ...props };
 	const { singular, plural, supports, slug, showInRest, showInMenu } =
