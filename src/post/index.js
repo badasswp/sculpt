@@ -45,6 +45,9 @@ const sculptPost = async () => {
 
 	await createPostAbstract(props);
 	await createPostService(props);
+	await appendPostToContainer();
+	await appendPostToService(props);
+	await createPostType(props);
 };
 
 /**
@@ -108,35 +111,6 @@ const createPostAbstract = async () => {
 			/\babstract_post_column_labels\b/g,
 			`${underscore}_post_column_labels`
 		);
-
-	// Beginning of the file change...
-
-	// Append Post class to Container...
-	const classToAdd = 'Post::class';
-
-	fileContent = fileContent.replace(
-		/static::\$services\s*=\s*\[(.*?)\];/s,
-		(match, servicesList) => {
-			const services = servicesList
-				.split(',')
-				.map(s => s.trim())
-				.filter(s => s); // Remove empty strings
-
-			// Avoid duplicates
-			if (!services.includes(classToAdd)) {
-				services.push(classToAdd);
-			}
-
-			const newServicesBlock =
-				'static::$services = [\n' +
-				services.map(s => `\t\t\t${s}`).join(',\n') +
-				',\n\t\t];';
-
-			return newServicesBlock;
-		}
-	);
-
-	// Ending of the file change...
 
 	const newFilePath = path.join(
 		await getDirectory('inc/Abstracts'),
@@ -221,6 +195,128 @@ const createPostType = async props => {
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	console.log(`Custom post type created: ${singular}`);
+};
+
+/**
+ * Append Post to Container.
+ *
+ * This function appends the post to the container
+ * in the Core directory.
+ *
+ * @since 1.0.0
+ * @returns {Promise<void>}
+ */
+const appendPostToContainer = async () => {
+	if (!(await isValidFile('/inc/Core/Container.php'))) {
+		return;
+	}
+
+	const filePath = path.join(await getDirectory('inc/Core'), `Container.php`);
+	let fileContent = await fs.readFile(filePath, 'utf-8');
+
+	const classToAdd = 'Post::class';
+	const { namespace } = await getConfig();
+
+	const kernelNamespace = `use ${namespace}\\Interfaces\\Kernel;`;
+	const appendNamespace = `use ${namespace}\\Services\\Post;`;
+
+	if (!fileContent.includes(appendNamespace)) {
+		console.log('Appending Post to Container', appendNamespace);
+		fileContent = fileContent.replace(
+			kernelNamespace,
+			`${kernelNamespace}\n${appendNamespace}`
+		);
+	}
+
+	fileContent = fileContent.replace(
+		/static::\$services\s*=\s*\[(.*?)\];/s,
+		(match, servicesList) => {
+			const services = servicesList
+				.split(',')
+				.map(s => s.trim())
+				.filter(s => s);
+
+			// Avoid duplicates
+			if (!services.includes(classToAdd)) {
+				services.push(classToAdd);
+			}
+
+			const newServicesBlock =
+				'static::$services = [\n' +
+				services.map(s => `\t\t\t${s}`).join(',\n') +
+				',\n\t\t];';
+
+			return newServicesBlock;
+		}
+	);
+
+	const newFilePath = path.join(
+		await getDirectory('inc/Core'),
+		`Container.php`
+	);
+
+	await fs.writeFile(newFilePath, fileContent, 'utf-8');
+};
+
+/**
+ * Append Post to Container.
+ *
+ * This function appends the post to the container
+ * in the Core directory.
+ *
+ * @since 1.0.0
+ * @returns {Promise<void>}
+ */
+const appendPostToService = async props => {
+	const { name } = props;
+	if (!(await isValidFile('/inc/Services/Post.php'))) {
+		return;
+	}
+
+	const filePath = path.join(await getDirectory('inc/Services'), `Post.php`);
+	let fileContent = await fs.readFile(filePath, 'utf-8');
+
+	const classToAdd = `${name}::class`;
+	const { namespace } = await getConfig();
+
+	const kernelNamespace = `use ${namespace}\\Interfaces\\Kernel;`;
+	const appendNamespace = `use ${namespace}\\Posts\\${name};`;
+
+	if (!fileContent.includes(appendNamespace)) {
+		fileContent = fileContent.replace(
+			kernelNamespace,
+			`${kernelNamespace}\n${appendNamespace}`
+		);
+	}
+
+	fileContent = fileContent.replace(
+		/\$post_types\s*=\s*\[(.*?)\];/s,
+		(match, servicesList) => {
+			const services = servicesList
+				.split(',')
+				.map(s => s.trim())
+				.filter(s => s);
+
+			// Avoid duplicates
+			if (!services.includes(classToAdd)) {
+				services.push(classToAdd);
+			}
+
+			const newServicesBlock =
+				'$post_types = [\n' +
+				services.map(s => `\t\t\t${s}`).join(',\n') +
+				',\n\t\t];';
+
+			return newServicesBlock;
+		}
+	);
+
+	const newFilePath = path.join(
+		await getDirectory('inc/Services'),
+		`Post.php`
+	);
+
+	await fs.writeFile(newFilePath, fileContent, 'utf-8');
 };
 
 export default sculptPost;
