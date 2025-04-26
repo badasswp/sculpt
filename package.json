@@ -20,7 +20,10 @@
 	],
 	"files": [
 		"index.js",
-		"utils"
+		"pnpm-lock.yaml",
+		"utils",
+		"src",
+		"repo"
 	],
 	"scripts": {
 		"verify": "prettier --check \"./**/*.{js,json}\"",
