@@ -4,6 +4,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"type": "module",
+	"main": "index.js",
 	"bin": {
 		"sculpt-cli": "index.js",
 		"sculpt": "index.js"
