@@ -38,7 +38,11 @@ const sculptPost = async () => {
 		return;
 	}
 
-	await createPostType(props);
+	if (await isValidFile(`/inc/Posts/${props.name}.php`)) {
+		console.error(`Error: Custom post type ${props.name} already exists.`);
+		return;
+	}
+
 	await createPostAbstract(props);
 	await createPostService(props);
 };
