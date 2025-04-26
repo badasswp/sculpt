@@ -13,7 +13,7 @@ If you are a fan of Laravel and how it presents an Object-Oriented approach to b
 Install via NPM like so:
 
 ```bash
-npm install -g sculpt-cli
+npm install -g @badasswp/sculpt-cli
 ```
 
 Now you should be able to run it from anywhere in your command like so:
