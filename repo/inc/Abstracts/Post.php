@@ -236,18 +236,15 @@ abstract class Post {
 	public function register_post_column_labels( $columns ): array {
 		unset( $columns['date'] );
 
-		$meta_columns = array_map(
-			function ( $meta ) {
-				return $meta['label'];
-			},
-			$this->get_post_meta_schema()
-		);
+		foreach ( $this->get_post_meta_schema() as $key => $value ) {
+			$columns[ $key ] = $value['label'];
+		}
 
 		$columns = wp_parse_args(
-			$meta_columns,
 			[
 				'date' => esc_html__( 'Date', 'text-domain' ),
-			]
+			],
+			$columns,
 		);
 
 		/**
