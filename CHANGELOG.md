@@ -4,6 +4,7 @@
 
 - Fix issues with Config update.
 - Fix `getSlug` anomaly.
+- Fix issue with `.npmignore` when NPM installs package.
 - Updated `Post` abstraction methods.
 - Updated `Post` service filters.
 - Update README docs.
