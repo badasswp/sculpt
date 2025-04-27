@@ -31,10 +31,45 @@ describe('getDescription', () => {
 describe('getSlug', () => {
 	it('should return a slug', () => {
 		const getSlug = jest.fn(name => {
-			return getSanitizedText(name).toLowerCase().replace(/\s/g, '-');
+			return name
+				.toLowerCase()
+				.trim()
+				.replace(/[^a-z0-9\s-]/g, '')
+				.replace(/\s+/g, '-')
+				.replace(/-+/g, '-');
 		});
 
 		const expected = getSlug('Search & Replace');
+
+		expect(expected).toBe('search-replace');
+	});
+
+	it('should return the same slug, when passed a valid slug', () => {
+		const getSlug = jest.fn(name => {
+			return name
+				.toLowerCase()
+				.trim()
+				.replace(/[^a-z0-9\s-]/g, '')
+				.replace(/\s+/g, '-')
+				.replace(/-+/g, '-');
+		});
+
+		const expected = getSlug('search-replace');
+
+		expect(expected).toBe('search-replace');
+	});
+
+	it('should return a valid slug when passed a slug with extra hyphens', () => {
+		const getSlug = jest.fn(name => {
+			return name
+				.toLowerCase()
+				.trim()
+				.replace(/[^a-z0-9\s-]/g, '')
+				.replace(/\s+/g, '-')
+				.replace(/-+/g, '-');
+		});
+
+		const expected = getSlug('search--replace');
 
 		expect(expected).toBe('search-replace');
 	});
