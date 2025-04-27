@@ -150,7 +150,11 @@ export const createPluginFiles = async props => {
 			await fs.mkdir(folder, { recursive: true });
 		}
 
-		const filePath = path.join(__dirname, '../../repo', file);
+		const filePath = path.join(
+			__dirname,
+			'../../repo',
+			file !== '.gitignore' ? file : '.npmignore'
+		);
 		let fileContent = await fs.readFile(filePath, 'utf-8');
 
 		switch (file) {
@@ -253,7 +257,10 @@ export const createPluginFiles = async props => {
 				break;
 		}
 
-		const newFilePath = path.join(process.cwd(), `${slug}/${file}`);
+		const newFilePath = path.join(
+			process.cwd(),
+			`${slug}/${file !== '.gitignore' ? file : '.gitignore'}`
+		);
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 
