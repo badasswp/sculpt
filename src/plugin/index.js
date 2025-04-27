@@ -277,8 +277,16 @@ const updateConfig = async props => {
 
 	const fileContent = await getFile(filePath, '[]');
 	const parsedContent = JSON.parse(fileContent || '[]');
-	parsedContent.push({ name, ...props, path: `${process.cwd()}/${slug}` });
 
+	// Let's check if the plugin already exists
+	const existingPlugin = parsedContent.find(
+		plugin => plugin.path === `${process.cwd()}/${slug}`
+	);
+	if (existingPlugin) {
+		parsedContent.splice(parsedContent.indexOf(existingPlugin), 1);
+	}
+
+	parsedContent.push({ name, ...props, path: `${process.cwd()}/${slug}` });
 	await fs.writeFile(filePath, JSON.stringify(parsedContent), 'utf-8');
 };
 
