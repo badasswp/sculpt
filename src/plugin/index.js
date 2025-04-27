@@ -72,7 +72,13 @@ export const getPluginProps = async () => {
  * @returns {Promise<void>}
  */
 export const createPlugin = async props => {
-	await createPluginDirectory(props);
+	if (await createPluginDirectory(props)) {
+		const { name } = props;
+		const slug = getSlug(props?.slug || name);
+		console.error(`Plugin folder already exists: ${slug}`);
+		return;
+	}
+
 	await createPluginFiles(props);
 
 	console.log(`Plugin created: ${props.name}`);
@@ -87,7 +93,7 @@ export const createPlugin = async props => {
  * @since 1.0.0
  *
  * @param {Object} props
- * @returns {Promise<void>}
+ * @returns {Promise<boolean>}
  */
 export const createPluginDirectory = async props => {
 	const { name } = props;
@@ -95,7 +101,7 @@ export const createPluginDirectory = async props => {
 
 	try {
 		await fs.access(slug);
-		console.log(`Plugin folder already exists: ${slug}`);
+		return true;
 	} catch {
 		await fs.mkdir(slug, { recursive: true });
 		console.log(`Plugin folder created: ${slug}`);
