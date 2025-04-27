@@ -11,8 +11,6 @@
 
 namespace SculptPluginNamespace\Abstracts;
 
-use SculptPluginNamespace\Core\Plugin;
-
 /**
  * Post class.
  */
