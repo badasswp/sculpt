@@ -221,7 +221,6 @@ const appendPostToContainer = async () => {
 	const appendNamespace = `use ${namespace}\\Services\\Post;`;
 
 	if (!fileContent.includes(appendNamespace)) {
-		console.log('Appending Post to Container', appendNamespace);
 		fileContent = fileContent.replace(
 			kernelNamespace,
 			`${kernelNamespace}\n${appendNamespace}`
