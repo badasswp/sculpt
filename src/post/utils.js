@@ -14,8 +14,6 @@ export const getPostPrompts = () => ({
 	name: 'Custom Post Type: ',
 	singular: 'Singular Label: ',
 	plural: 'Plural Label: ',
-	supports: 'Supports: ',
-	slug: 'Slug: ',
 	showInRest: 'Show in REST: ',
 	showInMenu: 'Show in Menu: '
 });
@@ -35,7 +33,7 @@ export const getPostDefaults = name => {
 	return {
 		singular: name,
 		plural: `${name}s`,
-		supports: 'title, thumbnail, editor',
+		supports: "'title', 'thumbnail', 'editor'",
 		slug: getUnderscore(name),
 		showInRest: 'true',
 		showInMenu: 'true'
