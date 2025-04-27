@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3
+
+- Fix issues with Config update.
+- Fix `getSlug` anomaly.
+- Updated `Post` abstraction methods.
+- Updated `Post` service filters.
+- Update README docs.
+
 ## 1.0.2
 
 - Ensure `repo/.gitignore` is published to NPM.
