@@ -68,10 +68,47 @@ class Post extends Service implements Kernel {
 		 * @since 1.0.0
 		 */
 		foreach ( $this->objects as $object ) {
-			add_filter( 'manage_' . $object->get_name() . '_posts_columns', [ $object, 'register_post_columns' ], 10, 1 );
-			add_action( 'manage_' . $object->get_name() . '_posts_custom_column', [ $object, 'register_post_column_data' ], 10, 2 );
-			add_action( 'publish_' . $object->get_name(), [ $object, 'save_post_type' ], 10, 2 );
-			add_action( 'wp_trash_post', [ $object, 'delete_post_type' ], 10, 2 );
+			add_filter(
+				'manage_' . $object->get_name() . '_posts_columns',
+				[ $object, 'register_post_column_labels' ],
+				10,
+				1
+			);
+
+			add_filter(
+				'manage_edit-' . $object->get_name() . '_sortable_columns',
+				[ $object, 'register_post_sortable_columns' ],
+				10,
+				1
+			);
+
+			add_action(
+				'manage_' . $object->get_name() . '_posts_custom_column',
+				[ $object, 'register_post_column_data' ],
+				10,
+				2
+			);
+
+			add_action(
+				'publish_' . $object->get_name(),
+				[ $object, 'save_post_type' ],
+				10,
+				2
+			);
+
+			add_action(
+				'wp_trash_post',
+				[ $object, 'delete_post_type' ],
+				10,
+				2
+			);
+
+			add_action(
+				'pre_get_posts',
+				[ $object, 'register_post_column_sorting' ],
+				10,
+				1
+			);
 		}
 	}
 
