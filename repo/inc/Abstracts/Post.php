@@ -271,7 +271,13 @@ abstract class Post {
 		$meta_columns = $this->get_post_meta_schema();
 
 		if ( isset( $meta_columns[ $column ] ) ) {
-			echo $meta_columns[ $column ]['value'] ?? ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			$value = $meta_columns[ $column ]['value'] ?? '';
+
+			if ( '' === $value ) {
+				$value = $meta_columns[ $column ]['default'] ?? '';
+			}
+
+			echo esc_html( $value );
 		}
 
 		/**
