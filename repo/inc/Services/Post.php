@@ -53,6 +53,19 @@ class Post extends Service implements Kernel {
 	}
 
 	/**
+	 * Register Post type implementation.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function register_post_types(): void {
+		foreach ( $this->objects as $object ) {
+			$object->register_post_type();
+		}
+	}
+
+	/**
 	 * Bind to WP.
 	 *
 	 * @since 1.0.0
@@ -109,19 +122,6 @@ class Post extends Service implements Kernel {
 				10,
 				1
 			);
-		}
-	}
-
-	/**
-	 * Register Post type implementation.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function register_post_types(): void {
-		foreach ( $this->objects as $object ) {
-			$object->register_post_type();
 		}
 	}
 }
