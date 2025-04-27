@@ -102,8 +102,10 @@ class SculptPostName extends Post {
 	protected function get_post_meta_schema(): array {
 		return [
 			'url' => [
-				'label' => esc_html__( 'URL', 'text-domain' ),
-				'value' => get_post_meta( get_the_ID(), 'url', true ),
+				'label'   => esc_html__( 'URL', 'text-domain' ),
+				'value'   => get_post_meta( get_the_ID(), 'url', true ),
+				'type'    => 'string',
+				'default' => 'https://example.com',
 			],
 		];
 	}
