@@ -300,7 +300,7 @@ abstract class Post {
 	 * @return void
 	 */
 	public function register_post_column_sorting( $query ): void {
-		if ( ! is_admin() ) {
+		if ( ! is_admin() || ! $query->is_main_query() ) {
 			return;
 		}
 
@@ -315,6 +315,24 @@ abstract class Post {
 				$query->set( 'meta_key', $value );
 			}
 		}
+	}
+
+	/**
+	 * Register Sortable Columns.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string[] $columns Column names.
+	 * @return string[]
+	 */
+	public function register_post_sortable_columns( $columns ): array {
+		$meta_columns = $this->get_post_meta_schema();
+
+		foreach ( $meta_columns as $key => $value ) {
+			$columns[ $key ] = $key;
+		}
+
+		return $columns;
 	}
 
 	/**
