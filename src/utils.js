@@ -168,7 +168,12 @@ export const getDescription = name => {
  * @returns {string}
  */
 export const getSlug = name => {
-	return getSanitizedText(name).toLowerCase().replace(/\s/g, '-');
+	return name
+		.toLowerCase()
+		.trim()
+		.replace(/[^a-z0-9\s-]/g, '')
+		.replace(/\s+/g, '-')
+		.replace(/-+/g, '-');
 };
 
 /**
