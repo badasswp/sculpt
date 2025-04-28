@@ -8,7 +8,8 @@ import {
 	getDirectory,
 	isValidFile,
 	isValidDirectory,
-	getConfig
+	getConfig,
+	getNamespace
 } from '../utils.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -190,7 +191,7 @@ const createPostType = async props => {
 
 	const newFilePath = path.join(
 		await getDirectory('inc/Posts'),
-		`${singular}.php`
+		`${getNamespace(singular)}.php`
 	);
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
