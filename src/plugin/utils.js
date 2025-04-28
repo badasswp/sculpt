@@ -1,7 +1,7 @@
 import {
 	getDescription,
 	getSlug,
-	getNameSpace,
+	getNamespace,
 	getAutoload,
 	getUnderscore,
 	getRandomPort
@@ -44,7 +44,7 @@ export const getPluginDefaults = name => {
 		description: getDescription(name),
 		slug: getSlug(name),
 		tags: 'plugin, wordpress',
-		namespace: getNameSpace(name),
+		namespace: getNamespace(name),
 		url: 'https://example.com',
 		author: 'John Doe',
 		authorEmail: 'john@doe.com',

@@ -187,7 +187,7 @@ export const getSlug = name => {
  * @param {string} name - The plugin name.
  * @returns {string}
  */
-export const getNameSpace = name => {
+export const getNamespace = name => {
 	return getSanitizedText(name)
 		.split(' ')
 		.map(item => {
