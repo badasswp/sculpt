@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- Fix issues with Stud casing for post types.
+- Update README docs.
+
 ## 1.0.3
 
 - Fix issues with Config update.
