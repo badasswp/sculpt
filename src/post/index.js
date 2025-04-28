@@ -178,7 +178,7 @@ const createPostType = async props => {
 
 	let fileContent = await fs.readFile(filePath, 'utf-8');
 	fileContent = fileContent
-		.replace(/\bSculptPostName\b/g, name)
+		.replace(/\bSculptPostName\b/g, getNamespace(name))
 		.replace(/\bSculptPostSingularLabel\b/g, singular)
 		.replace(/\bSculptPostPluralLabel\b/g, plural)
 		.replace(/\bSculptPostSupport\b/g, supports)
@@ -276,11 +276,11 @@ const appendPostToService = async props => {
 	const filePath = path.join(await getDirectory('inc/Services'), `Post.php`);
 	let fileContent = await fs.readFile(filePath, 'utf-8');
 
-	const classToAdd = `${name}::class`;
+	const classToAdd = `${getNamespace(name)}::class`;
 	const { namespace } = await getConfig();
 
 	const kernelNamespace = `use ${namespace}\\Interfaces\\Kernel;`;
-	const appendNamespace = `use ${namespace}\\Posts\\${name};`;
+	const appendNamespace = `use ${namespace}\\Posts\\${getNamespace(name)};`;
 
 	if (!fileContent.includes(appendNamespace)) {
 		fileContent = fileContent.replace(
