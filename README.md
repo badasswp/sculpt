@@ -36,6 +36,14 @@ This will prompt you for a list of values needed to scaffold a new plugin with a
 
 <img width="800" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/9877c9d5-2fcd-4863-9c83-8021feb66e0b">
 
+To launch your new plugin, you can simply use the command:
+
+```bash
+yarn boot
+```
+
+This should install all PHP and JS dependencies and launch your new plugin using a `.wp-env` docker configuration.
+
 ### Creating A Custom Post Type (CPT)
 
 Implementing a custom post type is as simple as using the `post` command on your terminal like so:
