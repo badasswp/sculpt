@@ -10,8 +10,6 @@ Sculpt is a simple, but powerful CLI tool for building enterprise WP plugins ver
 
 If you are a fan of Laravel and how it presents an Object-Oriented approach to building clean, robust and scalabale PHP applications using the `artisan make` commands, then you would definitely love **Sculpt**.
 
-<img width="600" alt="sculpt-cli" src="https://github.com/user-attachments/assets/ae5b3f15-f56b-4970-bcc0-0edd03db2dea">
-
 ## Getting Started
 
 Install via NPM like so:
