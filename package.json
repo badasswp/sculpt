@@ -5,6 +5,10 @@
 	"license": "MIT",
 	"type": "module",
 	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/badasswp/sculpt.git"
+	},
 	"bin": {
 		"sculpt-cli": "index.js",
 		"sculpt": "index.js"
