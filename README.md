@@ -20,8 +20,30 @@ Install via NPM like so:
 npm install -g @badasswp/sculpt-cli
 ```
 
-Now you should be able to run it from anywhere in your command like so:
+Now you should be able to run it from anywhere on your terminal like so:
 
 ```bash
 sculpt
 ```
+
+### Creating A Plugin
+
+Implementing a new WordPress plugin is as simple as using the `plugin` command on your terminal like so:
+
+```bash
+sculpt plugin
+```
+
+This will prompt you for a list of values needed to scaffold a new plugin with all the necessary abstractions, interfaces, base classes & core files, ready for your use.
+
+### Creating A Custom Post Type (CPT)
+
+Implementing a custom post type is as simple as using the `post` command on your terminal like so:
+
+```bash
+sculpt post
+```
+
+This will ultimately prompt you for a list of values related to your custom post type like so:
+
+Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
