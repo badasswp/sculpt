@@ -36,6 +36,8 @@ This will prompt you for a list of values needed to scaffold a new plugin with a
 
 <img width="800" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/9877c9d5-2fcd-4863-9c83-8021feb66e0b">
 
+---
+
 To launch your new plugin, you can simply use the command:
 
 ```bash
@@ -43,6 +45,8 @@ yarn boot
 ```
 
 This should install all PHP and JS dependencies and launch your new plugin using a `.wp-env` docker configuration.
+
+To understand how your new plugin is architectured, please take a look at the Design Methodology section.
 
 ### Creating A Custom Post Type (CPT)
 
@@ -56,4 +60,67 @@ This will ultimately prompt you for a list of values related to your custom post
 
 <img width="650" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
 
+---
+
 Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
+
+## Design Methodology
+
+Sculpt uses a design pattern we call **FASI (Factory-Singleton)**. This design pattern is made up of two parts: The **factory** which holds the services to be instantiated, and the **singletons** which are the services themselves.
+
+During run time, the plugin loads all the singletons found in the Container by creating a single instance using the Service parent abstraction's `get_instance` and then proceeds to run its logic by invoking the `register` method for each of them. The services contain logic that effectively bind to WP hooks at run time.
+
+<img width="1083" alt="FASI" src="https://github.com/badasswp/xama/assets/149586343/0992684e-691a-4e15-9759-17cc6274fe7d">
+
+### Container
+
+The Container basically serves as a Factory class for initialising the plugin's Services. This class is responsible for managing and registering various services used by your plugin. You can see this in the code snippet below:
+
+```php
+public function __construct() {
+    self::$services = [
+        \HelloWorld\Services\Auth::class,
+        \HelloWorld\Services\Ajax::class,
+        \HelloWorld\Services\Assets::class,
+        \HelloWorld\Services\Boot::class,
+        \HelloWorld\Services\Controller::class,
+        \HelloWorld\Services\Editor::class,
+        \HelloWorld\Services\Menu::class,
+        \HelloWorld\Services\MetaBox::class,
+        \HelloWorld\Services\Notices::class,
+        \HelloWorld\Services\Post::class,
+        \HelloWorld\Services\REST::class,
+        \HelloWorld\Services\Settings::class,
+        \HelloWorld\Services\Taxonomy::class,
+        \HelloWorld\Services\Template::class,
+    ];
+  }
+
+public function register(): void {
+    foreach ( self::$services as $service ) {
+        ( $service::get_instance() )->register();
+    }
+}
+```
+
+### Services
+
+A Service is basically a Singleton instance which extends the Service abstraction. It contains the high level logic that binds custom logic to WordPress hooks. An example is shown below:
+
+```php
+use HelloWorld\Abstracts\Service;
+use HelloWorld\Interfaces\Kernel;
+
+class YourService extends Service implements Kernel {
+    /**
+     * Bind to WP.
+     *
+     * @return void
+     */
+    public function register(): void {
+        // bind your hooks here...
+    }
+}
+```
+
+<br/>
