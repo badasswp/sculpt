@@ -38,6 +38,10 @@ This will prompt you for a list of values needed to scaffold a new plugin with a
 
 ---
 
+<img width="1439" alt="sculpt-vscode" src="https://github.com/user-attachments/assets/9e997b6f-5b51-44e9-920c-fb51f89e5a9a" />
+
+---
+
 To launch your new plugin, you can simply use the command:
 
 ```bash
