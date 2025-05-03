@@ -68,6 +68,17 @@ This will ultimately prompt you for a list of values related to your custom post
 
 Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
 
+#### Behind the Scenes
+
+Sculpt will attempt to create a custom post type **concrete** class for you based on the values you have provided as well as the following classes:
+
+- Post Abstraction
+- Post Service
+
+The Post abstraction would take care of most of the heavy lifting for your custom post type such as post type registration and its unique characteristics.
+
+The Post service would take of binding the custom post type's logic to the necessary WP hooks at run time.
+
 ## Design Methodology
 
 Sculpt uses a design pattern we call **FASI (Factory-Singleton)**. This design pattern is made up of two parts: The **factory** which holds the services to be instantiated, and the **singletons** which are the services themselves.
