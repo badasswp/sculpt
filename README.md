@@ -50,7 +50,7 @@ yarn boot
 
 This should install all PHP and JS dependencies and launch your new plugin using a `.wp-env` docker configuration.
 
-To understand how your new plugin is architectured, please take a look at the [Design Methodology](https://github.com/badasswp/sculpt/edit/master/README.md#design-methodology) section.
+To understand how your new plugin is architectured, please take a look at the [Design Methodology](https://github.com/badasswp/sculpt/blob/master/README.md#design-methodology) section.
 
 ### Creating A Custom Post Type (CPT)
 
