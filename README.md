@@ -34,7 +34,7 @@ sculpt plugin
 
 This will prompt you for a list of values needed to scaffold a new plugin with all the necessary abstractions, interfaces, base classes & core files, ready for your use.
 
-<img width="600" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/9877c9d5-2fcd-4863-9c83-8021feb66e0b">
+<img width="800" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/9877c9d5-2fcd-4863-9c83-8021feb66e0b">
 
 ### Creating A Custom Post Type (CPT)
 
@@ -46,6 +46,6 @@ sculpt post
 
 This will ultimately prompt you for a list of values related to your custom post type like so:
 
-<img width="600" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+<img width="650" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
 
 Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
