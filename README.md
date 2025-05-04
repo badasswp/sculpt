@@ -81,6 +81,35 @@ The Post abstraction would take care of most of the heavy lifting for your custo
 
 The Post service would take of binding the custom post type's logic to the necessary WP hooks at run time.
 
+### Creating A Custom Taxonomy
+
+Implementing a custom taxonomy is as simple as using the `taxonomy` command on your terminal like so:
+
+```bash
+sculpt taxonomy
+```
+
+This will ultimately prompt you for a list of values related to your custom taxonomy like so:
+
+<img width="650" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+
+---
+
+Once you're done providing those values, your new custom taxonomy would be implemented automatically and wired up correctly to the appropriate WP hooks.
+
+<img width="1442" alt="sculpt-vscode-post" src="https://github.com/user-attachments/assets/b922a03a-e5a8-4dd4-b188-3afd991b0af5" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create a custom taxonomy **concrete** class for you based on the values you have provided as well as the following classes:
+
+- Taxonomy Abstraction
+- Taxonomy Service
+
+The Taxonomy abstraction would take care of most of the heavy lifting for your custom taxonomy such as taxonomy registration and defining its options.
+
+The Taxonomy service would take of binding the custom taxonomy's logic to the necessary WP hooks at run time.
+
 ## Design Methodology
 
 Sculpt uses a design pattern we call **FASI (Factory-Singleton)**. This design pattern is made up of two parts: The **factory** which holds the services to be instantiated, and the **singletons** which are the services themselves.
