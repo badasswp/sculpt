@@ -38,7 +38,7 @@ This will prompt you for a list of values needed to scaffold a new plugin with a
 
 ---
 
-<img width="1439" alt="sculpt-vscode" src="https://github.com/user-attachments/assets/9e997b6f-5b51-44e9-920c-fb51f89e5a9a" />
+<img width="1439" alt="sculpt-vscode-plugin" src="https://github.com/user-attachments/assets/9e997b6f-5b51-44e9-920c-fb51f89e5a9a" />
 
 ---
 
@@ -62,11 +62,13 @@ sculpt post
 
 This will ultimately prompt you for a list of values related to your custom post type like so:
 
-<img width="650" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+<img width="650" alt="sculpt-post" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
 
 ---
 
 Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
+
+<img width="1442" alt="sculpt-vscode-post" src="https://github.com/user-attachments/assets/b922a03a-e5a8-4dd4-b188-3afd991b0af5" />
 
 #### Behind the Scenes
 
