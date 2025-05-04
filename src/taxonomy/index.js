@@ -179,7 +179,7 @@ const createTaxonomy = async props => {
 
 	let fileContent = await fs.readFile(filePath, 'utf-8');
 	fileContent = fileContent
-		.replace(/\bsculptTaxonomyName\b/g, getNamespace(name))
+		.replace(/\bSculptTaxonomyName\b/g, getNamespace(name))
 		.replace(/\bSculptTaxonomySingularLabel\b/g, singular)
 		.replace(/\bSculptTaxonomyPluralLabel\b/g, plural)
 		.replace(/\bSculptTaxonomySlug\b/g, slug)

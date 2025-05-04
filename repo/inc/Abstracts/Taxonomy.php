@@ -5,7 +5,7 @@
  * This abstract class serves as a base handler for registering
  * custom taxonomies within the plugin.
  *
- * @package Xama
+ * @package SculptPluginPackage
  */
 
 namespace SculptPluginNamespace\Abstracts;
