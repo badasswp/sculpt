@@ -79,10 +79,10 @@ const getPostProps = async () => {
 };
 
 /**
- * Create Post.
+ * Create Post Abstraction.
  *
  * This function creates a post abstraction for the
- * custom post type just created.
+ * custom post type.
  *
  * @since 1.0.0
  *
@@ -122,10 +122,10 @@ const createPostAbstract = async () => {
 };
 
 /**
- * Create Post.
+ * Create Post Service.
  *
  * This function creates a post service for the
- * custom post type just created.
+ * custom post.
  *
  * @since 1.0.0
  *
@@ -259,10 +259,10 @@ const appendPostToContainer = async () => {
 };
 
 /**
- * Append Post to Container.
+ * Append Post to Service.
  *
- * This function appends the post to the container
- * in the Core directory.
+ * This function appends the post to the post
+ * service in the Core directory.
  *
  * @since 1.0.0
  * @returns {Promise<void>}
