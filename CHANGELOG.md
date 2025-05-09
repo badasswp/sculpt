@@ -1,7 +1,8 @@
 # Changelog
 
-## 1.1.0
+## 1.0.4
 
+- Feat: Add option for Taxonomy addition.
 - Fix issues with Stud casing for post types.
 - Update README docs.
 
