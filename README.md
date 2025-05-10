@@ -52,6 +52,8 @@ This should install all PHP and JS dependencies and launch your new plugin using
 
 To understand how your new plugin is architectured, please take a look at the [Design Methodology](https://github.com/badasswp/sculpt/blob/master/README.md#design-methodology) section.
 
+---
+
 ### Creating A Custom Post Type (CPT)
 
 Implementing a custom post type is as simple as using the `post` command on your terminal like so:
@@ -81,6 +83,8 @@ The Post abstraction would take care of most of the heavy lifting for your custo
 
 The Post service would take of binding the custom post type's logic to the necessary WP hooks at run time.
 
+---
+
 ### Creating A Custom Taxonomy
 
 Implementing a custom taxonomy is as simple as using the `taxonomy` command on your terminal like so:
@@ -97,7 +101,7 @@ This will ultimately prompt you for a list of values related to your custom taxo
 
 Once you're done providing those values, your new custom taxonomy would be implemented automatically and wired up correctly to the appropriate WP hooks.
 
-<img width="1442" alt="sculpt-vscode-post" src="https://github.com/user-attachments/assets/b922a03a-e5a8-4dd4-b188-3afd991b0af5" />
+<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
 
 #### Behind the Scenes
 
