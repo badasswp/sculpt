@@ -2,7 +2,7 @@
 /**
  * Taxonomy Service.
  *
- * This service manages custom taxonomy
+ * This service manages the taxonomy
  * registrations for the plugin.
  *
  * @package SculptPluginPackage

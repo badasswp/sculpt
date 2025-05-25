@@ -2,7 +2,7 @@
 /**
  * Meta Service.
  *
- * This service manages the Meta service
+ * This service manages the meta service
  * that registers meta fields.
  *
  * @package SculptPluginPackage
