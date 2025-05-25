@@ -134,7 +134,7 @@ export const getDirectory = async dirPath => {
  * @returns {string}
  */
 export const getSanitizedText = name => {
-	return name
+	return (name || '')
 		.split(' ')
 		.filter(item => /[a-zA-Z0-9]+$/.test(item))
 		.join(' ')
@@ -188,7 +188,7 @@ export const getSlug = name => {
  * @returns {string}
  */
 export const getNamespace = name => {
-	return getSanitizedText(name)
+	return getSanitizedText(name || '')
 		.split(' ')
 		.map(item => {
 			return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
