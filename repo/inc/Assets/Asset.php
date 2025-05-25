@@ -14,22 +14,6 @@ use SculptPluginNamespace\Abstracts\Asset;
 
 class SculptAssetName extends Asset {
 	/**
-	 * Register Asset.
-	 *
-	 * Register implementation for the assets for both
-	 * front-end, back-end and block editor.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function register_asset(): void {
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_assets' ] );
-		add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_block_editor_assets' ] );
-	}
-
-	/**
 	 * Enqueue Admin assets.
 	 *
 	 * @since 1.0.0
