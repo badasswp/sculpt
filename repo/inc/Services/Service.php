@@ -2,8 +2,8 @@
 /**
  * Sculpt Service.
  *
- * This service manages the registering
- * of the Sculpt service.
+ * This service manages the registration and
+ * binding of the Sculpt service.
  *
  * @package SculptPluginPackage
  */
