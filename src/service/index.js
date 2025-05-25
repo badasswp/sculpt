@@ -43,8 +43,7 @@ const sculptService = async () => {
 	}
 
 	await createService(props);
-	await appendServiceToContainer();
-	await createTaxonomy(props);
+	await appendServiceToContainer(props);
 };
 
 /**
@@ -121,10 +120,12 @@ const createService = async props => {
  * in the Core directory.
  *
  * @since 1.0.5
+ *
+ * @param {Object} props - The service properties.
  * @returns {Promise<void>}
  */
-const appendServiceToContainer = async () => {
-	const { name } = getServiceProps();
+const appendServiceToContainer = async props => {
+	const { name } = props;
 
 	if (!(await isValidFile('/inc/Core/Container.php'))) {
 		return;
@@ -137,7 +138,7 @@ const appendServiceToContainer = async () => {
 	const { namespace } = await getConfig();
 
 	const kernelNamespace = `use ${namespace}\\Interfaces\\Kernel;`;
-	const appendNamespace = `use ${namespace}\\Services\\Taxonomy;`;
+	const appendNamespace = `use ${namespace}\\Services\\${getNamespace(name)};`;
 
 	if (!fileContent.includes(appendNamespace)) {
 		fileContent = fileContent.replace(
