@@ -28,6 +28,7 @@ const commands = {
 	taxonomy: { desc: `Create a custom taxonomy` },
 	metabox: { desc: `Create a custom metabox` },
 	route: { desc: `Create a custom route` },
+	service: { desc: `Create a custom service` },
 	help: { desc: `Print help info` }
 };
 

@@ -12,6 +12,7 @@ import init from './utils/init.js';
 
 import sculptPlugin from './src/plugin/index.js';
 import sculptPost from './src/post/index.js';
+import sculptService from './src/service/index.js';
 import sculptTaxonomy from './src/taxonomy/index.js';
 
 const { flags, input, showHelp } = cli;
@@ -21,6 +22,7 @@ const { clear } = flags;
 	await init({ clear });
 	input.includes(`plugin`) && sculptPlugin();
 	input.includes(`post`) && sculptPost();
+	input.includes(`service`) && sculptService();
 	input.includes(`taxonomy`) && sculptTaxonomy();
 	input.includes(`help`) && showHelp(0);
 })();
