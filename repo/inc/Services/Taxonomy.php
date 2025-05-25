@@ -41,7 +41,7 @@ class Taxonomy extends Service implements Kernel {
 		 * @param mixed[] $taxonomies Taxonomies.
 		 * @return mixed[]
 		 */
-		$tax_types = (array) apply_filters( 'sculpt_taxonomies', $taxonomies );
+		$taxonomies = (array) apply_filters( 'sculpt_taxonomies', $taxonomies );
 
 		foreach ( $taxonomies as $class ) {
 			if ( ! class_exists( $class ) ) {
