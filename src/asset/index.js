@@ -263,7 +263,7 @@ const appendAssetToService = async props => {
 	const { namespace } = await getConfig();
 
 	const kernelNamespace = `use ${namespace}\\Interfaces\\Kernel;`;
-	const appendNamespace = `use ${namespace}\\Taxonomies\\${getNamespace(name)};`;
+	const appendNamespace = `use ${namespace}\\Assets\\${getNamespace(name)};`;
 
 	if (!fileContent.includes(appendNamespace)) {
 		fileContent = fileContent.replace(
@@ -273,7 +273,7 @@ const appendAssetToService = async props => {
 	}
 
 	fileContent = fileContent.replace(
-		/\$taxonomies\s*=\s*\[(.*?)\];/s,
+		/\$assets\s*=\s*\[(.*?)\];/s,
 		(match, servicesList) => {
 			const services = servicesList
 				.split(',')
@@ -286,7 +286,7 @@ const appendAssetToService = async props => {
 			}
 
 			const newServicesBlock =
-				'$taxonomies = [\n' +
+				'$assets = [\n' +
 				services.map(s => `\t\t\t${s}`).join(',\n') +
 				',\n\t\t];';
 
