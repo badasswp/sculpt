@@ -91,3 +91,25 @@ describe('getNamespace', () => {
 		expect(expected).toBe('EasyGutenbergBlocks');
 	});
 });
+
+describe('getCamelCase', () => {
+	const getNamespace = jest.fn(name => {
+		return getSanitizedText(name)
+			.split(' ')
+			.map(item => {
+				return `${item.charAt(0).toUpperCase()}${item.slice(1)}`;
+			})
+			.join('');
+	});
+
+	const getCamelCase = jest.fn(name => {
+		const namespace = getNamespace(name);
+		return namespace.charAt(0).toLowerCase() + namespace.slice(1);
+	});
+
+	it('should return a camel case string', () => {
+		const expected = getCamelCase('Easy Gutenberg Blocks');
+
+		expect(expected).toBe('easyGutenbergBlocks');
+	});
+});
