@@ -29,6 +29,7 @@ const commands = {
 	metabox: { desc: `Create a custom metabox` },
 	route: { desc: `Create a custom route` },
 	service: { desc: `Create a custom service` },
+	asset: { desc: `Create an asset` },
 	help: { desc: `Print help info` }
 };
 
