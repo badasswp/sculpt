@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 
 import { prompt } from '../../utils/ask.js';
-import { getAssetPrompts, getAssetDefaults } from './utils.js';
+import { getAssetPrompts } from './utils.js';
 import {
 	getDirectory,
 	isValidFile,
