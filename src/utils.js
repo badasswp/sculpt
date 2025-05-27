@@ -239,3 +239,20 @@ export const getAutoload = name => {
 export const getRandomPort = () => {
 	return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 };
+
+/**
+ * Get Camel Case Name.
+ *
+ * This function returns the camel case version
+ * of the name, with the first letter in lowercase.
+ *
+ * @since 1.0.0
+ *
+ * @param {string} name - The plugin name.
+ * @returns {string}
+ */
+export const getCamelCase = name => {
+	const namespace = getNamespace(name);
+
+	return namespace.charAt(0).toLowerCase() + namespace.slice(1);
+};
