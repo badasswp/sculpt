@@ -59,17 +59,6 @@ class Asset extends Service implements Kernel {
 	 * @return void
 	 */
 	public function register(): void {
-		add_action( 'init', [ $this, 'register_assets' ] );
-	}
-
-	/**
-	 * Register Asset type implementation.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function register_assets(): void {
 		foreach ( $this->objects as $object ) {
 			$object->register_asset();
 		}
