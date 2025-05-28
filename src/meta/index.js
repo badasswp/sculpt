@@ -37,7 +37,7 @@ const sculptMeta = async () => {
 		return;
 	}
 
-	if (await isValidFile(`/inc/Taxonomies/${props.name}.php`)) {
+	if (await isValidFile(`/inc/Meta/${props.name}.php`)) {
 		console.error(`Error: Custom meta ${props.name} already exists.`);
 		return;
 	}
@@ -264,7 +264,7 @@ const appendMetaToService = async props => {
 	const { namespace } = await getConfig();
 
 	const kernelNamespace = `use ${namespace}\\Interfaces\\Kernel;`;
-	const appendNamespace = `use ${namespace}\\Taxonomies\\${getNamespace(name)};`;
+	const appendNamespace = `use ${namespace}\\Meta\\${getNamespace(name)};`;
 
 	if (!fileContent.includes(appendNamespace)) {
 		fileContent = fileContent.replace(
