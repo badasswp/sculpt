@@ -179,7 +179,7 @@ const createMeta = async props => {
 	);
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
-	console.log(`New Meta created: ${getNamespace(name)}\n`);
+	console.log(`\nNew Meta created: ${getNamespace(name)}\n`);
 };
 
 /**

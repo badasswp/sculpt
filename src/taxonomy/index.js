@@ -194,7 +194,7 @@ const createTaxonomy = async props => {
 	);
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
-	console.log(`New Taxonomy created: ${singular}\n`);
+	console.log(`\nNew Taxonomy created: ${singular}\n`);
 };
 
 /**

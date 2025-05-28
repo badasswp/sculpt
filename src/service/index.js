@@ -110,7 +110,7 @@ const createService = async props => {
 	);
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
-	console.log(`New Service created: ${getNamespace(name)}\n`);
+	console.log(`\nNew Service created: ${getNamespace(name)}\n`);
 };
 
 /**
