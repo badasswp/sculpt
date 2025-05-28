@@ -81,7 +81,7 @@ export const createPlugin = async props => {
 
 	await createPluginFiles(props);
 
-	console.log(`Plugin created: ${props.name}`);
+	console.log(`New Plugin created: ${props.name}\n`);
 };
 
 /**

@@ -178,7 +178,7 @@ const createAsset = async props => {
 	);
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
-	console.log(`Custom asset created: ${getNamespace(name)}`);
+	console.log(`New Asset created: ${getNamespace(name)}\n`);
 };
 
 /**

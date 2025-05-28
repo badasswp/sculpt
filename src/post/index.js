@@ -195,7 +195,7 @@ const createPostType = async props => {
 	);
 
 	await fs.writeFile(newFilePath, fileContent, 'utf-8');
-	console.log(`Custom post type created: ${singular}`);
+	console.log(`New Custom post type created: ${singular}\n`);
 };
 
 /**
