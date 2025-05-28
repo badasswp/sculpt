@@ -20,7 +20,7 @@ class SculptMetaName extends Meta {
 	 *
 	 * @var string
 	 */
-	public static $name = 'SculptPostType';
+	public static $name = 'SculptMetaPostType';
 
 	/**
 	 * Get Post meta.

@@ -39,10 +39,10 @@ abstract class Meta {
 	}
 
 	/**
-	 * Get Meta args.
+	 * Get Meta options.
 	 *
 	 * This method proceeds to retrieve the
-	 * meta args.
+	 * meta options.
 	 *
 	 * @since 1.0.0
 	 *
@@ -51,8 +51,8 @@ abstract class Meta {
 	 *
 	 * @return mixed[]
 	 */
-	protected function get_meta_args( $key, $value ): array {
-		$args = [
+	protected function get_meta_options( $key, $value ): array {
+		$options = [
 			'single'            => true,
 			'type'              => $value['type'],
 			'auth_callback'     => '__return_true',
@@ -66,17 +66,17 @@ abstract class Meta {
 		];
 
 		/**
-		 * Filter custom meta args.
+		 * Filter custom meta options.
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param mixed[] $columns Default Meta args.
+		 * @param mixed[] $columns Default Meta options.
 		 * @param string  $key Meta name.
 		 * @param mixed[] $value Meta schema.
 		 *
 		 * @return mixed[]
 		 */
-		return (array) apply_filters( 'sculpt_meta_args', $args, $key, $value );
+		return (array) apply_filters( 'sculpt_meta_options', $options, $key, $value );
 	}
 
 	/**
@@ -101,7 +101,7 @@ abstract class Meta {
 				continue;
 			}
 
-			register_post_meta( static::$name, $key, $this->get_meta_args( $key, $value ) );
+			register_post_meta( static::$name, $key, $this->get_meta_options( $key, $value ) );
 		}
 	}
 }
