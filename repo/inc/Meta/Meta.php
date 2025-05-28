@@ -10,7 +10,7 @@
 
 namespace SculptPluginNamespace\Meta;
 
-use SculptPluginNamespace\Abstracts\Post;
+use SculptPluginNamespace\Abstracts\Meta;
 
 class SculptMetaName extends Meta {
 	/**
