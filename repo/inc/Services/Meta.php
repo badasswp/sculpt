@@ -41,7 +41,7 @@ class Meta extends Service implements Kernel {
 		 * @param mixed[] $meta Meta.
 		 * @return mixed[]
 		 */
-		$meta = (array) apply_filters( 'sculpt_assets', $meta );
+		$meta = (array) apply_filters( 'sculpt_meta', $meta );
 
 		foreach ( $meta as $class ) {
 			if ( ! class_exists( $class ) ) {
@@ -59,19 +59,8 @@ class Meta extends Service implements Kernel {
 	 * @return void
 	 */
 	public function register(): void {
-		add_action( 'init', [ $this, 'register_assets' ] );
-	}
-
-	/**
-	 * Register Asset type implementation.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return void
-	 */
-	public function register_assets(): void {
 		foreach ( $this->objects as $object ) {
-			$object->register_asset();
+			$object->register_meta();
 		}
 	}
 }
