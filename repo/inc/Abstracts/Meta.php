@@ -39,6 +39,47 @@ abstract class Meta {
 	}
 
 	/**
+	 * Get Meta args.
+	 *
+	 * This method proceeds to retrieve the
+	 * meta args.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string  $key Meta name.
+	 * @param mixed[] $value Meta schema.
+	 *
+	 * @return mixed[]
+	 */
+	protected function get_meta_args( $key, $value ): array {
+		$args = [
+			'single'            => true,
+			'type'              => $value['type'],
+			'auth_callback'     => '__return_true',
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => [
+				'name'   => $value['rest_name'] ?? $this->get_rest_name( $key ),
+				'schema' => [
+					'type' => $value['type'],
+				],
+			],
+		];
+
+		/**
+		 * Filter custom meta args.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param mixed[] $columns Default Meta args.
+		 * @param string  $key Meta name.
+		 * @param mixed[] $value Meta schema.
+		 *
+		 * @return mixed[]
+		 */
+		return (array) apply_filters( 'sculpt_meta_args', $args, $key, $value );
+	}
+
+	/**
 	 * Register Post meta.
 	 *
 	 * This method registers the post meta
@@ -60,22 +101,7 @@ abstract class Meta {
 				continue;
 			}
 
-			register_post_meta(
-				static::$name,
-				$key,
-				[
-					'single'            => true,
-					'type'              => $value['type'],
-					'auth_callback'     => '__return_true',
-					'sanitize_callback' => 'sanitize_text_field',
-					'show_in_rest'      => [
-						'name'   => $value['rest_name'] ?? $this->get_rest_name( $key ),
-						'schema' => [
-							'type' => $value['type'],
-						],
-					],
-				]
-			);
+			register_post_meta( static::$name, $key, $this->get_meta_args( $key, $value ) );
 		}
 	}
 }
