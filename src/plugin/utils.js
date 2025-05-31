@@ -83,6 +83,7 @@ export const getPluginFiles = () => {
 		'inc/Interfaces/Kernel.php',
 		'inc/Services/Admin.php',
 		'inc/Plugin.php',
-		'bin/setup.sh'
+		'bin/setup.sh',
+		'languages/sculpt.pot'
 	];
 };

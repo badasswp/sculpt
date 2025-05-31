@@ -254,16 +254,58 @@ export const createPluginFiles = async props => {
 					.replace(/sculpt_author/g, author)
 					.replace(/sculpt_description/g, description);
 				break;
+
+			case 'languages/sculpt.pot':
+				fileContent = fileContent
+					.replace(/\bSculptPluginName\b/g, name)
+					.replace(/\bSculptPluginSlug\b/g, slug)
+					.replace(/\bSculptPluginURL\b/g, url)
+					.replace(/\bSculptPluginDescription\b/g, description)
+					.replace(/\bSculptPluginAuthor\b/g, author)
+					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl);
+				break;
 		}
 
 		const newFilePath = path.join(
 			process.cwd(),
-			`${slug}/${file !== '.gitignore' ? file : '.gitignore'}`
+			`${slug}/${getNewFileLocation(file, pluginProps)}`
 		);
 		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 
 	updateConfig(pluginProps);
+};
+
+/**
+ * Get New File Location.
+ *
+ * This function gets the new file location.
+ *
+ * @since 1.0.5
+ *
+ * @param {string} file
+ * @param {Object} props
+ *
+ * @returns {string}
+ */
+const getNewFileLocation = (file, props) => {
+	let newFile = '';
+
+	switch (file) {
+		case 'sculpt.pot':
+			newFile = `${props.slug}.pot`;
+			break;
+
+		case '.gitignore':
+			newFile = '.gitignore';
+			break;
+
+		default:
+			newFile = file;
+			break;
+	}
+
+	return newFile;
 };
 
 /**
