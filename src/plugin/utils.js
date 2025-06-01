@@ -85,6 +85,8 @@ export const getPluginFiles = () => {
 		'inc/Plugin.php',
 		'bin/setup.sh',
 		'languages/sculpt.pot',
+		'tests/e2e/.gitkeep',
+		'tests/unit/js/.gitkeep',
 		'tests/unit/php/bootstrap.php',
 		'tests/unit/php/PluginTest.php',
 		'tests/unit/php/Core/ContainerTest.php'
