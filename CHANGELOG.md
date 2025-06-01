@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.7
+
+- Provide graceful fallback for `.gitignore` in repo.
+
+## 1.0.6
+
+- Upload `.gitignore` file.
+
 ## 1.0.5
 
 - Feat: Add option for Service addition.
