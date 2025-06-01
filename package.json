@@ -27,8 +27,7 @@
 		"pnpm-lock.yaml",
 		"utils",
 		"src",
-		"repo",
-		"repo/.gitignore"
+		"repo"
 	],
 	"scripts": {
 		"verify": "prettier --check \"./**/*.{js,json}\"",
