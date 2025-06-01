@@ -84,6 +84,9 @@ export const getPluginFiles = () => {
 		'inc/Services/Admin.php',
 		'inc/Plugin.php',
 		'bin/setup.sh',
-		'languages/sculpt.pot'
+		'languages/sculpt.pot',
+		'tests/unit/php/bootstrap.php',
+		'tests/unit/php/PluginTest.php',
+		'tests/unit/php/Core/ContainerTest.php'
 	];
 };

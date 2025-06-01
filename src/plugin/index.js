@@ -149,11 +149,7 @@ export const createPluginFiles = async props => {
 			await fs.mkdir(folder, { recursive: true });
 		}
 
-		const filePath = path.join(
-			__dirname,
-			'../../repo',
-			file !== '.gitignore' ? file : '.npmignore'
-		);
+		const filePath = path.join(__dirname, '../../repo', file);
 		let fileContent = await fs.readFile(filePath, 'utf-8');
 
 		switch (file) {
@@ -264,6 +260,14 @@ export const createPluginFiles = async props => {
 					.replace(/\bSculptPluginAuthor\b/g, author)
 					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl);
 				break;
+
+			case 'tests/unit/php/bootstrap.php':
+			case 'tests/unit/php/PluginTest.php':
+			case 'tests/unit/php/Core/ContainerTest.php':
+				fileContent = fileContent
+					.replace(/\bSculptPluginPackage\b/g, namespace)
+					.replace(/\bSculptPluginNamespace\b/g, namespace);
+				break;
 		}
 
 		const newFilePath = path.join(
@@ -292,12 +296,8 @@ const getNewFileLocation = (file, props) => {
 	let newFile = '';
 
 	switch (file) {
-		case 'sculpt.pot':
-			newFile = `${props.slug}.pot`;
-			break;
-
-		case '.gitignore':
-			newFile = '.gitignore';
+		case 'languages/sculpt.pot':
+			newFile = `languages/${props.slug}.pot`;
 			break;
 
 		default:
