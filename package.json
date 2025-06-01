@@ -1,7 +1,7 @@
 {
 	"name": "@badasswp/sculpt-cli",
 	"description": "A CLI tool for sculpting WP plugins quickly.",
-	"version": "1.0.5",
+	"version": "1.0.5.1",
 	"license": "MIT",
 	"type": "module",
 	"main": "index.js",
@@ -27,7 +27,8 @@
 		"pnpm-lock.yaml",
 		"utils",
 		"src",
-		"repo"
+		"repo",
+		"repo/.gitignore"
 	],
 	"scripts": {
 		"verify": "prettier --check \"./**/*.{js,json}\"",
