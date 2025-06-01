@@ -68,6 +68,7 @@ export const getPluginDefaults = name => {
 export const getPluginFiles = () => {
 	return [
 		'.editorconfig',
+		'.npmignore',
 		'.gitignore',
 		'.wp-env.json',
 		'composer.json',

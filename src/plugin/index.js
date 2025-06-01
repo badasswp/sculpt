@@ -150,138 +150,145 @@ export const createPluginFiles = async props => {
 		}
 
 		const filePath = path.join(__dirname, '../../repo', file);
-		let fileContent = await fs.readFile(filePath, 'utf-8');
 
-		switch (file) {
-			case 'composer.json':
-				fileContent = fileContent
-					.replace(
-						/\bsculpt_user\/sculpt_plugin\b/g,
-						`${author.toLowerCase().replace(/\s/g, '')}/${slug}`
-					)
-					.replace(/\bSculptPluginDescription\b/g, description)
-					.replace(/\bSculptPluginNamespace\b/g, namespace)
-					.replace(/\bsculpt_user\b/g, author)
-					.replace(/\bsculpt_email@yahoo.com\b/g, authorEmail);
-				break;
+		try {
+			const fileContent = await fs.readFile(filePath, 'utf-8');
 
-			case 'plugin.php':
-				fileContent = fileContent
-					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\bSculptPluginURL\b/g, url)
-					.replace(/\bSculptPluginDescription\b/g, description)
-					.replace(/\bSculptPluginVersion\b/g, `1.0.0`)
-					.replace(/\bSculptPluginAuthor\b/g, author)
-					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl)
-					.replace(/\bSculptPluginPackage\b/g, namespace)
-					.replace(/\bSCULPT_AUTOLOAD\b/g, `${autoload}_AUTOLOAD`)
-					.replace(/\btext-domain\b/g, textDomain)
-					.replace(
-						/\bSculptAuthorNamespace\b/g,
-						`${author.toLowerCase().replace(/\s/g, '')}\\${namespace}`
-					)
-					.replace(
-						/\bSculptPluginAbsoluteNamespace\b/g,
-						`\\${namespace}\\Plugin`
+			switch (file) {
+				case 'composer.json':
+					fileContent = fileContent
+						.replace(
+							/\bsculpt_user\/sculpt_plugin\b/g,
+							`${author.toLowerCase().replace(/\s/g, '')}/${slug}`
+						)
+						.replace(/\bSculptPluginDescription\b/g, description)
+						.replace(/\bSculptPluginNamespace\b/g, namespace)
+						.replace(/\bsculpt_user\b/g, author)
+						.replace(/\bsculpt_email@yahoo.com\b/g, authorEmail);
+					break;
+
+				case 'plugin.php':
+					fileContent = fileContent
+						.replace(/\bSculptPluginName\b/g, name)
+						.replace(/\bSculptPluginURL\b/g, url)
+						.replace(/\bSculptPluginDescription\b/g, description)
+						.replace(/\bSculptPluginVersion\b/g, `1.0.0`)
+						.replace(/\bSculptPluginAuthor\b/g, author)
+						.replace(/\bSculptPluginAuthorURI\b/g, authorUrl)
+						.replace(/\bSculptPluginPackage\b/g, namespace)
+						.replace(/\bSCULPT_AUTOLOAD\b/g, `${autoload}_AUTOLOAD`)
+						.replace(/\btext-domain\b/g, textDomain)
+						.replace(
+							/\bSculptAuthorNamespace\b/g,
+							`${author.toLowerCase().replace(/\s/g, '')}\\${namespace}`
+						)
+						.replace(
+							/\bSculptPluginAbsoluteNamespace\b/g,
+							`\\${namespace}\\Plugin`
+						);
+					break;
+
+				case 'phpcs.xml':
+					fileContent = fileContent.replace(
+						/\bSculptPluginNamespace\b/g,
+						namespace
 					);
-				break;
+					break;
 
-			case 'phpcs.xml':
-				fileContent = fileContent.replace(
-					/\bSculptPluginNamespace\b/g,
-					namespace
-				);
-				break;
+				case '.wp-env.json':
+					const testPort = port + 1;
+					fileContent = fileContent
+						.replace(/sculpt/g, slug)
+						.replace(/8888/g, port)
+						.replace(/8889/g, testPort);
+					break;
 
-			case '.wp-env.json':
-				const testPort = port + 1;
-				fileContent = fileContent
-					.replace(/sculpt/g, slug)
-					.replace(/8888/g, port)
-					.replace(/8889/g, testPort);
-				break;
+				case 'README.md':
+					fileContent = fileContent
+						.replace(/\bSculptPluginName\b/g, slug)
+						.replace(/\bSculptPluginDescription\b/g, description);
+					break;
 
-			case 'README.md':
-				fileContent = fileContent
-					.replace(/\bSculptPluginName\b/g, slug)
-					.replace(/\bSculptPluginDescription\b/g, description);
-				break;
+				case 'readme.txt':
+					fileContent = fileContent
+						.replace(/\bSculptPluginName\b/g, name)
+						.replace(/\bSculptPluginUser\b/g, author)
+						.replace(/\bSculptPluginTags\b/g, tags)
+						.replace(/\bSculptPluginDescription\b/g, description)
+						.replace(/\bSculptPluginURL\b/g, url);
+					break;
 
-			case 'readme.txt':
-				fileContent = fileContent
-					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\bSculptPluginUser\b/g, author)
-					.replace(/\bSculptPluginTags\b/g, tags)
-					.replace(/\bSculptPluginDescription\b/g, description)
-					.replace(/\bSculptPluginURL\b/g, url);
-				break;
+				case 'inc/Abstracts/Service.php':
+				case 'inc/Core/Container.php':
+				case 'inc/Interfaces/Kernel.php':
+				case 'inc/Plugin.php':
+					fileContent = fileContent.replace(
+						/\bSculptPluginNamespace\b/g,
+						namespace
+					);
+					break;
 
-			case 'inc/Abstracts/Service.php':
-			case 'inc/Core/Container.php':
-			case 'inc/Interfaces/Kernel.php':
-			case 'inc/Plugin.php':
-				fileContent = fileContent.replace(
-					/\bSculptPluginNamespace\b/g,
-					namespace
-				);
-				break;
+				case 'inc/Services/Admin.php':
+					fileContent = fileContent
+						.replace(/\bSculptPluginNamespace\b/g, namespace)
+						.replace(/\bSculptPluginName\b/g, name)
+						.replace(/\SculptPluginDescription\b/g, description)
+						.replace(/\bsculpt\b/g, slug)
+						.replace(/\bsculpt-group\b/g, `${slug}-group`)
+						.replace(/\bsculpt_option\b/g, underscore)
+						.replace(/\btext-domain\b/g, textDomain);
+					break;
 
-			case 'inc/Services/Admin.php':
-				fileContent = fileContent
-					.replace(/\bSculptPluginNamespace\b/g, namespace)
-					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\SculptPluginDescription\b/g, description)
-					.replace(/\bsculpt\b/g, slug)
-					.replace(/\bsculpt-group\b/g, `${slug}-group`)
-					.replace(/\bsculpt_option\b/g, underscore)
-					.replace(/\btext-domain\b/g, textDomain);
-				break;
+				case 'bin/setup.sh':
+					fileContent = fileContent.replace(
+						/"WordPress Site"/g,
+						`"${name}"`
+					);
+					break;
 
-			case 'bin/setup.sh':
-				fileContent = fileContent.replace(
-					/"WordPress Site"/g,
-					`"${name}"`
-				);
-				break;
+				case 'package.json':
+					fileContent = fileContent
+						.replace(/sculpt_slug/g, slug)
+						.replace(/sculpt_author/g, author)
+						.replace(/sculpt_description/g, description);
+					break;
 
-			case 'package.json':
-				fileContent = fileContent
-					.replace(/sculpt_slug/g, slug)
-					.replace(/sculpt_author/g, author)
-					.replace(/sculpt_description/g, description);
-				break;
+				case 'languages/sculpt.pot':
+					fileContent = fileContent
+						.replace(/\bSculptPluginName\b/g, name)
+						.replace(/\bSculptPluginSlug\b/g, slug)
+						.replace(/\bSculptPluginURL\b/g, url)
+						.replace(/\bSculptPluginDescription\b/g, description)
+						.replace(/\bSculptPluginAuthor\b/g, author)
+						.replace(/\bSculptPluginAuthorURI\b/g, authorUrl);
+					break;
 
-			case 'languages/sculpt.pot':
-				fileContent = fileContent
-					.replace(/\bSculptPluginName\b/g, name)
-					.replace(/\bSculptPluginSlug\b/g, slug)
-					.replace(/\bSculptPluginURL\b/g, url)
-					.replace(/\bSculptPluginDescription\b/g, description)
-					.replace(/\bSculptPluginAuthor\b/g, author)
-					.replace(/\bSculptPluginAuthorURI\b/g, authorUrl);
-				break;
+				case 'tests/unit/php/bootstrap.php':
+				case 'tests/unit/php/PluginTest.php':
+				case 'tests/unit/php/Core/ContainerTest.php':
+					fileContent = fileContent
+						.replace(/\bSculptPluginPackage\b/g, namespace)
+						.replace(/\bSculptPluginNamespace\b/g, namespace);
+					break;
 
-			case 'tests/unit/php/bootstrap.php':
-			case 'tests/unit/php/PluginTest.php':
-			case 'tests/unit/php/Core/ContainerTest.php':
-				fileContent = fileContent
-					.replace(/\bSculptPluginPackage\b/g, namespace)
-					.replace(/\bSculptPluginNamespace\b/g, namespace);
-				break;
+				case '.github/workflows/ci.yml':
+					fileContent = fileContent.replace(
+						/\bSculptPluginNamespace\b/g,
+						namespace
+					);
+					break;
+			}
 
-			case '.github/workflows/ci.yml':
-				fileContent = fileContent.replace(
-					/\bSculptPluginNamespace\b/g,
-					namespace
-				);
-				break;
+			const newFilePath = path.join(
+				process.cwd(),
+				`${slug}/${getNewFileLocation(file, pluginProps)}`
+			);
+
+			await fs.writeFile(newFilePath, fileContent, 'utf-8');
+		} catch (e) {
+			// fail silently.
+			return;
 		}
-
-		const newFilePath = path.join(
-			process.cwd(),
-			`${slug}/${getNewFileLocation(file, pluginProps)}`
-		);
-		await fs.writeFile(newFilePath, fileContent, 'utf-8');
 	});
 
 	updateConfig(pluginProps);
@@ -305,6 +312,10 @@ const getNewFileLocation = (file, props) => {
 	switch (file) {
 		case 'languages/sculpt.pot':
 			newFile = `languages/${props.slug}.pot`;
+			break;
+
+		case '.npmignore':
+			newFile = '.gitignore';
 			break;
 
 		default:
