@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.5
+
+- Feat: Add option for Service addition.
+- Feat: Add option for Meta addition.
+- Feat: Add option for Asset addition.
+- Feat: Add CI/CD workflow.
+- Feat: Add unit & e2e tests folders.
+
 ## 1.0.4
 
 - Feat: Add option for Taxonomy addition.
