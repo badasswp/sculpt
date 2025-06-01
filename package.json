@@ -1,7 +1,7 @@
 {
 	"name": "@badasswp/sculpt-cli",
 	"description": "A CLI tool for sculpting WP plugins quickly.",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"license": "MIT",
 	"type": "module",
 	"main": "index.js",
