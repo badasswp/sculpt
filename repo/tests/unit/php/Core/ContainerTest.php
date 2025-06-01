@@ -9,7 +9,6 @@ use SculptPluginNamespace\Services\Admin;
 
 /**
  * @covers \SculptPluginNamespace\Core\Container::__construct
- * @covers \SculptPluginNamespace\Abstracts\Service::get_instance
  * @covers \SculptPluginNamespace\Services\Admin::register
  */
 class ContainerTest extends TestCase {
