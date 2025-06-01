@@ -286,6 +286,9 @@ export const createPluginFiles = async props => {
 
 			await fs.writeFile(newFilePath, fileContent, 'utf-8');
 		} catch (e) {
+			if (e) {
+				// Do nothing for now...
+			}
 			// fail silently.
 			return;
 		}
