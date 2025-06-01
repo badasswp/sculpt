@@ -89,6 +89,7 @@ export const getPluginFiles = () => {
 		'tests/unit/js/.gitkeep',
 		'tests/unit/php/bootstrap.php',
 		'tests/unit/php/PluginTest.php',
-		'tests/unit/php/Core/ContainerTest.php'
+		'tests/unit/php/Core/ContainerTest.php',
+		'.github/workflows/ci.yml'
 	];
 };

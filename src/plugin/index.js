@@ -268,6 +268,13 @@ export const createPluginFiles = async props => {
 					.replace(/\bSculptPluginPackage\b/g, namespace)
 					.replace(/\bSculptPluginNamespace\b/g, namespace);
 				break;
+
+			case '.github/workflows/ci.yml':
+				fileContent = fileContent.replace(
+					/\bSculptPluginNamespace\b/g,
+					namespace
+				);
+				break;
 		}
 
 		const newFilePath = path.join(
