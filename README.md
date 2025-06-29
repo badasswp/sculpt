@@ -6,9 +6,9 @@ A CLI tool for sculpting WP plugins quickly.
 
 ## Why Sculpt?
 
-Sculpt is a simple, but powerful CLI tool for building enterprise WP plugins very quickly. It uses simple commands to create standard WP features such as `Posts`, `Taxonomies`, `Meta`, `Assets`, `Services` and so much more. In this way, you can focus more on the business logic of your WordPress plugin than spending time trying to write classes from scratch.
+Sculpt is a simple, but powerful CLI tool for building WP plugins very quickly. It uses simple commands to create standard WP features such as `Posts`, `Taxonomies`, `Meta`, `Assets`, `Services` and so much more. In this way, you can focus more on the business logic of your WordPress plugin than spending time trying to write boilerplate code from scratch.
 
-If you are a fan of Laravel and how it presents an Object-Oriented approach to building clean, robust and scalabale PHP applications using the `artisan make` commands, then you would definitely love **Sculpt**.
+If you are a fan of __Laravel__ and how it presents an Object-Oriented approach to building clean, robust and scalabale PHP applications using the `artisan make` commands, then you would definitely love __Sculpt__.
 
 ## Getting Started
 
@@ -64,17 +64,28 @@ sculpt post
 
 This will ultimately prompt you for a list of values related to your custom post type like so:
 
-<img width="650" alt="sculpt-post" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Custom Post Type: Employee
+Singular Label: Employee
+Plural Label: Employees
+Show in REST: true
+Show in Menu: true
+
+New Custom post type created: Employee
+```
 
 ---
 
 Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
 
-<img width="1442" alt="sculpt-vscode-post" src="https://github.com/user-attachments/assets/b922a03a-e5a8-4dd4-b188-3afd991b0af5" />
+<img width="1353" alt="sculpt-post" src="https://github.com/user-attachments/assets/9b89ce26-b9c5-4dd8-9ce8-0279d9b8f299" />
 
 #### Behind the Scenes
 
-Sculpt will attempt to create a custom post type **concrete** class for you based on the values you have provided as well as the following classes:
+Sculpt will attempt to create a custom post type class for you based on the values you have provided as well as the following classes:
 
 - Post Abstraction
 - Post Service
@@ -95,17 +106,28 @@ sculpt taxonomy
 
 This will ultimately prompt you for a list of values related to your custom taxonomy like so:
 
-<img width="650" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Custom Taxonomy: Country
+Singular Label: Country
+Plural Label: Countries
+Slug: employee_country
+Post type it belongs to: Employee
+
+New Taxonomy created: Country
+```
 
 ---
 
 Once you're done providing those values, your new custom taxonomy would be implemented automatically and wired up correctly to the appropriate WP hooks.
 
-<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+<img width="1348" alt="sculpt-taxonomy" src="https://github.com/user-attachments/assets/72188acb-e54f-4951-8e0d-097b4d762f42" />
 
 #### Behind the Scenes
 
-Sculpt will attempt to create a custom taxonomy **concrete** class for you based on the values you have provided as well as the following classes:
+Sculpt will attempt to create a custom taxonomy class for you based on the values you have provided as well as the following classes:
 
 - Taxonomy Abstraction
 - Taxonomy Service
@@ -113,6 +135,108 @@ Sculpt will attempt to create a custom taxonomy **concrete** class for you based
 The Taxonomy abstraction would take care of most of the heavy lifting for your custom taxonomy such as taxonomy registration and defining its options.
 
 The Taxonomy service would take of binding the custom taxonomy's logic to the necessary WP hooks at run time.
+
+### Creating A Service
+
+Sculpt provides users a way of implementing a service. A service is essentially a high-level point where we bind our logic to WP core hooks. You can achieve this like so:
+
+```bash
+sculpt service
+```
+
+This will prompt you for a list of values like so:
+
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Service Name: LoadImages
+
+New Service created: LoadImages
+```
+
+---
+
+Once you're done providing those values, your new service would be implemented & wired up to load from the Container factory.
+
+<img width="1336" alt="sculpt-service" src="https://github.com/user-attachments/assets/0e8747c7-3c9c-40ca-818b-38fdf03c258a" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create a **service** class for you and load it into the Container factory.
+
+### Creating An Asset.
+
+An asset class is where we load JavaScript code for our plugin. Sculpt provides an easy way of doing this like so:
+
+```bash
+sculpt asset
+```
+
+This will prompt you for a list of values like so:
+
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Asset Name: Podcast
+
+New Asset created: Podcast
+```
+
+---
+
+Once you're done providing those values, your new asset class would be implemented automatically and wired up correctly to the appropriate WP hooks.
+
+<img width="1536" alt="sculpt-asset" src="https://github.com/user-attachments/assets/7ccc5928-d9f6-4ac9-b829-7ac578ab6bde" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create an **asset** class for you based on the values you have provided as well as the following classes:
+
+- Asset Abstraction
+- Asset Service
+
+The Asset abstraction would handle all of the loading of the various scripts and correctly binding them to WP's hooks.
+
+The Asset service would handle the registration of the various asset classes.
+
+### Creating A Meta.
+
+A meta class handles meta data registration for post types. Again, Sculpt provides an easy way of doing this like so:
+
+```bash
+sculpt meta
+```
+
+This will prompt you for a list of values like so:
+
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Meta name: EmployeeMeta
+Post type it belongs to: employee
+
+New Meta created: EmployeeMeta
+```
+
+---
+
+Once you're done providing those values, your new meta class would be implemented automatically and provide you options of adding in meta data.
+
+<img width="1543" alt="sculpt-meta" src="https://github.com/user-attachments/assets/eda9ecf5-965b-41ec-8ca3-c25e2c39ee29" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create a **meta** class for you based on the values you have provided as well as the following classes:
+
+- Meta Abstraction
+- Meta Service
+
+The Meta abstraction would handle the registration of the various meta data.
+
+The Meta service would handle the registration of the various meta classes.
 
 ## Design Methodology
 
