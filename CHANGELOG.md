@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.8
+
+- Update README docs.
+
 ## 1.0.7
 
 - Provide graceful fallback for `.gitignore` in repo.
