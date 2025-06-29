@@ -6,9 +6,9 @@ A CLI tool for sculpting WP plugins quickly.
 
 ## Why Sculpt?
 
-Sculpt is a simple, but powerful CLI tool for building enterprise WP plugins very quickly. It uses simple commands to create standard WP features such as `Posts`, `Taxonomies`, `Meta`, `Assets`, `Services` and so much more. In this way, you can focus more on the business logic of your WordPress plugin than spending time trying to write classes from scratch.
+Sculpt is a simple, but powerful CLI tool for building WP plugins very quickly. It uses simple commands to create standard WP features such as `Posts`, `Taxonomies`, `Meta`, `Assets`, `Services` and so much more. In this way, you can focus more on the business logic of your WordPress plugin than spending time trying to write boilerplate code from scratch.
 
-If you are a fan of Laravel and how it presents an Object-Oriented approach to building clean, robust and scalabale PHP applications using the `artisan make` commands, then you would definitely love **Sculpt**.
+If you are a fan of __Laravel__ and how it presents an Object-Oriented approach to building clean, robust and scalabale PHP applications using the `artisan make` commands, then you would definitely love __Sculpt__.
 
 ## Getting Started
 
@@ -85,7 +85,7 @@ Once you're done providing those values, your new custom post type would be impl
 
 #### Behind the Scenes
 
-Sculpt will attempt to create a custom post type **concrete** class for you based on the values you have provided as well as the following classes:
+Sculpt will attempt to create a custom post type class for you based on the values you have provided as well as the following classes:
 
 - Post Abstraction
 - Post Service
@@ -127,7 +127,7 @@ Once you're done providing those values, your new custom taxonomy would be imple
 
 #### Behind the Scenes
 
-Sculpt will attempt to create a custom taxonomy **concrete** class for you based on the values you have provided as well as the following classes:
+Sculpt will attempt to create a custom taxonomy class for you based on the values you have provided as well as the following classes:
 
 - Taxonomy Abstraction
 - Taxonomy Service
