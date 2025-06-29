@@ -64,7 +64,18 @@ sculpt post
 
 This will ultimately prompt you for a list of values related to your custom post type like so:
 
-<img width="650" alt="sculpt-post" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Custom Post Type: Employee
+Singular Label: Employee
+Plural Label: Employees
+Show in REST: true
+Show in Menu: true
+
+New Custom post type created: Employee
+```
 
 ---
 
@@ -95,7 +106,18 @@ sculpt taxonomy
 
 This will ultimately prompt you for a list of values related to your custom taxonomy like so:
 
-<img width="650" alt="sculpt-plugin" src="https://github.com/user-attachments/assets/d54d2851-da96-4f7e-aa60-7ac6823fbc64">
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Custom Taxonomy: Country
+Singular Label: Country
+Plural Label: Countries
+Slug: employee_country
+Post type it belongs to: Employee
+
+New Taxonomy created: Country
+```
 
 ---
 
@@ -113,6 +135,108 @@ Sculpt will attempt to create a custom taxonomy **concrete** class for you based
 The Taxonomy abstraction would take care of most of the heavy lifting for your custom taxonomy such as taxonomy registration and defining its options.
 
 The Taxonomy service would take of binding the custom taxonomy's logic to the necessary WP hooks at run time.
+
+### Creating A Service
+
+Sculpt provides users a way of implementing a service. A service is essentially a high-level point where we bind our logic to WP core hooks. You can achieve this like so:
+
+```bash
+sculpt service
+```
+
+This will prompt you for a list of values like so:
+
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Service Name: LoadImages
+
+New Service created: LoadImages
+```
+
+---
+
+Once you're done providing those values, your new service would be implemented & wired up to load from the Container factory.
+
+<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create a **service** class for you and load it into the Container factory.
+
+### Creating An Asset.
+
+An asset class is where we load JavaScript code for our plugin. Sculpt provides an easy way of doing this like so:
+
+```bash
+sculpt asset
+```
+
+This will prompt you for a list of values like so:
+
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Asset Name: Podcast
+
+New Asset created: Podcast
+```
+
+---
+
+Once you're done providing those values, your new asset class would be implemented automatically and wired up correctly to the appropriate WP hooks.
+
+<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create an **asset** class for you based on the values you have provided as well as the following classes:
+
+- Asset Abstraction
+- Asset Service
+
+The Asset abstraction would handle all of the loading of the various scripts and correctly binding them to WP's hooks.
+
+The Asset service would handle the registration of the various asset classes.
+
+### Creating A Meta.
+
+A meta class handles meta data registration for post types. Again, Sculpt provides an easy way of doing this like so:
+
+```bash
+sculpt meta
+```
+
+This will prompt you for a list of values like so:
+
+```bash
+sculpt-cli v1.0.0 by badasswp
+A CLI tool for sculpting WP plugins quickly.
+
+Meta name: EmployeeMeta
+Post type it belongs to: employee
+
+New Meta created: EmployeeMeta
+```
+
+---
+
+Once you're done providing those values, your new meta class would be implemented automatically and provide you options of adding in meta data.
+
+<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+
+#### Behind the Scenes
+
+Sculpt will attempt to create a **meta** class for you based on the values you have provided as well as the following classes:
+
+- Meta Abstraction
+- Meta Service
+
+The Meta abstraction would handle the registration of the various meta data.
+
+The Meta service would handle the registration of the various meta classes.
 
 ## Design Methodology
 
