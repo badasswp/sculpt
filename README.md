@@ -81,7 +81,7 @@ New Custom post type created: Employee
 
 Once you're done providing those values, your new custom post type would be implemented automatically and wired up correctly to the appropriate WP hooks, ready for use!
 
-<img width="1442" alt="sculpt-vscode-post" src="https://github.com/user-attachments/assets/b922a03a-e5a8-4dd4-b188-3afd991b0af5" />
+<img width="1353" alt="sculpt-post" src="https://github.com/user-attachments/assets/9b89ce26-b9c5-4dd8-9ce8-0279d9b8f299" />
 
 #### Behind the Scenes
 
@@ -123,7 +123,7 @@ New Taxonomy created: Country
 
 Once you're done providing those values, your new custom taxonomy would be implemented automatically and wired up correctly to the appropriate WP hooks.
 
-<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+<img width="1348" alt="sculpt-taxonomy" src="https://github.com/user-attachments/assets/72188acb-e54f-4951-8e0d-097b4d762f42" />
 
 #### Behind the Scenes
 
@@ -159,7 +159,7 @@ New Service created: LoadImages
 
 Once you're done providing those values, your new service would be implemented & wired up to load from the Container factory.
 
-<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+<img width="1336" alt="sculpt-service" src="https://github.com/user-attachments/assets/0e8747c7-3c9c-40ca-818b-38fdf03c258a" />
 
 #### Behind the Scenes
 
@@ -188,7 +188,7 @@ New Asset created: Podcast
 
 Once you're done providing those values, your new asset class would be implemented automatically and wired up correctly to the appropriate WP hooks.
 
-<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+<img width="1536" alt="sculpt-asset" src="https://github.com/user-attachments/assets/7ccc5928-d9f6-4ac9-b829-7ac578ab6bde" />
 
 #### Behind the Scenes
 
@@ -225,7 +225,7 @@ New Meta created: EmployeeMeta
 
 Once you're done providing those values, your new meta class would be implemented automatically and provide you options of adding in meta data.
 
-<img width="1369" alt="sculpt-vscode-taxonomy" src="https://github.com/user-attachments/assets/6015926a-db57-4d36-a02d-843477659344" />
+<img width="1543" alt="sculpt-meta" src="https://github.com/user-attachments/assets/eda9ecf5-965b-41ec-8ca3-c25e2c39ee29" />
 
 #### Behind the Scenes
 
