@@ -1,7 +1,0 @@
-.editorconfig
-.gitignore
-.prettierrc.json
-eslint.config.mjs
-pnpm-lock.yaml
-.github
-tests
