@@ -2,7 +2,7 @@
 
 ## 1.0.9
 
-- Fix `brace-expansion` Regular Expression Denial of Service vulnerability.
+- Fix `brace-expansion` regular expression DOS vulnerability.
 
 ## 1.0.8
 
