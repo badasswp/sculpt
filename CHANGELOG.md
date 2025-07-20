@@ -4,6 +4,7 @@
 
 - Fix `brace-expansion` regular expression DOS vulnerability.
 - Fix `eslint/plugin-kit` regular expression DOS vulnerability.
+- Fix `bin/setup.sh` blog description.
 
 ## 1.0.8
 
