@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9
+
+- Fix `brace-expansion` vulnerability.
+
 ## 1.0.8
 
 - Update README docs.
