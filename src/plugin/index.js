@@ -254,6 +254,10 @@ export const createPluginFiles = async props => {
 					/"WordPress Site"/g,
 					`"${name}"`
 				);
+				fileContent = fileContent.replace(
+					/"A WordPress site for plugin devlopment by Sculpt."/g,
+					`"${description}"`
+				);
 				break;
 
 			case 'package.json':

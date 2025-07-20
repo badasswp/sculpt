@@ -67,6 +67,7 @@ export const getPluginDefaults = name => {
  */
 export const getPluginFiles = () => {
 	return [
+		'.deployignore',
 		'.editorconfig',
 		'.npmignore',
 		'.gitignore',
