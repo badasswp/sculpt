@@ -1,0 +1,8 @@
+.editorconfig
+.gitignore
+.wp-env.json
+package.json
+phpcs.xml
+phpunit.xml
+README.md
+tests
