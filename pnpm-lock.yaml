@@ -391,7 +391,7 @@ packages:
             }
         engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
-    '@eslint/plugin-kit@0.3.3':
+    '@eslint/plugin-kit@0.3.4':
         resolution:
             {
                 integrity: sha512-1+WqvgNMhmlAambTvT3KPtCl/Ibr68VldY2XY40SL1CE0ZXiakFR/cbTspaF5HsnpDMvcYYoJHfl4980NBjGag==
@@ -3060,7 +3060,7 @@ snapshots:
 
     '@eslint/object-schema@2.1.6': {}
 
-    '@eslint/plugin-kit@0.3.3':
+    '@eslint/plugin-kit@0.3.4':
         dependencies:
             '@eslint/core': 0.15.1
             levn: 0.4.1
