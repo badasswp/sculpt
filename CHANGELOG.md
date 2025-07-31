@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.10
+- Fix `eslint/plugin-kit` regular expression DOS vulnerability.
+
 ## 1.0.9
 
 - Fix `brace-expansion` regular expression DOS vulnerability.
