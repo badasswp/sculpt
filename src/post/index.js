@@ -111,6 +111,14 @@ const createPostAbstract = async () => {
 		.replace(
 			/\babstract_post_column_labels\b/g,
 			`${underscore}_post_column_labels`
+		)
+		.replace(
+			/\babstract_post_query_cache_name\b/g,
+			`${underscore}_post_query_cache_name`
+		)
+		.replace(
+			/\babstract_post_query_args\b/g,
+			`${underscore}_post_query_args`
 		);
 
 	const newFilePath = path.join(
