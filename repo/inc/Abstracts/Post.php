@@ -352,68 +352,143 @@ abstract class Post {
 	}
 
 	/**
+	 * Get Query.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $args Query Args.
+	 * @return \WP_Query|\WP_Error
+	 */
+	protected static function get_query( $args = [] ) {
+		$query_args = wp_parse_args(
+			$args,
+			[
+				'post_type'      => static::$name,
+				'post_status'    => 'publish',
+				'posts_per_page' => 10,
+				'paged'          => get_query_var( 'paged' ) ?: 1,
+				'orderby'        => 'date',
+				'no_found_rows'  => false,
+			]
+		);
+
+		$cache_name = sprintf( '%s_posts_query', static::$name );
+
+		if ( isset( $query_args['meta_key'] ) && isset( $query_args['meta_value'] ) ) {
+			$cache_name = sprintf(
+				'%s_posts_query_by_key_value_%s_%s',
+				static::$name,
+				(string) $query_args['meta_key'],
+				(string) $query_args['meta_value']
+			);
+		}
+
+		/**
+		 * Filter Cache name.
+		 *
+		 * This filter provides a way for users to filter
+		 * the cache name.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $cache_name Cache name.
+		 * @param mixed  $query_args Query Args.
+		 *
+		 * @return string $cache_name
+		 */
+		$cache_name = apply_filters( 'abstract_post_query_cache_name', $cache_name, $query_args );
+
+		/**
+		 * Filter Query Args.
+		 *
+		 * This filter provides a way for users to filter
+		 * the query args before it is sent.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param mixed $query_args Query Args.
+		 * @return mixed $query_args
+		 */
+		$query_args = apply_filters( 'abstract_post_query_args', $query_args );
+
+		$query = wp_cache_get( $cache_name );
+
+		if ( false === $query ) {
+			$query = new \WP_Query( $query_args );
+			wp_cache_set( $cache_name, $query, '', DAY_IN_SECONDS );
+		}
+
+		if ( ! ( $query instanceof \WP_Query ) ) {
+			return new \WP_Error(
+				'get-query',
+				sprintf(
+					'Query Error: Non WP_Query instance returned: %s',
+					(string) $query
+				),
+			);
+		}
+
+		return $query;
+	}
+
+	/**
 	 * Get Posts.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return \WP_Post[]
+	 * @param mixed $args Query Args.
+	 * @return \WP_Post[]|\WP_Error
 	 */
-	public static function get_posts(): array {
-		$posts = get_posts(
-			[
-				'post_type'      => static::$name,
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'orderby'        => 'date',
-			]
-		);
+	public static function get_posts( $args = [] ) {
+		$query = static::get_query( $args );
 
-		if ( ! $posts ) {
-			return [];
+		if ( is_wp_error( $query ) ) {
+			return new \WP_Error(
+				'get-posts',
+				$query->get_error_message(),
+			);
 		}
 
-		return $posts;
+		return $query->posts;
 	}
 
 	/**
-	 * Get Posts by Meta.
+	 * Get Posts by key-value.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string $key   Meta key.
 	 * @param string $value Meta value.
 	 *
-	 * @return \WP_Post[]
+	 * @return \WP_Post[]|\WP_Error
 	 */
-	public static function get_posts_by_meta( $key, $value ): array {
-		if ( empty( $id ) || empty( $value ) ) {
-			return [];
+	public static function get_posts_by_key_value( $key, $value ) {
+		if ( ! isset( $key ) || ! isset( $value ) ) {
+			return new \WP_Error(
+				'get-posts-by-key-value',
+				sprintf(
+					'Unset function arguments - key: %s, value: %s',
+					(string) $key,
+					(string) $value
+				),
+			);
 		}
 
-		$posts = get_posts(
+		$query = static::get_query(
 			[
-				'post_type'      => static::$name,
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'meta_key'       => (string) $key,
-				'meta_value'     => (string) $value,
-				'orderby'        => 'date',
-				'order'          => 'ASC',
-			]
+				'meta_key'   => (string) $key,
+				'meta_value' => (string) $value,
+			],
 		);
 
-		return $posts;
-	}
+		if ( is_wp_error( $query ) ) {
+			return new \WP_Error(
+				'get-posts-by-key-value',
+				$query->get_error_message(),
+			);
+		}
 
-	/**
-	 * Get number of Posts.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return int
-	 */
-	public static function get_number_of_posts(): int {
-		return count( static::get_posts() );
+		return $query->posts;
 	}
 
 	/**
@@ -421,9 +496,73 @@ abstract class Post {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return \WP_Post
+	 * @return \WP_Post|null
 	 */
-	public static function get_most_recent_post() {
+	public static function get_latest_post() {
+		if ( empty( static::get_posts() ) ) {
+			return null;
+		}
+
 		return ( static::get_posts() )[0];
+	}
+
+	/**
+	 * Get total number of Posts.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param mixed $args Query Args.
+	 * @return int|\WP_Error
+	 */
+	public static function get_posts_count( $args = [] ) {
+		$query = static::get_query( $args );
+
+		if ( is_wp_error( $query ) ) {
+			return new \WP_Error(
+				'get-posts-count',
+				$query->get_error_message(),
+			);
+		}
+
+		return absint( $query->found_posts );
+	}
+
+	/**
+	 * Get total number of Posts by key-value.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $key   Meta key.
+	 * @param string $value Meta value.
+	 *
+	 * @return int|\WP_Error
+	 */
+	public static function get_posts_by_key_value_count( $key, $value ) {
+		if ( ! isset( $key ) || ! isset( $value ) ) {
+			return new \WP_Error(
+				'get-posts-by-key-value-count',
+				sprintf(
+					'Unset function arguments - key: %s, value: %s',
+					(string) $key,
+					(string) $value
+				),
+			);
+		}
+
+		$query = static::get_query(
+			[
+				'meta_key'   => (string) $key,
+				'meta_value' => (string) $value,
+			],
+		);
+
+		if ( is_wp_error( $query ) ) {
+			return new \WP_Error(
+				'get-posts-by-key-value-count',
+				$query->get_error_message(),
+			);
+		}
+
+		return absint( $query->found_posts );
 	}
 }
